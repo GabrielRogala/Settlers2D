@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6418646432319265428}
   - component: {fileID: 6418646432319265435}
   - component: {fileID: 6418646432319265434}
+  - component: {fileID: -4783140969714729652}
   m_Layer: 5
   m_Name: Deck
   m_TagString: Untagged
@@ -118,9 +119,37 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 6418646432319265435}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: -4783140969714729652}
+        m_MethodName: DrawCard
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
+--- !u!114 &-4783140969714729652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6418646432319265432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b32054c71d405734f9faa8909260526a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_dropZone: {fileID: 0}
+  m_cardPrefab: {fileID: 5790911702866047121, guid: b9b5978d748208e43a8d3b9d37503feb,
+    type: 3}
+  m_deck: []
+  m_fractionId: 0
 --- !u!1 &6418646433438995992
 GameObject:
   m_ObjectHideFlags: 0

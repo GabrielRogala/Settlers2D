@@ -36,7 +36,7 @@ RectTransform:
   - {fileID: 803694092638873644}
   - {fileID: 7003405102510779004}
   m_Father: {fileID: 5800948911221000155}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -705,6 +705,80 @@ MonoBehaviour:
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
+--- !u!1 &5472351316812101406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2836744463794807987}
+  - component: {fileID: 2713497798829036915}
+  - component: {fileID: 6353020930519363434}
+  m_Layer: 5
+  m_Name: FractionImage
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &2836744463794807987
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5472351316812101406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5800948911221000155}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &2713497798829036915
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5472351316812101406}
+  m_CullTransparentMesh: 0
+--- !u!114 &6353020930519363434
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5472351316812101406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
 --- !u!1 &5605705378289995012
 GameObject:
   m_ObjectHideFlags: 0
@@ -811,6 +885,7 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 2836744463794807987}
   - {fileID: 6860829846485492275}
   - {fileID: 373687443275665333}
   m_Father: {fileID: 0}
@@ -882,12 +957,38 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6476fe2105aea81499fcd91a74dac6da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionType: 0
-  fractionId: 0
-  playerId: 0
-  actionTypeTEXT: {fileID: 5625417356689424503}
-  fractionIdTEXT: {fileID: 2182440235793797035}
-  playerIdTEXT: {fileID: 2626408043575704601}
+  m_actionType: 0
+  m_fractionId: 0
+  m_playerId: 0
+  m_usedCard: 0
+  m_card:
+    cardId: 0
+    cardName: New Card
+    description: '.......'
+    cardType: 0
+    fractionType: 0
+    actionType: 0
+    contract: 0
+    cost: 00000000
+    gain: 00000000
+    image: 0
+  m_id: {fileID: 2626408043575704601}
+  m_name: {fileID: 2182440235793797035}
+  m_description: {fileID: 5625417356689424503}
+  m_cardType: {fileID: 6457925556874997441}
+  m_fractionImage: {fileID: 6353020930519363434}
+  m_contract: {fileID: 3089335531873877721}
+  m_costs:
+  - {fileID: 3113515365972211946}
+  - {fileID: 2585114943839952928}
+  - {fileID: 763329381288268600}
+  - {fileID: 2672877600464848280}
+  m_gains:
+  - {fileID: 7343199777662643594}
+  - {fileID: 618579951112459637}
+  - {fileID: 7890065977018291863}
+  - {fileID: 2925143123224502629}
+  m_image: {fileID: 4152100189132391843}
 --- !u!114 &6928123274982189296
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1092,7 +1193,7 @@ RectTransform:
   - {fileID: 7078645262551662675}
   - {fileID: 1642834600182681533}
   m_Father: {fileID: 5800948911221000155}
-  m_RootOrder: 1
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1171,7 +1272,7 @@ GameObject:
   - component: {fileID: 2713939278494721877}
   - component: {fileID: 6457925556874997441}
   m_Layer: 5
-  m_Name: Type
+  m_Name: CardType
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

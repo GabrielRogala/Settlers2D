@@ -20,7 +20,7 @@ public class DropZoneHandler : MonoBehaviour, IDropHandler, IPointerEnterHandler
             if (d != null)
             {
                 CardHandler c = eventData.pointerDrag.GetComponent<CardHandler>();
-                c.usedCard = true;
+                c.m_usedCard = true;
                 d.m_parentToReturn = this.transform;
             }
         }
@@ -67,11 +67,11 @@ public class DropZoneHandler : MonoBehaviour, IDropHandler, IPointerEnterHandler
         //if (fractionId == 0 || fractionId == 0 || playerId == 0)
         //    return true;
 
-        //if (d.fractionId != fractionId)
+        //if (d.m_fractionId != fractionId)
         //    return false;
-        //if (d.actionType != actionType)
+        //if (d.m_actionType != actionType)
         //    return false;
-        //if (d.playerId != playerId)
+        //if (d.m_playerId != playerId)
         //    return false;
 
         return true;
