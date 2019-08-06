@@ -1,0 +1,88 @@
+{
+    "gameState": {
+        "players": [
+            {
+                "name": "Player name 1",
+                "fractionId": 1,
+                "cardsInHand": [],
+                "cardsInBoard": [],
+                "cardsInContract": []
+            },
+            {
+                "name": "Player name 2",
+                "fractionId": 2,
+                "cardsInHand": [],
+                "cardsInBoard": [],
+                "cardsInContract": []
+            }
+        ],
+        "decks": [
+            {
+                "fractionId": 0,
+                "cards": [
+                    {
+                        "cardId": 0,
+                        "cardName": "Card Name 0",
+                        "description": ".......",
+                        "cardType": 0,
+                        "fractionType": 0,
+                        "actionType": 0,
+                        "contract": 0,
+                        "cost": [
+                            0
+                        ],
+                        "gain": [
+                            0
+                        ],
+                        "image": 0
+                    }
+                ]
+            },
+            {
+                "fractionId": 1,
+                "cards": [
+                    {
+                        "cardId": 0,
+                        "cardName": "Card Name 1",
+                        "description": ".......",
+                        "cardType": 0,
+                        "fractionType": 0,
+                        "actionType": 0,
+                        "contract": 0,
+                        "cost": [
+                            0
+                        ],
+                        "gain": [
+                            0
+                        ],
+                        "image": 0
+                    }
+                ]
+            },
+            {
+                "fractionId": 2,
+                "cards": [
+                    {
+                        "cardId": 0,
+                        "cardName": "Card Name 2",
+                        "description": ".......",
+                        "cardType": 0,
+                        "fractionType": 0,
+                        "actionType": 0,
+                        "contract": 0,
+                        "cost": [
+                            0
+                        ],
+                        "gain": [
+                            0
+                        ],
+                        "image": 0
+                    }
+                ]
+            }
+        ],
+        "removedCards": [],
+        "roundCounter": 0,
+        "playerIdTurn": 0
+    }
+}

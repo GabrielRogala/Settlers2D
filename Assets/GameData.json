@@ -1,0 +1,228 @@
+{
+    "gameData": {
+        "resources": [
+            {
+                "resourcesId": 0,
+                "resourcesName": ""
+            },
+            {
+                "resourcesId": 1,
+                "resourcesName": "CARD"
+            },
+            {
+                "resourcesId": 2,
+                "resourcesName": "POINT"
+            },
+            {
+                "resourcesId": 3,
+                "resourcesName": "WORKER"
+            },
+            {
+                "resourcesId": 4,
+                "resourcesName": "PILLAGE"
+            },
+            {
+                "resourcesId": 5,
+                "resourcesName": "GOLD"
+            },
+            {
+                "resourcesId": 6,
+                "resourcesName": "FOOD"
+            },
+            {
+                "resourcesId": 7,
+                "resourcesName": "WOOD"
+            },
+            {
+                "resourcesId": 8,
+                "resourcesName": "ROCK"
+            },
+            {
+                "resourcesId": 9,
+                "resourcesName": "FOUNDATION"
+            }
+        ],
+        "fractions": [
+            {
+                "fractionId": 0,
+                "fractionName": "",
+                "resourceGrowthMatrix": [0, 0, 0, 0, 0, 0, 0, 0, 0],
+                "remainingResourcesMatrix": [0, 0, 0, 0, 0, 0, 0, 0, 0]
+            },
+            {
+                "fractionId": 1,
+                "fractionName": "EGYPTIANS",
+                "resourceGrowthMatrix": [0, 0, 3, 1, 1, 0, 0, 0, 0],
+                "remainingResourcesMatrix": [0, 1, 0, 0, 1, 0, 0, 0, 1]
+            },
+            {
+                "fractionId": 2,
+                "fractionName": "ROMANS",
+                "resourceGrowthMatrix": [0, 0, 2, 1, 0, 0, 1, 1, 0],
+                "remainingResourcesMatrix": [0, 1, 0, 1, 0, 0, 0, 0, 1]
+            },
+            {
+                "fractionId": 3,
+                "fractionName": "JAPANESE",
+                "resourceGrowthMatrix": [0, 0, 4, 1, 0, 0, 1, 0, 0],
+                "remainingResourcesMatrix": [0, 1, 0, 0, 0, 1, 0, 0, 1]
+            },
+            {
+                "fractionId": 4,
+                "fractionName": "BARBARIANS",
+                "resourceGrowthMatrix": [0, 0, 5, 1, 0, 0, 0, 0, 0],
+                "remainingResourcesMatrix": [0, 1, 1, 0, 0, 0, 0, 0, 1]
+            }
+        ],
+        "decks": [
+            {
+                "fractionId": 0,
+                "cards": [
+                    {
+                        "cardId": 0,
+                        "cardName": "Card Name 0",
+                        "description": ".......",
+                        "cardType": 0,
+                        "fractionType": 0,
+                        "actionType": 0,
+                        "contract": 0,
+                        "cost": [],
+                        "gain": [],
+                        "image": 0
+                    },
+                    {
+                        "cardId": 0,
+                        "cardName": "Card Name 0",
+                        "description": ".......",
+                        "cardType": 0,
+                        "fractionType": 0,
+                        "actionType": 0,
+                        "contract": 0,
+                        "cost": [],
+                        "gain": [],
+                        "image": 0
+                    },
+                    {
+                        "cardId": 0,
+                        "cardName": "Card Name 0",
+                        "description": ".......",
+                        "cardType": 0,
+                        "fractionType": 0,
+                        "actionType": 0,
+                        "contract": 0,
+                        "cost": [],
+                        "gain": [],
+                        "image": 0
+                    },                    {
+                        "cardId": 0,
+                        "cardName": "Card Name 0",
+                        "description": ".......",
+                        "cardType": 0,
+                        "fractionType": 0,
+                        "actionType": 0,
+                        "contract": 0,
+                        "cost": [],
+                        "gain": [],
+                        "image": 0
+                    },
+                    {
+                        "cardId": 0,
+                        "cardName": "Card Name 0",
+                        "description": ".......",
+                        "cardType": 0,
+                        "fractionType": 0,
+                        "actionType": 0,
+                        "contract": 0,
+                        "cost": [],
+                        "gain": [],
+                        "image": 0
+                    }
+                ]
+            },
+            {
+                "fractionId": 1,
+                "cards": [
+                    {
+                        "cardId": 0,
+                        "cardName": "Card Name 1",
+                        "description": ".......",
+                        "cardType": 0,
+                        "fractionType": 0,
+                        "actionType": 0,
+                        "contract": 0,
+                        "cost": [
+                            0
+                        ],
+                        "gain": [
+                            0
+                        ],
+                        "image": 0
+                    }
+                ]
+            },
+            {
+                "fractionId": 2,
+                "cards": [
+                    {
+                        "cardId": 0,
+                        "cardName": "Card Name 1",
+                        "description": ".......",
+                        "cardType": 0,
+                        "fractionType": 0,
+                        "actionType": 0,
+                        "contract": 0,
+                        "cost": [
+                            0
+                        ],
+                        "gain": [
+                            0
+                        ],
+                        "image": 0
+                    }
+                ]
+            },
+            {
+                "fractionId": 3,
+                "cards": [
+                    {
+                        "cardId": 0,
+                        "cardName": "Card Name 1",
+                        "description": ".......",
+                        "cardType": 0,
+                        "fractionType": 0,
+                        "actionType": 0,
+                        "contract": 0,
+                        "cost": [
+                            0
+                        ],
+                        "gain": [
+                            0
+                        ],
+                        "image": 0
+                    }
+                ]
+            },
+            {
+                "fractionId": 4,
+                "cards": [
+                    {
+                        "cardId": 0,
+                        "cardName": "Card Name 2",
+                        "description": ".......",
+                        "cardType": 0,
+                        "fractionType": 0,
+                        "actionType": 0,
+                        "contract": 0,
+                        "cost": [
+                            0
+                        ],
+                        "gain": [
+                            0
+                        ],
+                        "image": 0
+                    }
+                ]
+            }
+        ]
+    }
+}
