@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameHandler : MonoBehaviour
 {
@@ -15,12 +16,64 @@ public class GameHandler : MonoBehaviour
         }
     }
 
+    public GameObject m_gameTabParent;
+    public GameObject m_gameContentParent;
+    public GameObject m_gameTabPrefab;
+    public GameObject m_gameContentPrefab;
+    public ToggleGroup m_toggleGroup;
+
+    List<PlayerData> players;
+
     void Start()
     {
-        Debug.Log("GAME HANDLER START");
-        Debug.Log(GameDataHandler.instance.gameData.ToString());
-        Debug.Log(GameDataHandler.instance.gameState.ToString());
+        //Debug.Log("GAME HANDLER START");
+        //Debug.Log(GameDataHandler.instance.gameData.ToString());
+        //Debug.Log(GameDataHandler.instance.gameState.ToString());
+        players = GameDataHandler.instance.gameState.players;
+
+        //players = new List<PlayerData>();
+        //players.Add(new PlayerData("name1", 1));
+        //players.Add(new PlayerData("name2", 2));
+        //players.Add(new PlayerData("name3", 3));
+
+        TabPanelTabHandler.m_contentList = new List<GameObject>();
+
+        foreach (PlayerData p in players)
+        {
+            GameObject tab = Instantiate(m_gameTabPrefab, m_gameTabParent.transform) as GameObject;
+            GameObject content = Instantiate(m_gameContentPrefab, m_gameContentParent.transform) as GameObject;
+
+            tab.GetComponent<TabPanelTabHandler>().m_tabPanelLabel.text = p.name;
+            tab.GetComponent<TabPanelTabHandler>().m_tabContent = content;
+
+            Debug.Log(tab.GetComponent<TabPanelTabHandler>().ToString());
+            tab.GetComponent<Toggle>().group = m_toggleGroup;
+            tab.GetComponent<Toggle>().isOn = false;
+
+            content.SetActive(false);
+            TabPanelTabHandler.m_contentList.Add(content);
+
+            //if (players.IndexOf(p) == 0)
+            //{
+            //    tab.GetComponent<Toggle>().isOn = true;
+            //    tab.GetComponent<TabPanelTabHandler>().ShowTabContent();
+            //}
+
+        }
+
+        foreach (Toggle t in m_gameContentParent.GetComponentsInChildren<Toggle>())
+        {
+            t.isOn = true;
+        }
+
+        foreach (TabPanelTabHandler t in m_gameTabParent.GetComponentsInChildren<TabPanelTabHandler>())
+        {
+            t.ShowTabContent();
+        }
+
+
     }
+
 
     void Update()
     {
