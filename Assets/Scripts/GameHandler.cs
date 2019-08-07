@@ -29,12 +29,14 @@ public class GameHandler : MonoBehaviour
         //Debug.Log("GAME HANDLER START");
         //Debug.Log(GameDataHandler.instance.gameData.ToString());
         //Debug.Log(GameDataHandler.instance.gameState.ToString());
-        players = GameDataHandler.instance.gameState.players;
+        //players = GameDataHandler.instance.gameState.players;
 
-        //players = new List<PlayerData>();
-        //players.Add(new PlayerData("name1", 1));
-        //players.Add(new PlayerData("name2", 2));
-        //players.Add(new PlayerData("name3", 3));
+        players = new List<PlayerData>();
+        players.Add(new PlayerData("name1", 1));
+        players.Add(new PlayerData("name2", 2));
+        players.Add(new PlayerData("name3", 3));
+
+        GameDataHandler.instance.StartGame(players);
 
         TabPanelTabHandler.m_contentList = new List<GameObject>();
 
@@ -71,7 +73,11 @@ public class GameHandler : MonoBehaviour
             t.ShowTabContent();
         }
 
-
+        DeckHandler[] decks = FindObjectsOfType<DeckHandler>();
+        foreach(DeckHandler d in decks)
+        {
+            d.InitDeckData();
+        }
     }
 
 

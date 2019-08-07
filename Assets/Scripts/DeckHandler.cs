@@ -12,12 +12,17 @@ public class DeckHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        InitDeckData();
+    }
+
+    public void InitDeckData()
+    {
         Debug.Log("Deck INIT");
         m_deck = new List<CardData>();
 
         foreach (DeckData deck in GameDataHandler.instance.gameData.decks)
         {
-            if(deck.fractionId == m_fractionId)
+            if (deck.fractionId == m_fractionId)
             {
                 m_deck.AddRange(deck.cards);
             }

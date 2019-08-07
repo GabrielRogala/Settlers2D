@@ -16,11 +16,14 @@ public class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
 
     public void OnBeginDrag(PointerEventData eventData)
     {
-        //CardHandler c = eventData.pointerDrag.GetComponent<CardHandler>();
+        CardHandler c = eventData.pointerDrag.GetComponent<CardHandler>();
 
-        //if (c.usedCard) {
-        //    return;
-        //}
+        if (c.m_usedCard)
+        {
+            return;
+        }
+
+        MarkAbleDropzone();
 
         m_placeholder = new GameObject();
         m_placeholder.transform.SetParent(this.transform.parent);
@@ -49,12 +52,12 @@ public class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
 
     public void OnDrag(PointerEventData eventData)
     {
-        //CardHandler c = eventData.pointerDrag.GetComponent<CardHandler>();
+        CardHandler c = eventData.pointerDrag.GetComponent<CardHandler>();
 
-        //if (c.usedCard)
-        //{
-        //    return;
-        //}
+        if (c.m_usedCard)
+        {
+            return;
+        }
 
         this.transform.position = eventData.position;
 
@@ -83,24 +86,64 @@ public class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
 
     public void OnEndDrag(PointerEventData eventData)
     {
-        //CardHandler c = eventData.pointerDrag.GetComponent<CardHandler>();
+        CardHandler c = eventData.pointerDrag.GetComponent<CardHandler>();
 
-        //if (c.usedCard)
-        //{
-        //    return;
-        //}
+        if ((m_parentToReturn.GetComponent<DropZoneHandler>().fractionId == 0) &&
+            (m_parentToReturn.GetComponent<DropZoneHandler>().actionType == 0))
+        {
+            c.m_usedCard = false;
+        }
+
+        if (c.m_usedCard)
+        {
+            return;
+        }
+
+        UnmarkAbleDropzone();
 
         this.transform.SetParent(m_parentToReturn);
         this.transform.SetSiblingIndex(m_placeholder.transform.GetSiblingIndex());
         GetComponent<CanvasGroup>().blocksRaycasts = true;
 
         Destroy(m_placeholder);
+
+        if ((m_parentToReturn.GetComponent<DropZoneHandler>().fractionId != 0) ||
+            (m_parentToReturn.GetComponent<DropZoneHandler>().actionType != 0) ||
+            (m_parentToReturn.GetComponent<DropZoneHandler>().playerId != 0))
+        {
+            c.m_usedCard = true;
+        }
+
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
         //Debug.Log("click :" + eventData.ToString());
         //CardViewer.instance.ShowFullSizeCard(this.GetComponent<CardHandler>().m_card);
+    }
+
+    public void MarkAbleDropzone()
+    {
+        DropZoneHandler[] dropzones = FindObjectsOfType<DropZoneHandler>();
+
+        foreach (DropZoneHandler d in dropzones) {
+            if (d.IsAbleToDrop(this.GetComponent<CardHandler>()))
+            {
+                d.MarkAbleDropzone();
+            } else{
+                d.MarkUnableDropzone();
+            }
+        }
+    }
+
+    public void UnmarkAbleDropzone()
+    {
+        DropZoneHandler[] dropzones = FindObjectsOfType<DropZoneHandler>();
+
+        foreach (DropZoneHandler d in dropzones)
+        {
+            d.UnarkDropzone();
+        }
     }
 
 }

@@ -149,3 +149,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 977b5533e88d921479e5275d721e0704, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  actionType: 0
+  fractionId: 0
+  playerId: 0
+  permDropZone: 0
+  image: {fileID: 1815411614170856353}
+  originalColor: {r: 1, g: 1, b: 1, a: 0.39215687}
+  ableColor: {r: 0, g: 1, b: 0, a: 0.39215687}
+  unableColor: {r: 1, g: 0, b: 0, a: 0.39215687}
