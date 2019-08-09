@@ -7,10 +7,10 @@ public class PlayerTabPanelHandler : MonoBehaviour
     public GameObject m_playerInfoPanel;
     public GameObject m_resourcePanelPrefab;
     public PlayerData m_palayerData;
+    public List<DropZoneHandler> m_fractionDropzones;
 
     public void InitResourcesPanel(PlayerData playerData)
     {
-        Debug.Log("InitResourcesPanel "+ playerData.ToString());
         this.m_palayerData = playerData;
         List<ResourcesData> resources = GameDataHandler.instance.gameData.resources;
 
@@ -22,6 +22,12 @@ public class PlayerTabPanelHandler : MonoBehaviour
                 resource.GetComponent<ResourcePanelHandler>().resourceId = r.resourcesId;
                 resource.GetComponent<ResourcePanelHandler>().playerData = this.m_palayerData;
             }
+        }
+
+        foreach(DropZoneHandler dz in m_fractionDropzones)
+        {
+            dz.fractionId = playerData.fractionId;
+            dz.playerId = playerData.playerId;
         }
     }
 }

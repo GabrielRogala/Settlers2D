@@ -8,6 +8,7 @@ public class DeckHandler : MonoBehaviour
     public GameObject m_cardPrefab;
     public List<CardData> m_deck;
     public int m_fractionId = 0;
+    public int m_playerId = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +30,7 @@ public class DeckHandler : MonoBehaviour
         }
     }
 
-    public void DrawCard(int typeOfDeck)
+    public void DrawCard()
     {
         if (m_deck.Count > 0)
         {
@@ -38,6 +39,9 @@ public class DeckHandler : MonoBehaviour
 
             GameObject gameObject = Instantiate(m_cardPrefab, m_dropZone) as GameObject;
             gameObject.GetComponent<CardHandler>().m_card = drawedCard;
+            gameObject.GetComponent<CardHandler>().m_playerId = m_playerId;
+            gameObject.GetComponent<CardHandler>().m_fractionId = m_fractionId;
+            Debug.Log(drawedCard);
         }
     }
 

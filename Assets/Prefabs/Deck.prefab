@@ -122,7 +122,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: -4783140969714729652}
         m_MethodName: DrawCard
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -150,6 +150,7 @@ MonoBehaviour:
     type: 3}
   m_deck: []
   m_fractionId: 0
+  m_playerId: 0
 --- !u!1 &6418646433438995992
 GameObject:
   m_ObjectHideFlags: 0

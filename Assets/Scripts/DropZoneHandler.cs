@@ -106,12 +106,12 @@ public class DropZoneHandler : MonoBehaviour, IDropHandler, IPointerEnterHandler
         if (actionType == 0 && fractionId == 0 && playerId == 0)
             return true;
 
-        if (((card.m_fractionId > 0)!=(fractionId > 0)) || card.m_fractionId != fractionId)
+        if (card.m_fractionId != fractionId)
             return false;
         if (card.m_actionType != actionType)
             return false;
-        //if (card.m_playerId != playerId)
-        //    return false;
+        if (card.m_playerId != playerId)
+            return false;
 
         return true;
     }

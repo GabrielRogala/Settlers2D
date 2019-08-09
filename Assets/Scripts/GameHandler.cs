@@ -23,6 +23,14 @@ public class GameHandler : MonoBehaviour
     public GameObject m_gameContentPrefab;
     public ToggleGroup m_toggleGroup;
 
+
+    public GameObject m_playerTabParent;
+    public GameObject m_playerContentParent;
+    public GameObject m_playerTabPrefab;
+    public GameObject m_playerContentPrefab;
+    public ToggleGroup m_playerToggleGroup;
+
+
     List<PlayerData> m_players;
 
     private bool isGamePanelReady = false;
@@ -33,15 +41,15 @@ public class GameHandler : MonoBehaviour
 
         //Debug.Log(GameDataHandler.instance.gameData.ToString());
         //Debug.Log(GameDataHandler.instance.gameState.ToString());
-        //m_players = GameDataHandler.instance.gameState.players;
+        m_players = GameDataHandler.instance.gameState.players;
 
 
         /////////////////////////////////////
-        m_players = new List<PlayerData>();
-        m_players.Add(new PlayerData(1, "name1", 1));
-        m_players.Add(new PlayerData(2, "name2", 2));
-        m_players.Add(new PlayerData(3, "name3", 3));
-        GameDataHandler.instance.StartGame(m_players);
+        //m_players = new List<PlayerData>();
+        //m_players.Add(new PlayerData(1, "name1", 1));
+        //m_players.Add(new PlayerData(2, "name2", 2));
+        //m_players.Add(new PlayerData(3, "name3", 3));
+        //GameDataHandler.instance.StartGame(m_players);
         /////////////////////////////////////
 
         TabPanelTabHandler.m_contentList = new List<GameObject>();
@@ -79,6 +87,8 @@ public class GameHandler : MonoBehaviour
             t.ShowTabContent();
         }
 
+        PlayersButtonON();
+
         DeckHandler[] decks = FindObjectsOfType<DeckHandler>();
         foreach(DeckHandler d in decks)
         {
@@ -86,7 +96,44 @@ public class GameHandler : MonoBehaviour
         }
 
         InitPlayersResources(m_players);
+
         isGamePanelReady = true;
+    }
+
+    void PlayersButtonON() {
+        PlayerButtonTabHandler.m_contentList = new List<GameObject>();
+
+        foreach (PlayerData p in m_players)
+        {
+            GameObject tab = Instantiate(m_playerTabPrefab, m_playerTabParent.transform) as GameObject;
+            GameObject content = Instantiate(m_playerContentPrefab, m_playerContentParent.transform) as GameObject;
+
+            tab.GetComponent<PlayerButtonTabHandler>().m_tabPanelLabel.text = p.name;
+            tab.GetComponent<PlayerButtonTabHandler>().m_tabContent = content;
+
+            tab.GetComponent<Toggle>().group = m_playerToggleGroup;
+            tab.GetComponent<Toggle>().isOn = false;
+
+            content.SetActive(false);
+            PlayerButtonTabHandler.m_contentList.Add(content);
+
+
+            foreach (PlayerHandPanelHandler ph in content.GetComponentsInChildren<PlayerHandPanelHandler>())
+            {
+                ph.InitDeckData(p.playerId,p.fractionId);
+            }
+
+        }
+
+        foreach (Toggle t in m_playerContentParent.GetComponentsInChildren<Toggle>())
+        {
+            t.isOn = true;
+        }
+
+        foreach (PlayerButtonTabHandler t in m_playerTabParent.GetComponentsInChildren<PlayerButtonTabHandler>())
+        {
+            t.ShowTabContent();
+        }
     }
 
     void Update()
@@ -118,14 +165,12 @@ public class GameHandler : MonoBehaviour
     public void InitPlayersResources(List<PlayerData> players)
     {
         foreach (PlayerData p in players) {
-            //Debug.Log(p.name + " : " + GameDataHandler.instance.gameData.fractions[p.fractionId].fractionName);
             var resources = GameDataHandler.instance.gameData.fractions[p.fractionId].resourceGrowthMatrix;
             int i = 0;
             foreach (int r in resources)
             {
-                //Debug.Log(GameDataHandler.instance.gameData.resources[i].resourcesName + ": "+ r);
-                //p.playerResourcesGrowth.Add(i,r);
-                p.playerResourcesGrowth.Add(i, 10);
+                p.playerResourcesGrowth.Add(i,r);
+                //p.playerResourcesGrowth.Add(i, 10);
 
                 p.playerResources.Add(i, 0);
                 i++;
