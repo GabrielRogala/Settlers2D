@@ -46,32 +46,32 @@
       {
         "fractionId": 0,
         "fractionName": "",
-        "resourceGrowthMatrix": [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        "remainingResourcesMatrix": [ 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+        "resourceGrowthMatrix": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
+        "remainingResourcesMatrix": [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
       },
       {
         "fractionId": 1,
         "fractionName": "EGYPTIANS",
-        "resourceGrowthMatrix": [ 0, 0, 3, 1, 1, 0, 0, 0, 0 ],
-        "remainingResourcesMatrix": [ 0, 1, 0, 0, 1, 0, 0, 0, 1 ]
+        "resourceGrowthMatrix": [ 0, 0, 0, 3, 1, 1, 0, 0, 0, 0 ],
+        "remainingResourcesMatrix": [ 0, 0, 1, 0, 0, 1, 0, 0, 0, 1 ]
       },
       {
         "fractionId": 2,
         "fractionName": "ROMANS",
-        "resourceGrowthMatrix": [ 0, 0, 2, 1, 0, 0, 1, 1, 0 ],
-        "remainingResourcesMatrix": [ 0, 1, 0, 1, 0, 0, 0, 0, 1 ]
+        "resourceGrowthMatrix": [ 0, 0, 0, 2, 1, 0, 0, 1, 1, 0 ],
+        "remainingResourcesMatrix": [ 0, 0, 1, 0, 1, 0, 0, 0, 0, 1 ]
       },
       {
         "fractionId": 3,
         "fractionName": "JAPANESE",
-        "resourceGrowthMatrix": [ 0, 0, 4, 1, 0, 0, 1, 0, 0 ],
-        "remainingResourcesMatrix": [ 0, 1, 0, 0, 0, 1, 0, 0, 1 ]
+        "resourceGrowthMatrix": [ 0, 0, 0, 4, 1, 0, 0, 1, 0, 0 ],
+        "remainingResourcesMatrix": [ 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 ]
       },
       {
         "fractionId": 4,
         "fractionName": "BARBARIANS",
-        "resourceGrowthMatrix": [ 0, 0, 5, 1, 0, 0, 0, 0, 0 ],
-        "remainingResourcesMatrix": [ 0, 1, 1, 0, 0, 0, 0, 0, 1 ]
+        "resourceGrowthMatrix": [ 0, 0, 0, 5, 1, 0, 0, 0, 0, 0 ],
+        "remainingResourcesMatrix": [ 0, 0, 1, 1, 0, 0, 0, 0, 0, 1 ]
       }
     ],
     "decks": [

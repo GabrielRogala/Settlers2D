@@ -11,7 +11,7 @@ public class InputPlayerHandler : MonoBehaviour
 
     public PlayerData GetPlayerData()
     {
-        PlayerData pd = new PlayerData(m_playerName_UI.text,m_fractionId_UI.value);
+        PlayerData pd = new PlayerData(0,m_playerName_UI.text,m_fractionId_UI.value);
         return pd;
     }
 

@@ -24,13 +24,20 @@ public class DropZoneHandler : MonoBehaviour, IDropHandler, IPointerEnterHandler
         //Debug.Log(eventData.pointerDrag.name + " was drop on " + gameObject.name);
 
         Draggable d = eventData.pointerDrag.GetComponent<Draggable>();
-        if (IsAbleToDrop(eventData.pointerDrag.GetComponent<CardHandler>()))
+        CardHandler card = eventData.pointerDrag.GetComponent<CardHandler>();
+
+        if (IsAbleToDrop(card))
         {
             if (d != null)
-            {
-                CardHandler c = eventData.pointerDrag.GetComponent<CardHandler>();
-                //c.m_usedCard = true;
-                d.m_parentToReturn = this.transform;
+            {               
+                if(playerId > 0 )
+                {
+                    if(GameHandler.instance.BuildCard(card, GameDataHandler.instance.gameState.players[playerId - 1]))
+                    {
+                        d.m_parentToReturn = this.transform;
+                    }
+                }
+                
             }
         }
 

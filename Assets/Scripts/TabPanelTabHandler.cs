@@ -16,7 +16,7 @@ public class TabPanelTabHandler : MonoBehaviour
             c.SetActive(false);
         }
         m_tabContent.SetActive(true);
-
+        GameHandler.instance.PlayersResourcesUpdate();
     }
 
     void Start()

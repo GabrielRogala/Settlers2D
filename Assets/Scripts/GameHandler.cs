@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -22,25 +23,30 @@ public class GameHandler : MonoBehaviour
     public GameObject m_gameContentPrefab;
     public ToggleGroup m_toggleGroup;
 
-    List<PlayerData> players;
+    List<PlayerData> m_players;
+
+    private bool isGamePanelReady = false;
 
     void Start()
     {
-        //Debug.Log("GAME HANDLER START");
+        Debug.Log("GAME HANDLER START");
+
         //Debug.Log(GameDataHandler.instance.gameData.ToString());
         //Debug.Log(GameDataHandler.instance.gameState.ToString());
-        //players = GameDataHandler.instance.gameState.players;
+        //m_players = GameDataHandler.instance.gameState.players;
 
-        players = new List<PlayerData>();
-        players.Add(new PlayerData("name1", 1));
-        players.Add(new PlayerData("name2", 2));
-        players.Add(new PlayerData("name3", 3));
 
-        GameDataHandler.instance.StartGame(players);
+        /////////////////////////////////////
+        m_players = new List<PlayerData>();
+        m_players.Add(new PlayerData(1, "name1", 1));
+        m_players.Add(new PlayerData(2, "name2", 2));
+        m_players.Add(new PlayerData(3, "name3", 3));
+        GameDataHandler.instance.StartGame(m_players);
+        /////////////////////////////////////
 
         TabPanelTabHandler.m_contentList = new List<GameObject>();
 
-        foreach (PlayerData p in players)
+        foreach (PlayerData p in m_players)
         {
             GameObject tab = Instantiate(m_gameTabPrefab, m_gameTabParent.transform) as GameObject;
             GameObject content = Instantiate(m_gameContentPrefab, m_gameContentParent.transform) as GameObject;
@@ -55,12 +61,12 @@ public class GameHandler : MonoBehaviour
             content.SetActive(false);
             TabPanelTabHandler.m_contentList.Add(content);
 
-            //if (players.IndexOf(p) == 0)
-            //{
-            //    tab.GetComponent<Toggle>().isOn = true;
-            //    tab.GetComponent<TabPanelTabHandler>().ShowTabContent();
-            //}
 
+            foreach (DropZoneHandler d in content.GetComponentsInChildren<DropZoneHandler>()) {
+                d.playerId = p.playerId;
+            }
+
+            content.GetComponent<PlayerTabPanelHandler>().InitResourcesPanel(p);
         }
 
         foreach (Toggle t in m_gameContentParent.GetComponentsInChildren<Toggle>())
@@ -78,97 +84,122 @@ public class GameHandler : MonoBehaviour
         {
             d.InitDeckData();
         }
-    }
 
+        InitPlayersResources(m_players);
+        isGamePanelReady = true;
+    }
 
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            StartGame();
+        }
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            NextRound();
+        }
 
     }
 
+    private void NextRound()
+    {
+        ProductPlayersResources(m_players);
+        PlayersResourcesUpdate();
+    }
 
-    //////////////////////////////////////
+    private void StartGame()
+    {
+        ProductPlayersResources(m_players);
+        PlayersResourcesUpdate();
+    }
 
+    public void InitPlayersResources(List<PlayerData> players)
+    {
+        foreach (PlayerData p in players) {
+            //Debug.Log(p.name + " : " + GameDataHandler.instance.gameData.fractions[p.fractionId].fractionName);
+            var resources = GameDataHandler.instance.gameData.fractions[p.fractionId].resourceGrowthMatrix;
+            int i = 0;
+            foreach (int r in resources)
+            {
+                //Debug.Log(GameDataHandler.instance.gameData.resources[i].resourcesName + ": "+ r);
+                //p.playerResourcesGrowth.Add(i,r);
+                p.playerResourcesGrowth.Add(i, 10);
 
+                p.playerResources.Add(i, 0);
+                i++;
+            }
 
-    //// Update is called once per frame
-    //void Update()
-    //{
-    //    if (Input.GetKeyDown(KeyCode.X))
-    //    { // save game state
-    //        GameState gameState = new GameState();
+        }
+    }
 
-    //        PlayerData player1 = new PlayerData("Player name 1", 1);
-    //        PlayerData player2 = new PlayerData("Player name 2", 2);
-    //        gameState.players.Add(player1);
-    //        gameState.players.Add(player2);
+    public void ProductPlayersResources(List<PlayerData> players)
+    {
+        foreach (PlayerData p in players)
+        {
+            p.ProductResources();
+        }
+    }
 
-    //        CardData card0 = new CardData();
-    //        card0.cardName = "Card Name 0";
-    //        CardData card1 = new CardData();
-    //        card1.cardName = "Card Name 1";
-    //        CardData card2 = new CardData();
-    //        card2.cardName = "Card Name 2";
+    public bool IsPlayerTurn(PlayerData player)
+    {
+        return GameDataHandler.instance.gameState.playerIdTurn == GameDataHandler.instance.gameState.players.IndexOf(player);
+    }
 
-    //        DeckData deck0 = new DeckData(0);
-    //        deck0.AddCard(card0);
-    //        DeckData deck1 = new DeckData(1);
-    //        deck1.AddCard(card1);
-    //        DeckData deck2 = new DeckData(2);
-    //        deck2.AddCard(card2);
-    //        gameState.decks.Add(deck0);
-    //        gameState.decks.Add(deck1);
-    //        gameState.decks.Add(deck2);
+    public bool BuildCard(CardHandler card, PlayerData player)
+    {
 
-    //        gameState.roundCounter = 0;
-    //        gameState.playerIdTurn = 0;
+        Dictionary<int, int> cost = new Dictionary<int, int>();
+        foreach(int resource in card.m_card.cost)
+        {
+            if (cost.ContainsKey(resource)) {
+                cost[resource]++;
+            }
+            else
+            {
+                cost.Add(resource, 1);
+            }
+        }
 
-    //        //DataHandler.SaveGameState(gameState);
-    //    }
+        bool enoughtCountOfResources = true;
 
-    //    if (Input.GetKeyDown(KeyCode.Z)) // save game data
-    //    {
+        foreach(KeyValuePair<int,int> kvp in cost)
+        {
+            Debug.Log("BUILD : "+ GameDataHandler.instance.gameData.resources[kvp.Key].resourcesName+ "  "+ player.playerResources[kvp.Key]+" < " + kvp.Value);
+            if (player.playerResources[kvp.Key] < kvp.Value)
+            {
+                enoughtCountOfResources = false;
+            }
 
-    //        gameData = new GameData();
+        }
 
-    //        ResourcesData resource1 = new ResourcesData();
-    //        resource1.resourcesId = 1;
-    //        resource1.resourcesName = "resource 1";
-    //        ResourcesData resource2 = new ResourcesData();
-    //        resource2.resourcesId = 2;
-    //        resource2.resourcesName = "resource 2";
-    //        gameData.resources.Add(resource1);
-    //        gameData.resources.Add(resource2);
+        if (enoughtCountOfResources)
+        {
+            foreach(KeyValuePair<int, int> kvp in cost)
+            {
+                player.playerResources[kvp.Key] -= kvp.Value;
+            }
+            card.BuildActionExecute();
+            player.cardsInBoard.Add(card.m_card);
+            player.cardsInHand.Remove(card.m_card);
+        }
 
-    //        FractionData fraction1 = new FractionData();
-    //        fraction1.fractionId = 1;
-    //        fraction1.fractionName = "Fraction name 1";
-    //        FractionData fraction2 = new FractionData();
-    //        fraction2.fractionId = 2;
-    //        fraction2.fractionName = "Fraction name 2";
-    //        gameData.fractions.Add(fraction1);
-    //        gameData.fractions.Add(fraction2);
+        PlayersResourcesUpdate();
+        return enoughtCountOfResources;
+    }
 
-    //        CardData card0 = new CardData();
-    //        card0.cardName = "Card Name 0";
-    //        CardData card1 = new CardData();
-    //        card1.cardName = "Card Name 1";
-    //        CardData card2 = new CardData();
-    //        card2.cardName = "Card Name 2";
+    public void PlayersResourcesUpdate()
+    {
+        if (isGamePanelReady)
+        {
+            var resources = m_gameContentParent.GetComponentsInChildren<ResourcePanelHandler>();
 
-    //        DeckData deck0 = new DeckData(0);
-    //        deck0.AddCard(card0);
-    //        DeckData deck1 = new DeckData(1);
-    //        deck1.AddCard(card1);
-    //        DeckData deck2 = new DeckData(2);
-    //        deck2.AddCard(card2);
-    //        gameData.decks.Add(deck0);
-    //        gameData.decks.Add(deck1);
-    //        gameData.decks.Add(deck2);
-
-    //        //DataHandler.SaveGameData(gameData);
-    //    }
-
-    //}
+            foreach (ResourcePanelHandler r in resources)
+            {
+                r.UpdatePanelData();
+            }
+        }
+    }
 
 }

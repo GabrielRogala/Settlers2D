@@ -69,5 +69,23 @@ public class CardHandler : MonoBehaviour
         
     }
 
+    public void BuildActionExecute()
+    {
+        Debug.Log("BuildAction : " +" | "+m_playerId +" | " + m_card.ToString());
+    }
 
+    public void ProductionActionExecute()
+    {
+        Debug.Log("ProductionAction : " + m_card.ToString());
+    }
+
+    public void ActionExecute()
+    {
+        Debug.Log("Action : " + m_card.ToString());
+    }
+
+    public void TraitActionExecute()
+    {
+        Debug.Log("TraitActionExecute : " + m_card.ToString());
+    }
 }

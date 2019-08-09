@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class InputPlayerButtonHandler : MonoBehaviour
 {
     public GameObject m_playerInputPrefab;
-    public int m_playerCounter = 1;
+    static public int m_playerCounter = 1;
     private const int MAX_PLAYERS_COUNT = 4;
 
     public void AddPlayerInput()
@@ -25,13 +25,13 @@ public class InputPlayerButtonHandler : MonoBehaviour
     }
     public void StartGame()
     {
-        Debug.Log("START");
+        Debug.Log("START  p_c "+ m_playerCounter);
 
         var foundObjects = FindObjectsOfType<InputPlayerHandler>();
         List<PlayerData> players = new List<PlayerData>();
         foreach(InputPlayerHandler iph in foundObjects)
         {
-            PlayerData pd = new PlayerData(iph.m_playerName_UI.text, iph.m_fractionId_UI.value);
+            PlayerData pd = new PlayerData(m_playerCounter--, iph.m_playerName_UI.text, iph.m_fractionId_UI.value);
             players.Add(pd);
         }
         

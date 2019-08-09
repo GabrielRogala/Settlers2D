@@ -185,27 +185,42 @@ public class GameState
 [System.Serializable]
 public class PlayerData
 {
+    public int playerId;
     public string name;
     public int fractionId;
+    public Dictionary<int, int> playerResources;
+    public Dictionary<int, int> playerResourcesGrowth;
     public List<CardData> cardsInHand;
     public List<CardData> cardsInBoard;
     public List<CardData> cardsInContract;
 
-    public PlayerData(string name, int fractionId)
+    public PlayerData(int playerId, string name, int fractionId)
     {
+        this.playerId = playerId;
         this.name = name;
         this.fractionId = fractionId;
 
+        playerResources = new Dictionary<int, int>();
+        playerResourcesGrowth = new Dictionary<int, int>();
         cardsInHand = new List<CardData>();
         cardsInBoard = new List<CardData>();
         cardsInContract = new List<CardData>();
+
+        Debug.Log("CREATE PLAYER : " + ToString());
     }
 
     public override string ToString()
     {
         string str = "\n---PlayerData---\n";
-        str += "Player: " + name + "\n";
+        str += "Player: #" + playerId + " "+ name + "\n";
         str += "Fraction: " + fractionId + "\n";
+        str += "\n---RESOURCES---\n";
+        foreach (var pair in playerResources)
+        {
+            str += pair.Key + " : " + pair.Value;
+            
+        }
+        str += "---------------------\n";
         str += "\n---CardsInHand---\n";
         foreach (CardData c in cardsInHand)
         {
@@ -231,6 +246,13 @@ public class PlayerData
         str += "---------------------\n";
 
         return str;
+    }
+
+    public void ProductResources()
+    {
+        foreach (ResourcesData r in GameDataHandler.instance.gameData.resources) {
+            playerResources[r.resourcesId] += playerResourcesGrowth[r.resourcesId];
+        }
     }
 }
 
@@ -344,7 +366,7 @@ public class CardData
     public string description;
     public int cardType;
     public int fractionType;
-    public int actionType;
+    public int actionType; // production, trait, action
     public int contract;
     public List<int> cost;
     public List<int> gain;
