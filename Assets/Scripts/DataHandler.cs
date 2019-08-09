@@ -388,7 +388,14 @@ public class CardData
 
     public override string ToString()
     {
-        string str = "#" + cardId + " " + cardName + " <" + description + "> " + cardType + " " + fractionType + " " + actionType + " " + contract + " ";
+        string str = "#" +
+            cardId + " " +
+            cardName + " <" + 
+            description + "> " + 
+            cardType + " " + 
+            fractionType + " " + 
+            actionType + " " + 
+            contract + " ";
         str += "[ ";
         foreach (int c in cost)
         {

@@ -41,15 +41,15 @@ public class GameHandler : MonoBehaviour
 
         //Debug.Log(GameDataHandler.instance.gameData.ToString());
         //Debug.Log(GameDataHandler.instance.gameState.ToString());
-        m_players = GameDataHandler.instance.gameState.players;
+        //m_players = GameDataHandler.instance.gameState.players;
 
 
         /////////////////////////////////////
-        //m_players = new List<PlayerData>();
-        //m_players.Add(new PlayerData(1, "name1", 1));
-        //m_players.Add(new PlayerData(2, "name2", 2));
-        //m_players.Add(new PlayerData(3, "name3", 3));
-        //GameDataHandler.instance.StartGame(m_players);
+        m_players = new List<PlayerData>();
+        m_players.Add(new PlayerData(1, "name1", 1));
+        m_players.Add(new PlayerData(2, "name2", 2));
+        m_players.Add(new PlayerData(3, "name3", 3));
+        GameDataHandler.instance.StartGame(m_players);
         /////////////////////////////////////
 
         TabPanelTabHandler.m_contentList = new List<GameObject>();

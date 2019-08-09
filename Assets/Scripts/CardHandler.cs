@@ -17,6 +17,7 @@ public class CardHandler : MonoBehaviour
     public Image m_cardType;
     public Image m_fractionImage;
     public Image m_contract;
+    public Image m_contractBackground;
     public List<Image> m_costs;
     public List<Image> m_gains;
     public Image m_image;
@@ -61,6 +62,11 @@ public class CardHandler : MonoBehaviour
         }
 
         m_image.sprite = IMG2Sprite.instance.LoadNewSprite(path + "/Sprites/Screens/" + m_card.image + ".png");
+
+        if (m_card.fractionType == 0)
+        {
+            m_contractBackground.color = Color.clear;
+        }
     }
 
     // Update is called once per frame

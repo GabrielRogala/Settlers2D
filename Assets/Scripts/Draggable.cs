@@ -119,7 +119,7 @@ public class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler, IEndDra
     public void OnPointerClick(PointerEventData eventData)
     {
         //Debug.Log("click :" + eventData.ToString());
-        //CardViewer.instance.ShowFullSizeCard(this.GetComponent<CardHandler>().m_card);
+        CardViewer.instance.ShowFullSizeCard(this.GetComponent<CardHandler>().m_card);
     }
 
     public void MarkAbleDropzone()
