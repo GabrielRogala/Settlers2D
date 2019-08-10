@@ -46,32 +46,142 @@
       {
         "fractionId": 0,
         "fractionName": "",
-        "resourceGrowthMatrix": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ],
-        "remainingResourcesMatrix": [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ]
+        "resourceGrowthMatrix": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "remainingResourcesMatrix": [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
       },
       {
         "fractionId": 1,
         "fractionName": "EGYPTIANS",
-        "resourceGrowthMatrix": [ 0, 0, 0, 3, 1, 1, 0, 0, 0, 0 ],
-        "remainingResourcesMatrix": [ 0, 0, 1, 0, 0, 1, 0, 0, 0, 1 ]
+        "resourceGrowthMatrix": [
+          0,
+          0,
+          0,
+          3,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0
+        ],
+        "remainingResourcesMatrix": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1
+        ]
       },
       {
         "fractionId": 2,
         "fractionName": "ROMANS",
-        "resourceGrowthMatrix": [ 0, 0, 0, 2, 1, 0, 0, 1, 1, 0 ],
-        "remainingResourcesMatrix": [ 0, 0, 1, 0, 1, 0, 0, 0, 0, 1 ]
+        "resourceGrowthMatrix": [
+          0,
+          0,
+          0,
+          2,
+          1,
+          0,
+          0,
+          1,
+          1,
+          0
+        ],
+        "remainingResourcesMatrix": [
+          0,
+          0,
+          1,
+          0,
+          1,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
       },
       {
         "fractionId": 3,
         "fractionName": "JAPANESE",
-        "resourceGrowthMatrix": [ 0, 0, 0, 4, 1, 0, 0, 1, 0, 0 ],
-        "remainingResourcesMatrix": [ 0, 0, 1, 0, 0, 0, 1, 0, 0, 1 ]
+        "resourceGrowthMatrix": [
+          0,
+          0,
+          0,
+          4,
+          1,
+          0,
+          0,
+          1,
+          0,
+          0
+        ],
+        "remainingResourcesMatrix": [
+          0,
+          0,
+          1,
+          0,
+          0,
+          0,
+          1,
+          0,
+          0,
+          1
+        ]
       },
       {
         "fractionId": 4,
         "fractionName": "BARBARIANS",
-        "resourceGrowthMatrix": [ 0, 0, 0, 5, 1, 0, 0, 0, 0, 0 ],
-        "remainingResourcesMatrix": [ 0, 0, 1, 1, 0, 0, 0, 0, 0, 1 ]
+        "resourceGrowthMatrix": [
+          0,
+          0,
+          0,
+          5,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "remainingResourcesMatrix": [
+          0,
+          0,
+          1,
+          1,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1
+        ]
       }
     ],
     "decks": [
@@ -79,64 +189,1488 @@
         "fractionId": 0,
         "cards": [
           {
-            "cardId": 0,
-            "cardName": "Card Name 0",
-            "description": ".......",
-            "cardType": 0,
-            "fractionType": 0,
-            "actionType": 0,
-            "contract": 0,
-            "cost": [],
-            "gain": [],
-            "image": 0
-          },
-          {
             "cardId": 1,
-            "cardName": "Card Name 1",
-            "description": ".......",
-            "cardType": 1,
-            "fractionType": 0,
-            "actionType": 1,
-            "contract": 0,
-            "cost": [ 1, 2 ],
-            "gain": [ 3, 4, 5, 6 ],
-            "image": 0
-          },
-          {
-            "cardId": 2,
-            "cardName": "Card Name 2",
-            "description": ".......",
-            "cardType": 2,
+            "cardName": "STATUA",
+            "description": "Cecha: - . Bonus za zbudowanie: 1 #2 za kaødπ SZAR• #9 w twoim imperium, maks 6. Dodatkowo dobierz 1 #1.",
+            "cardType": 8,
             "fractionType": 0,
             "actionType": 2,
             "contract": 0,
-            "cost": [ 1 ],
-            "gain": [ 7 ],
-            "image": 0
+            "cost": [
+              7,
+              8,
+              8
+            ],
+            "gain": [
+              2,
+              8
+            ],
+            "image": 1
+          },
+          {
+            "cardId": 2,
+            "cardName": "DOSTAWCA",
+            "description": "Cecha: Zawsze gdy zbudujesz SZAR• #9, otrzymujesz 1 #5 i 1 #2.",
+            "cardType": 8,
+            "fractionType": 0,
+            "actionType": 2,
+            "contract": 0,
+            "cost": [
+              7,
+              8,
+              8
+            ],
+            "gain": [
+              5,
+              8
+            ],
+            "image": 2
           },
           {
             "cardId": 3,
-            "cardName": "Card Name 4",
-            "description": ".......",
-            "cardType": 3,
+            "cardName": "SK£AD DREWNA",
+            "description": "Cecha: - . Bonus za zbudowanie: 1 #2 za kaødπ BR•ZOW• #9 w twoim imperium, maks 6. Dodatkow dobierz 1 #1.",
+            "cardType": 7,
             "fractionType": 0,
-            "actionType": 3,
+            "actionType": 2,
             "contract": 0,
-            "cost": [5],
-            "gain": [],
-            "image": 0
+            "cost": [
+              7,
+              7,
+              8
+            ],
+            "gain": [
+              7,
+              7
+            ],
+            "image": 3
           },
           {
             "cardId": 4,
-            "cardName": "Card Name 4",
-            "description": ".......",
+            "cardName": "WARSZTAT STOLARSKI",
+            "description": "Cecha: Zawsze gdy zbudujesz BR•ZOW• #9, otrzymujesz 1 #5 i 1 #2.",
+            "cardType": 7,
+            "fractionType": 0,
+            "actionType": 2,
+            "contract": 0,
+            "cost": [
+              7,
+              7,
+              7
+            ],
+            "gain": [
+              5,
+              7
+            ],
+            "image": 4
+          },
+          {
+            "cardId": 5,
+            "cardName": "SZUBIENICA",
+            "description": "Cecha: Zawsze gdy plπdrujesz, otrzymujesz 1 #2.",
+            "cardType": 4,
+            "fractionType": 0,
+            "actionType": 2,
+            "contract": 0,
+            "cost": [
+              7,
+              7
+            ],
+            "gain": [
+              2,
+              7
+            ],
+            "image": 5
+          },
+          {
+            "cardId": 6,
+            "cardName": "M£YN",
+            "description": "Cecha: Zawsze gdy zbudujesz CZERWON• #9, otrzymujesz 1 #5 i #2.",
+            "cardType": 6,
+            "fractionType": 0,
+            "actionType": 2,
+            "contract": 0,
+            "cost": [
+              7,
+              7,
+              7
+            ],
+            "gain": [
+              3,
+              6
+            ],
+            "image": 6
+          },
+          {
+            "cardId": 7,
+            "cardName": "STARY LAS",
+            "description": "Produkcja: 2 #7.",
+            "cardType": 7,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              7
+            ],
+            "gain": [
+              7,
+              7
+            ],
+            "image": 7
+          },
+          {
+            "cardId": 8,
+            "cardName": "KAMIENIO£OM",
+            "description": "Produkcja: 1 #8. Bonus za zbudowanie: 1 #8",
+            "cardType": 8,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              8,
+              8
+            ],
+            "image": 8
+          },
+          {
+            "cardId": 9,
+            "cardName": "KAMIENIO£OM",
+            "description": "Produkcja: 1 #8. Bonus za zbudowanie: 1 #8",
+            "cardType": 8,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              8,
+              8
+            ],
+            "image": 8
+          },
+          {
+            "cardId": 10,
+            "cardName": "KAMIENIO£OM",
+            "description": "Produkcja: 1 #8. Bonus za zbudowanie: 1 #8",
+            "cardType": 8,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              8,
+              8
+            ],
+            "image": 8
+          },
+          {
+            "cardId": 11,
+            "cardName": "GRUZOWISKO",
+            "description": "Produkcja: 1 #8 za kaødπ Szarπ #9 w twoim imperium, maks. 3.",
+            "cardType": 8,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              7,
+              8
+            ],
+            "gain": [
+              8,
+              8
+            ],
+            "image": 11
+          },
+          {
+            "cardId": 12,
+            "cardName": "WIOSKA",
+            "description": "Produkcja: 1 #3. Bonus za zbudowanie: 1 #3",
+            "cardType": 3,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7
+            ],
+            "gain": [
+              3,
+              3
+            ],
+            "image": 12
+          },
+          {
+            "cardId": 13,
+            "cardName": "WIOSKA",
+            "description": "Produkcja: 1 #3. Bonus za zbudowanie: 1 #3",
+            "cardType": 3,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7
+            ],
+            "gain": [
+              3,
+              3
+            ],
+            "image": 12
+          },
+          {
+            "cardId": 14,
+            "cardName": "WIOSKA",
+            "description": "Produkcja: 1 #3. Bonus za zbudowanie: 1 #3",
+            "cardType": 3,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7
+            ],
+            "gain": [
+              3,
+              3
+            ],
+            "image": 12
+          },
+          {
+            "cardId": 15,
+            "cardName": "MIASTECZKO",
+            "description": "Produkcja: 2 #3.",
+            "cardType": 3,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              3,
+              3
+            ],
+            "image": 15
+          },
+          {
+            "cardId": 16,
+            "cardName": "ROLNICY PRZY PRACY",
+            "description": "Produkcja: Wybierz innπ ze swoich #9 PRODUKCYJNYCH i orzymaj Dobra, ktÛrych ona dostarcza. Bonus za zbudowanie: 1 #1.",
+            "cardType": 3,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              7,
+              7
+            ],
+            "gain": [
+              3,
+              5
+            ],
+            "image": 16
+          },
+          {
+            "cardId": 17,
+            "cardName": "£AèNIA U MAMUåKI",
+            "description": "Produkcja: 1 #3 za kaødπ R”ØOW• #9 w twoim imperium, maks 3.",
+            "cardType": 3,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              7,
+              8
+            ],
+            "gain": [
+              3,
+              6
+            ],
+            "image": 17
+          },
+          {
+            "cardId": 18,
+            "cardName": "P£ATNERZ",
+            "description": "Produkcja: 1 #4.",
             "cardType": 4,
             "fractionType": 0,
             "actionType": 1,
             "contract": 0,
-            "cost": [2],
-            "gain": [1],
-            "image": 0
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              2,
+              8
+            ],
+            "image": 18
+          },
+          {
+            "cardId": 19,
+            "cardName": "P£ATNERZ",
+            "description": "Produkcja: 1 #4.",
+            "cardType": 4,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              2,
+              8
+            ],
+            "image": 18
+          },
+          {
+            "cardId": 20,
+            "cardName": "P£ATNERZ",
+            "description": "Produkcja: 1 #4.",
+            "cardType": 4,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              2,
+              8
+            ],
+            "image": 18
+          },
+          {
+            "cardId": 21,
+            "cardName": "KOPALNIA Z£OTA",
+            "description": "Akcja: Wydaj 1 #3, aby dobraÊ 1 #5. Moøesz aktywowaÊ jø dwa razy.",
+            "cardType": 5,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              2,
+              5
+            ],
+            "image": 21
+          },
+          {
+            "cardId": 22,
+            "cardName": "KOPALNIA Z£OTA",
+            "description": "Akcja: Wydaj 1 #3, aby dobraÊ 1 #5. Moøesz aktywowaÊ jø dwa razy.",
+            "cardType": 5,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              2,
+              5
+            ],
+            "image": 21
+          },
+          {
+            "cardId": 23,
+            "cardName": "POLE PRZENICY",
+            "description": "Produkcja: 1 #6. Bonus za zbudowanie: 1 #6.",
+            "cardType": 6,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              6
+            ],
+            "gain": [
+              6,
+              6
+            ],
+            "image": 23
+          },
+          {
+            "cardId": 24,
+            "cardName": "POLE PRZENICY",
+            "description": "Produkcja: 1 #6. Bonus za zbudowanie: 1 #6.",
+            "cardType": 6,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              6
+            ],
+            "gain": [
+              6,
+              6
+            ],
+            "image": 23
+          },
+          {
+            "cardId": 25,
+            "cardName": "SZLACHECKIE POLE",
+            "description": "Produkcja: 1 #6 za kaødπ CZERWON• #9 w twoim imperium, maks. 3.",
+            "cardType": 6,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              7,
+              8
+            ],
+            "gain": [
+              6,
+              6
+            ],
+            "image": 25
+          },
+          {
+            "cardId": 26,
+            "cardName": "POMNIK",
+            "description": "Produkcja: 1 #2.",
+            "cardType": 2,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              8
+            ],
+            "gain": [
+              2,
+              8
+            ],
+            "image": 26
+          },
+          {
+            "cardId": 27,
+            "cardName": "GILDIA KUPC”W",
+            "description": "Produkcja: 1 #5 za kaødπ Z£OT• #9 w twoim imperium, maks 3.",
+            "cardType": 5,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              7,
+              8
+            ],
+            "gain": [
+              5,
+              8
+            ],
+            "image": 27
+          },
+          {
+            "cardId": 28,
+            "cardName": "Z£OTY POTOK",
+            "description": "Produkcja: 1 #5.",
+            "cardType": 5,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              5,
+              3
+            ],
+            "image": 28
+          },
+          {
+            "cardId": 29,
+            "cardName": "DOSTAWCA DREWNA",
+            "description": "Produkcja: 1 #7 za kaødπ BR•ZOW• #9 w towim imperium, maks 3.",
+            "cardType": 7,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              7,
+              7
+            ],
+            "gain": [
+              7,
+              7
+            ],
+            "image": 29
+          },
+          {
+            "cardId": 30,
+            "cardName": "ZAK£AD Z£OTNICZY",
+            "description": "Akcja: Wydaj 1 #3 i 1 #5, aby otrzymaÊ 2 #2.",
+            "cardType": 5,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              2,
+              5
+            ],
+            "image": 30
+          },
+          {
+            "cardId": 31,
+            "cardName": "ZAK£AD Z£OTNICZY",
+            "description": "Akcja: Wydaj 1 #3 i 1 #5, aby otrzymaÊ 2 #2.",
+            "cardType": 5,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              2,
+              5
+            ],
+            "image": 30
+          },
+          {
+            "cardId": 32,
+            "cardName": "JARMARK",
+            "description": "Akcja: Wydaj 1 #7, 1 #8 i 1 #6, aby otrzymaÊ 3 #2.",
+            "cardType": 5,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              7
+            ],
+            "gain": [
+              5,
+              7
+            ],
+            "image": 32
+          },
+          {
+            "cardId": 33,
+            "cardName": "KOPALNIA W GLA",
+            "description": "Akcja: Wydaj 1 #3, aby otrzymaÊ 2 #8.",
+            "cardType": 8,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              3,
+              8
+            ],
+            "image": 33
+          },
+          {
+            "cardId": 34,
+            "cardName": "MURARZ",
+            "description": "Akcja: Wydaj 1 #3 i 1 #8, aby otrzymaÊ 2 #2.",
+            "cardType": 8,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              7,
+              8
+            ],
+            "image": 34
+          },
+          {
+            "cardId": 35,
+            "cardName": "MURARZ",
+            "description": "Akcja: Wydaj 1 #3 i 1 #8, aby otrzymaÊ 2 #2.",
+            "cardType": 8,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              8,
+              8
+            ],
+            "gain": [
+              2,
+              8
+            ],
+            "image": 34
+          },
+          {
+            "cardId": 36,
+            "cardName": "NADWORNY RZEèBIARZ",
+            "description": "Akcja: Wydaj 1 #8, aby otrzymaÊ 1 #2. Moøesz aktywowaÊ jπ dwa razy.",
+            "cardType": 8,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              8
+            ],
+            "gain": [
+              3,
+              8
+            ],
+            "image": 36
+          },
+          {
+            "cardId": 37,
+            "cardName": "CECH MURARZY",
+            "description": "Akcja: Wydaj 1 #3 i 2 #8, aby otrzymaÊ 3 #2.",
+            "cardType": 8,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              7,
+              8
+            ],
+            "gain": [
+              5,
+              8
+            ],
+            "image": 37
+          },
+          {
+            "cardId": 38,
+            "cardName": "CECH MURARZY",
+            "description": "Akcja: Wydaj 1 #3 i 2 #8, aby otrzymaÊ 3 #2.",
+            "cardType": 8,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              7,
+              8
+            ],
+            "gain": [
+              5,
+              8
+            ],
+            "image": 37
+          },
+          {
+            "cardId": 39,
+            "cardName": "MISJONARZE",
+            "description": "Akcja: Wydaj 1 #3 i 1 #4, aby otrzymaÊ 3 #2.",
+            "cardType": 3,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              6,
+              6
+            ],
+            "gain": [
+              2,
+              3
+            ],
+            "image": 39
+          },
+          {
+            "cardId": 40,
+            "cardName": "OSADNICY",
+            "description": "Akcja: Wydaj 1 #7, aby natychmiast zbudowaÊ #9 FRAKCYJN•, ignorujπc #9 w kosztach budowy.",
+            "cardType": 3,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7
+            ],
+            "gain": [
+              3,
+              7
+            ],
+            "image": 40
+          },
+          {
+            "cardId": 41,
+            "cardName": "TRUPA",
+            "description": "Akcja: Wydaj 1 #3, aby wybraÊ innπ ze swoich #9 z AKCJ•. UsuÒ z niej dobra wydane na jej aktywacjÍ. Moøesz ponownie aktywowaÊ tamtπ #9.",
+            "cardType": 3,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              7
+            ],
+            "gain": [
+              3,
+              7
+            ],
+            "image": 41
+          },
+          {
+            "cardId": 42,
+            "cardName": "DRWALE",
+            "description": "Akcja: Wydaj 1 #3, aby otrzymaÊ 2 #7.",
+            "cardType": 7,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              7
+            ],
+            "gain": [
+              7,
+              7
+            ],
+            "image": 42
+          },
+          {
+            "cardId": 43,
+            "cardName": "STOLARZ",
+            "description": "Akcja: Wydaj 1 #3 i 2 #7, aby otrzymaÊ 3 #2.",
+            "cardType": 7,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              7,
+              8
+            ],
+            "gain": [
+              2,
+              7
+            ],
+            "image": 43
+          },
+          {
+            "cardId": 44,
+            "cardName": "CIEåLA",
+            "description": "Akcja: Wydaj 1 #3 i 1 #7, aby otrzymaÊ 2 #2.",
+            "cardType": 7,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              7
+            ],
+            "gain": [
+              2,
+              7
+            ],
+            "image": 44
+          },
+          {
+            "cardId": 45,
+            "cardName": "CIEåLA",
+            "description": "Akcja: Wydaj 1 #3 i 1 #7, aby otrzymaÊ 2 #2.",
+            "cardType": 7,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              7
+            ],
+            "gain": [
+              2,
+              7
+            ],
+            "image": 44
+          },
+          {
+            "cardId": 46,
+            "cardName": "ZAMEK",
+            "description": "Akcja: Wydaj 1 #3, aby dobraÊ 1 #1. Moøesz aktywowaÊ jø dwa razy.",
+            "cardType": 1,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              1,
+              1
+            ],
+            "image": 46
+          },
+          {
+            "cardId": 47,
+            "cardName": "ZAMEK",
+            "description": "Akcja: Wydaj 1 #3, aby dobraÊ 1 #1. Moøesz aktywowaÊ jø dwa razy.",
+            "cardType": 1,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              1,
+              1
+            ],
+            "image": 46
+          },
+          {
+            "cardId": 48,
+            "cardName": "ZAMEK",
+            "description": "Akcja: Wydaj 1 #3, aby dobraÊ 1 #1. Moøesz aktywowaÊ jø dwa razy.",
+            "cardType": 1,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              8,
+              8
+            ],
+            "gain": [
+              1,
+              1
+            ],
+            "image": 46
+          },
+          {
+            "cardId": 49,
+            "cardName": "TAWERNA",
+            "description": "Akcja: OdrzuÊ 1 #1 z rÍki, aby otrzymaÊ 2 #2. Bonus za zbudowanie: 1 #1.",
+            "cardType": 1,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              1,
+              1
+            ],
+            "image": 49
+          },
+          {
+            "cardId": 50,
+            "cardName": "KOSZARY",
+            "description": "Akcja: Wydaj 1 #3, aby otzrymaÊ 1 #4. Moøesz aktywowaÊ jπ dwa razy.",
+            "cardType": 4,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              8,
+              8
+            ],
+            "gain": [
+              2,
+              3
+            ],
+            "image": 50
+          },
+          {
+            "cardId": 51,
+            "cardName": "KOSZARY",
+            "description": "Akcja: Wydaj 1 #3, aby otzrymaÊ 1 #4. Moøesz aktywowaÊ jπ dwa razy.",
+            "cardType": 4,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              8,
+              8
+            ],
+            "gain": [
+              2,
+              3
+            ],
+            "image": 50
+          },
+          {
+            "cardId": 52,
+            "cardName": "CUKIERNIK",
+            "description": "Akcja: Wydaj 1 #3 i 2 #6, aby otrzymaÊ 3 #2.",
+            "cardType": 6,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              7,
+              8
+            ],
+            "gain": [
+              5,
+              6
+            ],
+            "image": 52
+          },
+          {
+            "cardId": 53,
+            "cardName": "HODOWCA åWI—",
+            "description": "Akcja: Wydaj 1 #3 i 1 #6, aby otrzymaÊ 2 #2.",
+            "cardType": 6,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              3,
+              6
+            ],
+            "image": 53
+          },
+          {
+            "cardId": 54,
+            "cardName": "HODOWCA åWI—",
+            "description": "Akcja: Wydaj 1 #3 i 1 #6, aby otrzymaÊ 2 #2.",
+            "cardType": 6,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              3,
+              6
+            ],
+            "image": 53
+          },
+          {
+            "cardId": 55,
+            "cardName": "HODOWCA åWI—",
+            "description": "Akcja: Wydaj 1 #3 i 1 #6, aby otrzymaÊ 2 #2.",
+            "cardType": 6,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              8
+            ],
+            "gain": [
+              3,
+              6
+            ],
+            "image": 53
+          },
+          {
+            "cardId": 56,
+            "cardName": "PIWOWAR",
+            "description": "Akcja: Wydaj 1 #6, aby otrzymaÊ 1 #2. Moøesz aktywowaÊ jπ dwa razy.",
+            "cardType": 6,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7
+            ],
+            "gain": [
+              7,
+              6
+            ],
+            "image": 56
+          },
+          {
+            "cardId": 57,
+            "cardName": "CESARSKI POS£ANIEC",
+            "description": "Akcja: Wydaj 1 #3, aby wybraÊ jednπ ze swoich UmÛw i natychmiast otrzymaÊ Dobro, ktÛre ona dostarcza.",
+            "cardType": 6,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              6
+            ],
+            "gain": [
+              3,
+              5
+            ],
+            "image": 57
+          },
+          {
+            "cardId": 58,
+            "cardName": "M£ODNIK",
+            "description": "Akcja: Wydaj 1 #3, aby otrzymaÊ 1 #7. Moøesz aktywowaÊ jπ dwa razy.",
+            "cardType": 7,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7
+            ],
+            "gain": [
+              7,
+              7
+            ],
+            "image": 58
+          },
+          {
+            "cardId": 59,
+            "cardName": "M£ODNIK",
+            "description": "Akcja: Wydaj 1 #3, aby otrzymaÊ 1 #7. Moøesz aktywowaÊ jπ dwa razy.",
+            "cardType": 7,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7
+            ],
+            "gain": [
+              7,
+              7
+            ],
+            "image": 58
+          },
+          {
+            "cardId": 60,
+            "cardName": "M£ODNIK",
+            "description": "Akcja: Wydaj 1 #3, aby otrzymaÊ 1 #7. Moøesz aktywowaÊ jπ dwa razy.",
+            "cardType": 7,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7
+            ],
+            "gain": [
+              7,
+              7
+            ],
+            "image": 58
+          },
+          {
+            "cardId": 61,
+            "cardName": "LIGA HANZEATYCKA",
+            "description": "Akcja: Wydaj 1 #3 oraz odrzuÊ 1 ze swoich umÛw, aby otrzymaÊ 2 #2. Moøesz aktywowaÊ jπ dwa razy.",
+            "cardType": 5,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              8,
+              8
+            ],
+            "gain": [
+              2,
+              5
+            ],
+            "image": 61
+          },
+          {
+            "cardId": 62,
+            "cardName": "SZLAK DRWALI",
+            "description": "Produkcja: 1 #7. Bonus za zbudowanie: 1 #7",
+            "cardType": 7,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              7
+            ],
+            "gain": [
+              7,
+              7
+            ],
+            "image": 62
+          },
+          {
+            "cardId": 63,
+            "cardName": "SZLAK DRWALI",
+            "description": "Produkcja: 1 #7. Bonus za zbudowanie: 1 #7",
+            "cardType": 7,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              7
+            ],
+            "gain": [
+              7,
+              7
+            ],
+            "image": 62
+          },
+          {
+            "cardId": 64,
+            "cardName": "SZLAK DRWALI",
+            "description": "Produkcja: 1 #7. Bonus za zbudowanie: 1 #7",
+            "cardType": 7,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              7
+            ],
+            "gain": [
+              7,
+              7
+            ],
+            "image": 62
+          },
+          {
+            "cardId": 65,
+            "cardName": "STRAØNICA",
+            "description": "Produkcja: 1 #1. Bonus za zbudowanie: 1 #1.",
+            "cardType": 1,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              7
+            ],
+            "gain": [
+              1,
+              1
+            ],
+            "image": 65
+          },
+          {
+            "cardId": 66,
+            "cardName": "STRAØNICA",
+            "description": "Produkcja: 1 #1. Bonus za zbudowanie: 1 #1.",
+            "cardType": 1,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              7
+            ],
+            "gain": [
+              1,
+              1
+            ],
+            "image": 65
+          },
+          {
+            "cardId": 67,
+            "cardName": "STRAØNICA",
+            "description": "Produkcja: 1 #1. Bonus za zbudowanie: 1 #1.",
+            "cardType": 1,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              7
+            ],
+            "gain": [
+              1,
+              1
+            ],
+            "image": 65
+          },
+          {
+            "cardId": 68,
+            "cardName": "STRAØNICA",
+            "description": "Produkcja: 1 #1. Bonus za zbudowanie: 1 #1.",
+            "cardType": 1,
+            "fractionType": 0,
+            "actionType": 1,
+            "contract": 0,
+            "cost": [
+              7,
+              7
+            ],
+            "gain": [
+              1,
+              1
+            ],
+            "image": 65
+          },
+          {
+            "cardId": 69,
+            "cardName": "RUINY",
+            "description": "Cecha: -. Bonus za zbudowanie: 1 #3",
+            "cardType": 9,
+            "fractionType": 0,
+            "actionType": 2,
+            "contract": 0,
+            "cost": [],
+            "gain": [],
+            "image": 69
+          },
+          {
+            "cardId": 70,
+            "cardName": "RUINY",
+            "description": "Cecha: -. Bonus za zbudowanie: 1 #3",
+            "cardType": 9,
+            "fractionType": 0,
+            "actionType": 2,
+            "contract": 0,
+            "cost": [],
+            "gain": [],
+            "image": 69
+          },
+          {
+            "cardId": 71,
+            "cardName": "RUINY",
+            "description": "Cecha: -. Bonus za zbudowanie: 1 #3",
+            "cardType": 9,
+            "fractionType": 0,
+            "actionType": 2,
+            "contract": 0,
+            "cost": [],
+            "gain": [],
+            "image": 69
+          },
+          {
+            "cardId": 72,
+            "cardName": "RUINY",
+            "description": "Cecha: -. Bonus za zbudowanie: 1 #3",
+            "cardType": 9,
+            "fractionType": 0,
+            "actionType": 2,
+            "contract": 0,
+            "cost": [],
+            "gain": [],
+            "image": 69
+          },
+          {
+            "cardId": 73,
+            "cardName": "RUINY",
+            "description": "Cecha: -. Bonus za zbudowanie: 1 #3",
+            "cardType": 9,
+            "fractionType": 0,
+            "actionType": 2,
+            "contract": 0,
+            "cost": [],
+            "gain": [],
+            "image": 69
+          },
+          {
+            "cardId": 74,
+            "cardName": "RUINY",
+            "description": "Cecha: -. Bonus za zbudowanie: 1 #3",
+            "cardType": 9,
+            "fractionType": 0,
+            "actionType": 2,
+            "contract": 0,
+            "cost": [],
+            "gain": [],
+            "image": 69
+          },
+          {
+            "cardId": 75,
+            "cardName": "PIEKARZ",
+            "description": "Cecha: - . Bonus za zbudowanie: 1 #2 za kaødπ CZERWON• #9 w twoim imperium, maks 6. Dodatkowo dobierz 1 #1.",
+            "cardType": 6,
+            "fractionType": 0,
+            "actionType": 2,
+            "contract": 0,
+            "cost": [
+              7,
+              7,
+              8
+            ],
+            "gain": [
+              2,
+              6
+            ],
+            "image": 75
+          },
+          {
+            "cardId": 76,
+            "cardName": "TARTAK",
+            "description": "Akcja: Wydaj 1 #7, aby otrzymaÊ 1 #2. Moøesz aktywowaÊ jπ dwa razy.",
+            "cardType": 7,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7
+            ],
+            "gain": [
+              3,
+              7
+            ],
+            "image": 76
+          },
+          {
+            "cardId": 77,
+            "cardName": "TARTAK",
+            "description": "Akcja: Wydaj 1 #7, aby otrzymaÊ 1 #2. Moøesz aktywowaÊ jπ dwa razy.",
+            "cardType": 7,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7
+            ],
+            "gain": [
+              3,
+              7
+            ],
+            "image": 76
+          },
+          {
+            "cardId": 78,
+            "cardName": "KANTYNA",
+            "description": "Cecha: Zawsze gdy zbudujesz R”ØOW• #9, otrzymujesz 1 #5 i 1 #2.",
+            "cardType": 3,
+            "fractionType": 0,
+            "actionType": 2,
+            "contract": 0,
+            "cost": [
+              7,
+              7,
+              7
+            ],
+            "gain": [
+              3,
+              6
+            ],
+            "image": 78
+          },
+          {
+            "cardId": 79,
+            "cardName": "MIEJSCE ZGROMADZE—",
+            "description": "Cecha: - . Bonus za zbudowanie: 1 #2 za kaødπ R”ØOW• #9 w twoim imperium, maks 6. Dodatkowo dobierz 1 #1.",
+            "cardType": 3,
+            "fractionType": 0,
+            "actionType": 2,
+            "contract": 0,
+            "cost": [
+              7,
+              7,
+              8
+            ],
+            "gain": [
+              3,
+              1
+            ],
+            "image": 79
+          },
+          {
+            "cardId": 80,
+            "cardName": "KUPIEC BOGDAN",
+            "description": "Cecha: Zawsze gdy zbudujesz Z£OT• #9, otrzymasz 1 #5 i 1 #2.",
+            "cardType": 5,
+            "fractionType": 0,
+            "actionType": 2,
+            "contract": 0,
+            "cost": [
+              7,
+              8,
+              8
+            ],
+            "gain": [
+              5,
+              8
+            ],
+            "image": 80
+          },
+          {
+            "cardId": 81,
+            "cardName": "APARTAMENTY",
+            "description": "Cecha: - . Bonus za zbudowanie: 1 #2 za kaødπ Z£OT• #9 w twoim imperium, maks 6. Dodatkowo dobierz 1 #1.",
+            "cardType": 5,
+            "fractionType": 0,
+            "actionType": 2,
+            "contract": 0,
+            "cost": [
+              7,
+              8,
+              8
+            ],
+            "gain": [
+              5,
+              8
+            ],
+            "image": 81
+          },
+          {
+            "cardId": 82,
+            "cardName": "MYåLIWY J”ZEK",
+            "description": "Akcja: Wydaj 1 #3, aby otrzymaÊ 2 #6.",
+            "cardType": 6,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7
+            ],
+            "gain": [
+              7,
+              6
+            ],
+            "image": 82
+          },
+          {
+            "cardId": 83,
+            "cardName": "KOPALNIA ODKRYWKOWA",
+            "description": "Akcja: Wydaj 1 #3, aby otrzymaÊ 1 #8. Moøesz aktywowaÊ jπ dwa razy.",
+            "cardType": 8,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              8
+            ],
+            "gain": [
+              8,
+              8
+            ],
+            "image": 83
+          },
+          {
+            "cardId": 84,
+            "cardName": "TRAGARZE",
+            "description": "Akcja: Wydaj 1 #6, aby wybraÊ dowolnπ ze swoich #9 PRODUKCYJNYCH i orzymaj Dobra, ktÛrych ona dostarcza.",
+            "cardType": 3,
+            "fractionType": 0,
+            "actionType": 3,
+            "contract": 0,
+            "cost": [
+              7,
+              7
+            ],
+            "gain": [
+              3,
+              8
+            ],
+            "image": 84
           }
         ]
       },
@@ -171,7 +1705,8 @@
               1
             ],
             "gain": [
-              1,2
+              1,
+              2
             ],
             "image": 0
           },
@@ -204,9 +1739,7 @@
             "fractionType": 2,
             "actionType": 1,
             "contract": 0,
-            "cost": [
-              
-            ],
+            "cost": [],
             "gain": [
               2
             ],
@@ -221,10 +1754,12 @@
             "actionType": 2,
             "contract": 6,
             "cost": [
-              1,5
+              1,
+              5
             ],
             "gain": [
-              7,3
+              7,
+              3
             ],
             "image": 0
           }
