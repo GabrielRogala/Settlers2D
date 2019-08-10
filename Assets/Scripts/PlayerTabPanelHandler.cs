@@ -8,6 +8,7 @@ public class PlayerTabPanelHandler : MonoBehaviour
     public GameObject m_resourcePanelPrefab;
     public PlayerData m_palayerData;
     public List<DropZoneHandler> m_fractionDropzones;
+    public GameObject m_ContractCardContainer;
 
     public void InitResourcesPanel(PlayerData playerData)
     {
@@ -29,5 +30,10 @@ public class PlayerTabPanelHandler : MonoBehaviour
             dz.fractionId = playerData.fractionId;
             dz.playerId = playerData.playerId;
         }
+    }
+
+    public void AddCardToContractPanel(GameObject card) {
+        card.transform.SetParent(m_ContractCardContainer.transform);
+        card.transform.Rotate(new Vector3(0, 0, 180));
     }
 }

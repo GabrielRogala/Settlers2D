@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-public class CardHandler : MonoBehaviour
+public class CardHandler : MonoBehaviour, IPointerClickHandler
 {
     public int m_actionType = 0;
     public int m_fractionId = 0;
@@ -30,6 +31,8 @@ public class CardHandler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        string[] actionTypeString = new string[] { "", "Produkcja", "Cecha", "Akcja" };
+
         m_actionType = m_card.actionType;
         m_fractionId = m_card.fractionType;
         //m_playerId = 0;
@@ -38,7 +41,7 @@ public class CardHandler : MonoBehaviour
 
         m_id.text = "#" + m_card.cardId;
         m_name.text = m_card.cardName;
-        m_description.text = m_card.description;
+        m_description.text = actionTypeString[m_card.actionType];
         m_fractionImage.sprite = IMG2Sprite.instance.LoadNewSprite(path + "/Sprites/Fractions/" + m_card.fractionType + ".png");
         m_cardType.sprite = IMG2Sprite.instance.LoadNewSprite(path + "/Sprites/Types/" + m_card.cardType + ".png");
         m_contract.sprite = IMG2Sprite.instance.LoadNewSprite(path + "/Sprites/Resources/" + m_card.contract + ".png");
@@ -73,6 +76,11 @@ public class CardHandler : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        CardViewer.instance.ShowFullSizeCard(this.GetComponent<CardHandler>());
     }
 
     public void BuildActionExecute()

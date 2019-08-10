@@ -148,6 +148,22 @@ public class GameHandler : MonoBehaviour
             NextRound();
         }
 
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            foreach (PlayerData p in GameDataHandler.instance.gameState.players)
+            {
+                var resources = GameDataHandler.instance.gameData.fractions[p.fractionId].resourceGrowthMatrix;
+                int i = 0;
+                foreach (int r in resources)
+                {
+                    p.playerResources[i] +=10;
+                    i++;
+                }
+
+            }
+            PlayersResourcesUpdate();
+        }
+
     }
 
     private void NextRound()

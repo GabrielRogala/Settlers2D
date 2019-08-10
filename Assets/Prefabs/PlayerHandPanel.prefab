@@ -1088,6 +1088,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: DropZone
       objectReference: {fileID: 0}
+    - target: {fileID: 6011905846307867995, guid: 5d37d26f5086eee4595da19143ec9d3b,
+        type: 3}
+      propertyPath: m_Spacing
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 1815411614170856352, guid: 5d37d26f5086eee4595da19143ec9d3b,
         type: 3}
       propertyPath: m_LocalPosition.x

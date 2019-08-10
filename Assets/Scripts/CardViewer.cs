@@ -22,7 +22,7 @@ public class CardViewer : MonoBehaviour
         }
     }
 
-    public void ShowFullSizeCard(CardData card)
+    public void ShowFullSizeCard(CardHandler card)
     {
         if (isShowed)
         {

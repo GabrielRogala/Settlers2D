@@ -26,7 +26,7 @@ public class DataHandler : MonoBehaviour
 
         if (System.IO.File.Exists(filePath))
         {
-            string dataAsJson = System.IO.File.ReadAllText(filePath);
+            string dataAsJson = System.IO.File.ReadAllText(filePath, System.Text.Encoding.GetEncoding("Windows-1250"));
             GameDataWrapper gameDataWrapper = JsonUtility.FromJson<GameDataWrapper>(dataAsJson);
             Debug.Log(gameDataWrapper.gameData.ToString());
             return gameDataWrapper.gameData;
