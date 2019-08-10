@@ -314,6 +314,7 @@ MonoBehaviour:
   m_playerContentPrefab: {fileID: 4539779424426937222, guid: da7acdea6682b314fbcd1171e76d8ae1,
     type: 3}
   m_playerToggleGroup: {fileID: 1214330946}
+  m_players: []
 --- !u!114 &198698768
 MonoBehaviour:
   m_ObjectHideFlags: 0
