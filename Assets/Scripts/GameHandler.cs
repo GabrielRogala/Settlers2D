@@ -30,8 +30,7 @@ public class GameHandler : MonoBehaviour
     public GameObject m_playerContentPrefab;
     public ToggleGroup m_playerToggleGroup;
 
-
-    List<PlayerData> m_players;
+    public List<PlayerData> m_players;
 
     private bool isGamePanelReady = false;
 
@@ -237,17 +236,34 @@ public class GameHandler : MonoBehaviour
 
         if (enoughtCountOfResources)
         {
+            MoveCardToDropzone(card, player);
+
             foreach(KeyValuePair<int, int> kvp in cost)
             {
                 player.playerResources[kvp.Key] -= kvp.Value;
             }
             card.BuildActionExecute();
             player.cardsInBoard.Add(card.m_card);
-            player.cardsInHand.Remove(card.m_card);
+            player.cardsInHand.Remove(card.m_card);            
         }
 
         PlayersResourcesUpdate();
         return enoughtCountOfResources;
+    }
+
+    void MoveCardToDropzone(CardHandler card, PlayerData player)
+    {
+        Debug.Log("MoveCardToDropzone");
+        foreach (DropZoneHandler dz in this.GetComponentsInChildren<DropZoneHandler>())
+        {
+            if (dz.IsAbleToDrop(card))
+            {
+                card.gameObject.transform.SetParent(dz.transform);
+
+                player.cardsInBoard.Add(card.m_card);
+                player.cardsInHand.Remove(card.m_card);
+            }
+        }
     }
 
     public void PlayersResourcesUpdate()

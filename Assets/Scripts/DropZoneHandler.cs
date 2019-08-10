@@ -103,8 +103,8 @@ public class DropZoneHandler : MonoBehaviour, IDropHandler, IPointerEnterHandler
 
     public bool IsAbleToDrop(CardHandler card) //TODO | ERROR is checked to ScrollView
     {
-        if (actionType == 0 && fractionId == 0 && playerId == 0)
-            return true;
+        //if (actionType == 0 && fractionId == 0 && playerId == 0)
+        //    return true;
 
         if (card.m_fractionId != fractionId)
             return false;

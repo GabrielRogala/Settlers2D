@@ -75,11 +75,14 @@ public class FullSizeCardHandler : MonoBehaviour, IPointerClickHandler
 
     public void BuildCard() {
         Debug.Log("BuildCard");
+        
+        GameHandler.instance.BuildCard(m_card, GameHandler.instance.m_players[m_card.m_playerId-1]);
     }
 
     public void AddToContractsCard()
     {
-        Debug.Log("BuildCard");
+        Debug.Log("AddToContractsCard");
+        
     }
 
     public void PlunderCard()
