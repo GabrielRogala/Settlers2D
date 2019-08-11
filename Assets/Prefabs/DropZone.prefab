@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6011905846307867995}
   - component: {fileID: 1891631014631110246}
   - component: {fileID: 2078323896821699809}
-  - component: {fileID: 2758912572594989584}
+  - component: {fileID: -1217653103102368711}
   m_Layer: 5
   m_Name: DropZone
   m_TagString: Untagged
@@ -137,7 +137,7 @@ MonoBehaviour:
   m_FlexibleWidth: -1
   m_FlexibleHeight: -1
   m_LayoutPriority: 1
---- !u!114 &2758912572594989584
+--- !u!114 &-1217653103102368711
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,14 +146,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1815411614170856367}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 977b5533e88d921479e5275d721e0704, type: 3}
+  m_Script: {fileID: 11500000, guid: c5770a99f325a564cbe8304f37edcd06, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actionType: 0
-  fractionId: 0
-  playerId: 0
-  permDropZone: 0
-  image: {fileID: 1815411614170856353}
-  originalColor: {r: 1, g: 1, b: 1, a: 0.39215687}
-  ableColor: {r: 0, g: 1, b: 0, a: 0.39215687}
-  unableColor: {r: 1, g: 0, b: 0, a: 0.39215687}
+  _actionType: 0
+  _fractionId: 0
+  _playerId: 0
+  _permDropZone: 0
+  _dropzoneMarkBackground: {fileID: 1815411614170856353}
+  _originalColor: {r: 0, g: 0, b: 0, a: 0}
+  _ableColor: {r: 0, g: 1, b: 0, a: 0.39215687}
+  _unableColor: {r: 1, g: 0, b: 0, a: 0.39215687}

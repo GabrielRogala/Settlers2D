@@ -301,7 +301,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2074228350308543701}
+      - m_Target: {fileID: 0}
         m_MethodName: TributeCard
         m_Mode: 1
         m_Arguments:
@@ -400,7 +400,7 @@ GameObject:
   - component: {fileID: 3294143427171791469}
   - component: {fileID: 3940760794822415118}
   - component: {fileID: 2561565058184533784}
-  - component: {fileID: 2074228350308543701}
+  - component: {fileID: 2954604593131415922}
   m_Layer: 5
   m_Name: CardFullSize
   m_TagString: Untagged
@@ -477,7 +477,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &2074228350308543701
+--- !u!114 &2954604593131415922
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -486,28 +486,38 @@ MonoBehaviour:
   m_GameObject: {fileID: 798442249053159177}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45c7a951873506a46893517649007f61, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c03502ce7180d74c8cc3462975bda08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_card: {fileID: 0}
-  m_id: {fileID: 9167975679970472833}
-  m_name: {fileID: 4972049481467150387}
-  m_description: {fileID: 1538170837420199919}
-  m_cardType: {fileID: 204623966335328601}
-  m_fractionImage: {fileID: 3679922643147184494}
-  m_contract: {fileID: 8184825242969190721}
-  m_contractBackground: {fileID: 4728049582140342656}
-  m_costs:
+  _id: {fileID: 9167975679970472833}
+  _name: {fileID: 4972049481467150387}
+  _description: {fileID: 1538170837420199919}
+  _cardType: {fileID: 204623966335328601}
+  _fractionImage: {fileID: 3679922643147184494}
+  _contract: {fileID: 8184825242969190721}
+  _contractBackground: {fileID: 4728049582140342656}
+  _costs:
   - {fileID: 8105560994224273266}
   - {fileID: 8694758893414510520}
   - {fileID: 5899211364044364960}
   - {fileID: 9105761099567843840}
-  m_gains:
+  _gains:
   - {fileID: 4513055665418052114}
   - {fileID: 6042830479118113517}
   - {fileID: 3906578343643027727}
   - {fileID: 8345701525594091261}
-  m_image: {fileID: 7122135369806514747}
+  _image: {fileID: 7122135369806514747}
+  _card:
+    cardId: 0
+    cardName: New Card
+    description: '.......'
+    cardType: 0
+    fractionType: 0
+    actionType: 0
+    contract: 0
+    cost: 00000000
+    gain: 00000000
+    image: 0
 --- !u!1 &1140363079953947581
 GameObject:
   m_ObjectHideFlags: 0
@@ -930,7 +940,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2074228350308543701}
+      - m_Target: {fileID: 0}
         m_MethodName: AddToContractsCard
         m_Mode: 1
         m_Arguments:
@@ -2003,7 +2013,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2074228350308543701}
+      - m_Target: {fileID: 0}
         m_MethodName: PlunderCard
         m_Mode: 1
         m_Arguments:
@@ -2438,7 +2448,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2074228350308543701}
+      - m_Target: {fileID: 0}
         m_MethodName: BuildCard
         m_Mode: 1
         m_Arguments:

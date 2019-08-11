@@ -865,8 +865,7 @@ GameObject:
   - component: {fileID: 8574559587078946293}
   - component: {fileID: 7924563401771883670}
   - component: {fileID: 8702450522829215872}
-  - component: {fileID: 4230507411753967490}
-  - component: {fileID: 6928123274982189296}
+  - component: {fileID: 1199828884189720296}
   m_Layer: 5
   m_Name: CardDesign
   m_TagString: Untagged
@@ -945,7 +944,7 @@ CanvasGroup:
   m_Interactable: 1
   m_BlocksRaycasts: 1
   m_IgnoreParentGroups: 0
---- !u!114 &4230507411753967490
+--- !u!114 &1199828884189720296
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -954,14 +953,28 @@ MonoBehaviour:
   m_GameObject: {fileID: 5790911702866047121}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6476fe2105aea81499fcd91a74dac6da, type: 3}
+  m_Script: {fileID: 11500000, guid: ae2807cb07dbd0d41a6e7a1e7d4baef5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_actionType: 0
-  m_fractionId: 0
-  m_playerId: 0
-  m_usedCard: 0
-  m_card:
+  _id: {fileID: 2626408043575704601}
+  _name: {fileID: 2182440235793797035}
+  _description: {fileID: 5625417356689424503}
+  _cardType: {fileID: 6457925556874997441}
+  _fractionImage: {fileID: 6353020930519363434}
+  _contract: {fileID: 3089335531873877721}
+  _contractBackground: {fileID: 1762026869707263136}
+  _costs:
+  - {fileID: 3113515365972211946}
+  - {fileID: 2585114943839952928}
+  - {fileID: 763329381288268600}
+  - {fileID: 2672877600464848280}
+  _gains:
+  - {fileID: 7343199777662643594}
+  - {fileID: 618579951112459637}
+  - {fileID: 7890065977018291863}
+  - {fileID: 2925143123224502629}
+  _image: {fileID: 4152100189132391843}
+  _card:
     cardId: 0
     cardName: New Card
     description: '.......'
@@ -972,38 +985,7 @@ MonoBehaviour:
     cost: 00000000
     gain: 00000000
     image: 0
-  m_id: {fileID: 2626408043575704601}
-  m_name: {fileID: 2182440235793797035}
-  m_description: {fileID: 5625417356689424503}
-  m_cardType: {fileID: 6457925556874997441}
-  m_fractionImage: {fileID: 6353020930519363434}
-  m_contract: {fileID: 3089335531873877721}
-  m_contractBackground: {fileID: 1762026869707263136}
-  m_costs:
-  - {fileID: 3113515365972211946}
-  - {fileID: 2585114943839952928}
-  - {fileID: 763329381288268600}
-  - {fileID: 2672877600464848280}
-  m_gains:
-  - {fileID: 7343199777662643594}
-  - {fileID: 618579951112459637}
-  - {fileID: 7890065977018291863}
-  - {fileID: 2925143123224502629}
-  m_image: {fileID: 4152100189132391843}
---- !u!114 &6928123274982189296
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5790911702866047121}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 96c097b44f5679241acc790ce123de3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_parentToReturn: {fileID: 0}
-  m_placeholderParent: {fileID: 0}
+  _playerId: 0
 --- !u!1 &5985187707247664174
 GameObject:
   m_ObjectHideFlags: 0

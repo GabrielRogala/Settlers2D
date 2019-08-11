@@ -238,9 +238,9 @@ GameObject:
   m_Component:
   - component: {fileID: 5335288771642909853}
   - component: {fileID: 5335288771642909854}
-  - component: {fileID: 6785224697358275554}
+  - component: {fileID: 1735157176205531944}
   m_Layer: 5
-  m_Name: PlayerTab
+  m_Name: PlayerHandTab
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -313,7 +313,7 @@ MonoBehaviour:
   onValueChanged:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6785224697358275554}
+      - m_Target: {fileID: 1735157176205531944}
         m_MethodName: ShowTabContent
         m_Mode: 1
         m_Arguments:
@@ -327,7 +327,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.Toggle+ToggleEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
   m_IsOn: 1
---- !u!114 &6785224697358275554
+--- !u!114 &1735157176205531944
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -336,8 +336,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 5335288771642909852}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5e5a58d52d26a8042b3d4bb71255b423, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c785ff82c39bd443995f0b658419743, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_tabContent: {fileID: 0}
-  m_tabPanelLabel: {fileID: 5335288771436920550}
+  _content: {fileID: 0}
+  _tabLabel: {fileID: 5335288771436920550}

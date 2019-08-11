@@ -7,20 +7,14 @@ public class PlayerDeck
     public DeckController _deckController;
     public PlayerController _player;
 
-    // Start is called before the first frame update
-    void Start()
+    public PlayerDeck(DeckController deckController, PlayerController player)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        _deckController = deckController;
+        _player = player;
     }
 
     public void DrawCard()
     {
-        _player.AddCardToHand(_deckController.DrawCard());
+        _player.AddCardToHand(_deckController.GetCard(_player));
     }
 }

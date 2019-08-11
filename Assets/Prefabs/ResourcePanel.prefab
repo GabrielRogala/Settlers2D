@@ -170,7 +170,7 @@ GameObject:
   - component: {fileID: 1000889125267393897}
   - component: {fileID: 1589350279824684146}
   - component: {fileID: 136418968116721546}
-  - component: {fileID: 8321246731360298310}
+  - component: {fileID: 3207693711770267779}
   m_Layer: 5
   m_Name: ResourcePanel
   m_TagString: Untagged
@@ -262,7 +262,7 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
---- !u!114 &8321246731360298310
+--- !u!114 &3207693711770267779
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -271,14 +271,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 7554635909848006433}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8dc6f9556640de944805e5b60dbe25ed, type: 3}
+  m_Script: {fileID: 11500000, guid: fe5eff57df8fc3a4d9c97302fa58322d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resourceImage: {fileID: 685289573382447999}
-  resourceCount: {fileID: 5002242831516133225}
-  resourceGrowth: {fileID: 8165380491666378708}
-  resourceId: 0
-  playerData:
+  _image: {fileID: 685289573382447999}
+  _count: {fileID: 5002242831516133225}
+  _growth: {fileID: 8165380491666378708}
+  _resourceId: 0
+  _playerData:
     playerId: 0
     name: 
     fractionId: 0

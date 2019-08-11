@@ -3,7 +3,7 @@ using System.Collections;
 using System.IO;
 
 
-public class IMG2Sprite : MonoBehaviour
+public class IMG2Sprite
 {
 
 
@@ -23,7 +23,7 @@ public class IMG2Sprite : MonoBehaviour
             //This will only happen the first time this reference is used.
 
             if (_instance == null)
-                _instance = GameObject.FindObjectOfType<IMG2Sprite>();
+                _instance = new IMG2Sprite();
             return _instance;
         }
     }

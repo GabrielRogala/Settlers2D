@@ -155,7 +155,7 @@ public class GameState
         string str = "\n---GameState---\n";
         str += "Round: " + roundCounter + "\n";
         str += "Player turn: " + playerIdTurn + "\n";
-        str += "\n---ResourcesData---\n";
+        str += "\n---PlayersData---\n";
         foreach (PlayerData p in players)
         {
             str += p.ToString();
@@ -251,7 +251,7 @@ public class PlayerData
 
     public void ProductResources()
     {
-        foreach (ResourcesData r in GameDataHandler.instance.gameData.resources)
+        foreach (ResourcesData r in GameDataController.instance.gameData.resources)
         {
             playerResources[r.resourcesId] += playerResourcesGrowth[r.resourcesId];
         }
