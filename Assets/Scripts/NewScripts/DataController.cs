@@ -2,8 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DataController
-{
+public class DataController {
     ////////////////////////////////////////////
     //private static DataController _instance;
     //public static DataController instance
@@ -21,109 +20,91 @@ public class DataController
     private static string _fileNameGameState = "GameState.json";
     private static string _dataPath = Application.dataPath;
 
-    public static GameData LoadGameData()
-    {
+    public static GameData LoadGameData () {
         string filePath = _dataPath + "/" + _fileNameGameData;
 
-        if (System.IO.File.Exists(filePath))
-        {
-            string dataAsJson = System.IO.File.ReadAllText(filePath, System.Text.Encoding.GetEncoding("Windows-1250"));
-            GameDataWrapper gameDataWrapper = JsonUtility.FromJson<GameDataWrapper>(dataAsJson);
-            Debug.Log(gameDataWrapper.gameData.ToString());
+        if (System.IO.File.Exists (filePath)) {
+            string dataAsJson = System.IO.File.ReadAllText (filePath, System.Text.Encoding.GetEncoding ("Windows-1250"));
+            GameDataWrapper gameDataWrapper = JsonUtility.FromJson<GameDataWrapper> (dataAsJson);
+            // Debug.Log(gameDataWrapper.gameData.ToString());
             return gameDataWrapper.gameData;
-        }
-        else
-        {
-            Debug.Log("File " + filePath + " does not exist");
+        } else {
+            Debug.Log ("File " + filePath + " does not exist");
             return null;
         }
     }
 
-    public static void SaveGameData(GameData gameData)
-    {
-        GameDataWrapper gameDataWrapper = new GameDataWrapper();
+    public static void SaveGameData (GameData gameData) {
+        GameDataWrapper gameDataWrapper = new GameDataWrapper ();
         gameDataWrapper.gameData = gameData;
-        string dataAsJson = JsonUtility.ToJson(gameDataWrapper);
+        string dataAsJson = JsonUtility.ToJson (gameDataWrapper);
         string filePath = _dataPath + "/" + _fileNameGameData;
-        System.IO.File.WriteAllText(filePath, dataAsJson);
+        System.IO.File.WriteAllText (filePath, dataAsJson);
     }
 
-    public static GameState LoadGameState()
-    {
+    public static GameState LoadGameState () {
         string filePath = _dataPath + "/" + _fileNameGameState;
 
-        if (System.IO.File.Exists(filePath))
-        {
-            string dataAsJson = System.IO.File.ReadAllText(filePath);
-            GameStateWrapper gameStateWrapper = JsonUtility.FromJson<GameStateWrapper>(dataAsJson);
+        if (System.IO.File.Exists (filePath)) {
+            string dataAsJson = System.IO.File.ReadAllText (filePath);
+            GameStateWrapper gameStateWrapper = JsonUtility.FromJson<GameStateWrapper> (dataAsJson);
             return gameStateWrapper.gameState;
-        }
-        else
-        {
-            Debug.Log("File " + filePath + " does not exist");
+        } else {
+            Debug.Log ("File " + filePath + " does not exist");
             return null;
         }
     }
 
-    public static void SaveGameState(GameState gameData)
-    {
-        GameStateWrapper gameStateWrapper = new GameStateWrapper();
+    public static void SaveGameState (GameState gameData) {
+        GameStateWrapper gameStateWrapper = new GameStateWrapper ();
         gameStateWrapper.gameState = gameData;
-        string dataAsJson = JsonUtility.ToJson(gameStateWrapper);
+        string dataAsJson = JsonUtility.ToJson (gameStateWrapper);
         string filePath = _dataPath + "/" + _fileNameGameState;
-        System.IO.File.WriteAllText(filePath, dataAsJson);
+        System.IO.File.WriteAllText (filePath, dataAsJson);
     }
 }
 
 [System.Serializable]
-public class GameDataWrapper
-{
+public class GameDataWrapper {
     public GameData gameData;
 }
 
 [System.Serializable]
-public class GameStateWrapper
-{
+public class GameStateWrapper {
     public GameState gameState;
 }
 
 [System.Serializable]
-public class GameData
-{
+public class GameData {
     public List<ResourcesData> resources;
     public List<FractionData> fractions;
     public List<DeckData> decks;
 
-    public GameData()
-    {
-        this.resources = new List<ResourcesData>();
-        this.fractions = new List<FractionData>();
-        this.decks = new List<DeckData>();
+    public GameData () {
+        this.resources = new List<ResourcesData> ();
+        this.fractions = new List<FractionData> ();
+        this.decks = new List<DeckData> ();
     }
 
-    public override string ToString()
-    {
+    public override string ToString () {
         string str = "\n---GAMEDATA---\n";
         str += "\n---ResourcesData---\n";
-        foreach (ResourcesData r in resources)
-        {
-            str += r.ToString();
+        foreach (ResourcesData r in resources) {
+            str += r.ToString ();
             str += "---------------------\n";
         }
         str += "---------------------\n";
 
         str += "\n---FractionData---\n";
-        foreach (FractionData f in fractions)
-        {
-            str += f.ToString();
+        foreach (FractionData f in fractions) {
+            str += f.ToString ();
             str += "---------------------\n";
         }
         str += "---------------------\n";
 
         str += "\n---DeckData---\n";
-        foreach (DeckData d in decks)
-        {
-            str += d.ToString();
+        foreach (DeckData d in decks) {
+            str += d.ToString ();
             str += "---------------------\n";
         }
         str += "---------------------\n";
@@ -133,48 +114,42 @@ public class GameData
 }
 
 [System.Serializable]
-public class GameState
-{
+public class GameState {
     public List<PlayerData> players;
     public List<DeckData> decks;
     public List<CardData> removedCards;
     public int roundCounter;
     public int playerIdTurn;
 
-    public GameState()
-    {
-        this.players = new List<PlayerData>();
-        this.decks = new List<DeckData>();
-        this.removedCards = new List<CardData>();
+    public GameState () {
+        this.players = new List<PlayerData> ();
+        this.decks = new List<DeckData> ();
+        this.removedCards = new List<CardData> ();
         this.roundCounter = 0;
         this.playerIdTurn = 0;
     }
 
-    public override string ToString()
-    {
+    public override string ToString () {
         string str = "\n---GameState---\n";
         str += "Round: " + roundCounter + "\n";
         str += "Player turn: " + playerIdTurn + "\n";
         str += "\n---PlayersData---\n";
-        foreach (PlayerData p in players)
-        {
-            str += p.ToString();
+        foreach (PlayerData p in players) {
+            str += p.ToString ();
             str += "---------------------\n";
         }
         str += "---------------------\n";
 
         str += "\n---DeckData---\n";
-        foreach (DeckData d in decks)
-        {
-            str += d.ToString();
+        foreach (DeckData d in decks) {
+            str += d.ToString ();
             str += "---------------------\n";
         }
         str += "---------------------\n";
 
         str += "\n---RemovedCards---\n";
-        foreach (CardData c in removedCards)
-        {
-            str += c.ToString();
+        foreach (CardData c in removedCards) {
+            str += c.ToString ();
             str += "---------------------\n";
         }
         str += "---------------------\n";
@@ -184,8 +159,7 @@ public class GameState
 }
 
 [System.Serializable]
-public class PlayerData
-{
+public class PlayerData {
     public int playerId;
     public string name;
     public int fractionId;
@@ -195,53 +169,47 @@ public class PlayerData
     public List<CardData> cardsInBoard;
     public List<CardData> cardsInContract;
 
-    public PlayerData(int playerId, string name, int fractionId)
-    {
+    public PlayerData (int playerId, string name, int fractionId) {
         this.playerId = playerId;
         this.name = name;
         this.fractionId = fractionId;
 
-        playerResources = new Dictionary<int, int>();
-        playerResourcesGrowth = new Dictionary<int, int>();
-        cardsInHand = new List<CardData>();
-        cardsInBoard = new List<CardData>();
-        cardsInContract = new List<CardData>();
+        playerResources = new Dictionary<int, int> ();
+        playerResourcesGrowth = new Dictionary<int, int> ();
+        cardsInHand = new List<CardData> ();
+        cardsInBoard = new List<CardData> ();
+        cardsInContract = new List<CardData> ();
 
-        Debug.Log("CREATE PLAYER : " + ToString());
+        Debug.Log ("CREATE PLAYER : " + ToString ());
     }
 
-    public override string ToString()
-    {
+    public override string ToString () {
         string str = "\n---PlayerData---\n";
         str += "Player: #" + playerId + " " + name + "\n";
         str += "Fraction: " + fractionId + "\n";
         str += "\n---RESOURCES---\n";
-        foreach (var pair in playerResources)
-        {
+        foreach (var pair in playerResources) {
             str += pair.Key + " : " + pair.Value;
 
         }
         str += "---------------------\n";
         str += "\n---CardsInHand---\n";
-        foreach (CardData c in cardsInHand)
-        {
-            str += c.ToString();
+        foreach (CardData c in cardsInHand) {
+            str += c.ToString ();
             str += "---------------------\n";
         }
         str += "---------------------\n";
 
         str += "\n---CardsInBoard---\n";
-        foreach (CardData c in cardsInBoard)
-        {
-            str += c.ToString();
+        foreach (CardData c in cardsInBoard) {
+            str += c.ToString ();
             str += "---------------------\n";
         }
         str += "---------------------\n";
 
         str += "\n---CardsInContract---\n";
-        foreach (CardData c in cardsInContract)
-        {
-            str += c.ToString();
+        foreach (CardData c in cardsInContract) {
+            str += c.ToString ();
             str += "---------------------\n";
         }
         str += "---------------------\n";
@@ -249,52 +217,43 @@ public class PlayerData
         return str;
     }
 
-    public void ProductResources()
-    {
-        foreach (ResourcesData r in GameDataController.instance.gameData.resources)
-        {
+    public void ProductResources () {
+        foreach (ResourcesData r in GameDataController.instance.gameData.resources) {
             playerResources[r.resourcesId] += playerResourcesGrowth[r.resourcesId];
         }
     }
 }
 
 [System.Serializable]
-public class DeckData
-{
+public class DeckData {
     public int fractionId;
     public List<CardData> cards;
 
-    public DeckData()
-    {
+    public DeckData () {
         this.fractionId = 0;
-        this.cards = new List<CardData>();
+        this.cards = new List<CardData> ();
     }
 
-    public DeckData(int fractionId)
-    {
+    public DeckData (int fractionId) {
         this.fractionId = fractionId;
-        this.cards = new List<CardData>();
+        this.cards = new List<CardData> ();
     }
 
-    public DeckData(int fractionId, List<CardData> cards)
-    {
+    public DeckData (int fractionId, List<CardData> cards) {
         this.fractionId = fractionId;
         this.cards = cards;
     }
 
-    public void AddCard(CardData card)
-    {
-        cards.Add(card);
+    public void AddCard (CardData card) {
+        cards.Add (card);
     }
 
-    public override string ToString()
-    {
+    public override string ToString () {
         string str = "\n---DeckData---\n";
         str += "Fraction: " + fractionId + "\n";
         str += "\n---Cards---\n";
-        foreach (CardData c in cards)
-        {
-            str += c.ToString();
+        foreach (CardData c in cards) {
+            str += c.ToString ();
             str += "---------------------\n";
         }
         str += "---------------------\n";
@@ -304,35 +263,30 @@ public class DeckData
 }
 
 [System.Serializable]
-public class FractionData
-{
+public class FractionData {
     public int fractionId;
     public string fractionName;
     public List<int> resourceGrowthMatrix;
     public List<int> remainingResourcesMatrix;
 
-    public FractionData()
-    {
+    public FractionData () {
         fractionId = 0;
         fractionName = "New Fraction";
         resourceGrowthMatrix = new List<int> { 0 };
         remainingResourcesMatrix = new List<int> { 0 };
     }
 
-    public override string ToString()
-    {
+    public override string ToString () {
         string str = "\n---FractionData---\n";
         str += "Fraction Id  : " + fractionId + "\n";
         str += "Fraction name: " + fractionName + "\n";
         str += "resourceGrowthMatrix: [ ";
-        foreach (int i in resourceGrowthMatrix)
-        {
+        foreach (int i in resourceGrowthMatrix) {
             str += i + " ";
         }
         str += "]\n";
         str += "remainingResourcesMatrix: [ ";
-        foreach (int i in remainingResourcesMatrix)
-        {
+        foreach (int i in remainingResourcesMatrix) {
             str += i + " ";
         }
         str += "]\n";
@@ -341,19 +295,16 @@ public class FractionData
 }
 
 [System.Serializable]
-public class ResourcesData
-{
+public class ResourcesData {
     public int resourcesId;
     public string resourcesName;
 
-    public ResourcesData()
-    {
+    public ResourcesData () {
         resourcesId = 0;
         resourcesName = "New Resource";
     }
 
-    public override string ToString()
-    {
+    public override string ToString () {
         string str = "\n---ResourcesData---\n";
         str += "Resource Id  : " + resourcesId + "\n";
         str += "Resource name: " + resourcesName + "\n";
@@ -362,8 +313,7 @@ public class ResourcesData
 }
 
 [System.Serializable]
-public class CardData
-{
+public class CardData {
     public int cardId;
     public string cardName;
     public string description;
@@ -375,8 +325,7 @@ public class CardData
     public List<int> gain;
     public int image;
 
-    public CardData()
-    {
+    public CardData () {
         cardId = 0;
         cardName = "New Card";
         description = ".......";
@@ -389,8 +338,7 @@ public class CardData
         image = 0;
     }
 
-    public override string ToString()
-    {
+    public override string ToString () {
         string str = "#" +
             cardId + " " +
             cardName + " <" +
@@ -400,13 +348,11 @@ public class CardData
             actionType + " " +
             contract + " ";
         str += "[ ";
-        foreach (int c in cost)
-        {
+        foreach (int c in cost) {
             str += c + " ";
         }
         str += "] [ ";
-        foreach (int g in gain)
-        {
+        foreach (int g in gain) {
             str += g + " ";
         }
         str += "] " + image;

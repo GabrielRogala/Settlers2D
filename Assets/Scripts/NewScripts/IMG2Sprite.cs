@@ -1,11 +1,8 @@
-﻿using UnityEngine;
-using System.Collections;
+﻿using System.Collections;
 using System.IO;
+using UnityEngine;
 
-
-public class IMG2Sprite
-{
-
+public class IMG2Sprite {
 
     // This script loads a PNG or JPEG image from disk and returns it as a Sprite
     // Drop it on any GameObject/Camera in your scene (singleton implementation)
@@ -15,31 +12,27 @@ public class IMG2Sprite
 
     private static IMG2Sprite _instance;
 
-    public static IMG2Sprite instance
-    {
-        get
-        {
+    public static IMG2Sprite instance {
+        get {
             //If _instance hasn't been set yet, we grab it from the scene!
             //This will only happen the first time this reference is used.
 
             if (_instance == null)
-                _instance = new IMG2Sprite();
+                _instance = new IMG2Sprite ();
             return _instance;
         }
     }
 
-    public Sprite LoadNewSprite(string FilePath, float PixelsPerUnit = 100.0f, SpriteMeshType spriteType = SpriteMeshType.Tight)
-    {
+    public Sprite LoadNewSprite (string FilePath, float PixelsPerUnit = 100.0f, SpriteMeshType spriteType = SpriteMeshType.Tight) {
         // Load a PNG or JPG image from disk to a Texture2D, assign this texture to a new sprite and return its reference
         //Sprite NewSprite = Resources.Load<Sprite>(FilePath);
-        Texture2D SpriteTexture = LoadTexture(FilePath);
-        Sprite NewSprite = Sprite.Create(SpriteTexture, new Rect(0, 0, SpriteTexture.width, SpriteTexture.height), new Vector2(0, 0), PixelsPerUnit, 0, spriteType);
+        Texture2D SpriteTexture = LoadTexture (FilePath);
+        Sprite NewSprite = Sprite.Create (SpriteTexture, new Rect (0, 0, SpriteTexture.width, SpriteTexture.height), new Vector2 (0, 0), PixelsPerUnit, 0, spriteType);
 
         return NewSprite;
     }
 
-    public Texture2D LoadTexture(string FilePath)
-    {
+    public Texture2D LoadTexture (string FilePath) {
 
         // Load a PNG or JPG file from disk to a Texture2D
         // Returns null if load fails
@@ -47,13 +40,12 @@ public class IMG2Sprite
         Texture2D Tex2D;
         byte[] FileData;
 
-        if (File.Exists(FilePath))
-        {
-            FileData = File.ReadAllBytes(FilePath);
-            Tex2D = new Texture2D(2, 2);           // Create new "empty" texture
-            if (Tex2D.LoadImage(FileData))           // Load the imagedata into the texture (size is set automatically)
-                return Tex2D;                 // If data = readable -> return texture
+        if (File.Exists (FilePath)) {
+            FileData = File.ReadAllBytes (FilePath);
+            Tex2D = new Texture2D (2, 2); // Create new "empty" texture
+            if (Tex2D.LoadImage (FileData)) // Load the imagedata into the texture (size is set automatically)
+                return Tex2D; // If data = readable -> return texture
         }
-        return null;                     // Return null if load failed
+        return null; // Return null if load failed
     }
 }

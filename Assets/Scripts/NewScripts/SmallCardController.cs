@@ -3,88 +3,76 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class SmallCardController : CardDataViewer, IPointerClickHandler
-{
+public class SmallCardController : CardDataViewer, IPointerClickHandler {
     public int _playerId;
 
-    public SmallCardController(CardData card) : base(card)
-    {
+    public SmallCardController (CardData card) : base (card) { }
+
+    public void OnPointerClick (PointerEventData eventData) {
+        Debug.Log ("Show big size card");
+        CardViewer.instance.ShowFullSizeCard(this);
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log("Show big size card");
-    }
-
-    public void BuildCard()
-    {
-        Debug.Log("BuildCard");
-        switch (_card.actionType)
-        {
-            case 1: { // production card
-                    ExecuteProduction();
-                    ExecuteProductionAfterBuild();
-                    SubscribeToProduction();
+    public void BuildCard () {
+        Debug.Log ("BuildCard");
+        switch (_card.actionType) {
+            case 1:
+                { // production card
+                    ExecuteProduction ();
+                    ExecuteProductionAfterBuild ();
+                    SubscribeToProduction ();
                     break;
                 }
             case 2: // trait card
                 {
-                    ExecuteProductionAfterBuild();
-                    SubscribeToTraitAction();
+                    ExecuteProductionAfterBuild ();
+                    SubscribeToTraitAction ();
                     break;
                 }
             case 3: // action card
                 {
-                    ExecuteProductionAfterBuild();
+                    ExecuteProductionAfterBuild ();
                     break;
                 }
-            default: { break; }
+            default:
+                { break; }
         }
- 
+
     }
 
-    public void AddCardToContracts()
-    {
-        Debug.Log("AddCardToContracts");
+    public void AddCardToContracts () {
+        Debug.Log ("AddCardToContracts");
     }
 
-    public void PlunderCard()
-    {
-        Debug.Log("PlunderCard");
+    public void PlunderCard () {
+        Debug.Log ("PlunderCard");
     }
 
-    public void TributeCard()
-    {
-        Debug.Log("TributeCard");
+    public void TributeCard () {
+        Debug.Log ("TributeCard");
     }
 
-    public void ExecuteAction()
-    {
-        Debug.Log("ExecuteAction");
+    public void ExecuteAction () {
+        Debug.Log ("ExecuteAction");
     }
 
-    public void ExecuteProduction()
-    {
-        Debug.Log("ExecuteProduction");
+    public void ExecuteProduction () {
+        Debug.Log ("ExecuteProduction");
     }
 
-    public void ExecuteProductionAfterBuild()
-    {
-        Debug.Log("ExecuteProductionAfterBuild");
+    public void ExecuteProductionAfterBuild () {
+        Debug.Log ("ExecuteProductionAfterBuild");
     }
 
-    public void ExecuteTraitAction()
-    {
-        Debug.Log("ExecuteTraitAction");
+    public void ExecuteTraitAction () {
+        Debug.Log ("ExecuteTraitAction");
     }
 
-    public void SubscribeToTraitAction()
-    {
-        Debug.Log("SubscribeToTraitAction");
+    public void SubscribeToTraitAction () {
+        Debug.Log ("SubscribeToTraitAction");
     }
 
-    public void SubscribeToProduction()
-    {
-        Debug.Log("SubscribeToProduction");
+    public void SubscribeToProduction () {
+        Debug.Log ("SubscribeToProduction");
     }
 }

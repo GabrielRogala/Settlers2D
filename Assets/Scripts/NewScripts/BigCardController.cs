@@ -6,48 +6,46 @@ using UnityEngine.EventSystems;
 /// <summary>
 /// Temporary object only for some actions performed
 /// </summary>
-public class BigCardController : CardDataViewer, IPointerClickHandler
-{
-    SmallCardController _cardController;
+public class BigCardController : CardDataViewer, IPointerClickHandler {
+    public SmallCardController _cardController;
 
-    public BigCardController(SmallCardController cardController, CardData card) : base(card)
-    {
+    public BigCardController (SmallCardController cardController, CardData card) : base (card) {
         _cardController = cardController;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
-    {
-        Debug.Log("Hide big size card");
+    public void OnPointerClick (PointerEventData eventData) {
+        CardViewer.instance.HideFullSizeCard();
+        Debug.Log ("Hide big size card");
     }
 
-    public void BuildCard() // OnButtonClick
+    public void BuildCard () // OnButtonClick
     {
-        _cardController.BuildCard();
+        _cardController.BuildCard ();
     }
 
-    public void AddCardToContracts() // OnButtonClick
+    public void AddCardToContracts () // OnButtonClick
     {
-        _cardController.AddCardToContracts();
+        _cardController.AddCardToContracts ();
     }
 
-    public void PlunderCard() // OnButtonClick
+    public void PlunderCard () // OnButtonClick
     {
-        _cardController.PlunderCard();
+        _cardController.PlunderCard ();
     }
 
-    public void TributeCard() // Confirmation required to perform the action
+    public void TributeCard () // Confirmation required to perform the action
     {
-        _cardController.TributeCard();
+        _cardController.TributeCard ();
     }
 
-    public void ExecuteAction() // OnButtonClick
+    public void ExecuteAction () // OnButtonClick
     {
-        _cardController.ExecuteAction();
+        _cardController.ExecuteAction ();
     }
 
-    public void ExecuteTraitAction() // Confirmation required to perform the action
+    public void ExecuteTraitAction () // Confirmation required to perform the action
     {
-        _cardController.ExecuteTraitAction();
+        _cardController.ExecuteTraitAction ();
     }
 
 }

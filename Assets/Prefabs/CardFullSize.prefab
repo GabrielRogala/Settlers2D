@@ -301,7 +301,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2954604593131415922}
         m_MethodName: TributeCard
         m_Mode: 1
         m_Arguments:
@@ -518,6 +518,7 @@ MonoBehaviour:
     cost: 00000000
     gain: 00000000
     image: 0
+  _cardController: {fileID: 0}
 --- !u!1 &1140363079953947581
 GameObject:
   m_ObjectHideFlags: 0
@@ -940,8 +941,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_MethodName: AddToContractsCard
+      - m_Target: {fileID: 2954604593131415922}
+        m_MethodName: AddCardToContracts
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2013,7 +2014,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2954604593131415922}
         m_MethodName: PlunderCard
         m_Mode: 1
         m_Arguments:
@@ -2448,7 +2449,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 2954604593131415922}
         m_MethodName: BuildCard
         m_Mode: 1
         m_Arguments:

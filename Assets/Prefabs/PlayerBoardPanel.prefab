@@ -118,8 +118,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 3139567985346095036}
   m_HandleRect: {fileID: 8311005355544061884}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 1
+  m_Value: 0.5
+  m_Size: 0.98478264
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -605,13 +605,6 @@ MonoBehaviour:
   - {fileID: 2817874248214738909}
   _playerInfoPanel: {fileID: 5303296542333218894}
   _contractsPanel: {fileID: 5990118859290772644}
-  _playerData:
-    playerId: 0
-    name: 
-    fractionId: 0
-    cardsInHand: []
-    cardsInBoard: []
-    cardsInContract: []
 --- !u!1 &3256641414062366915
 GameObject:
   m_ObjectHideFlags: 0
@@ -1533,7 +1526,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1297471112228681761}
   m_Direction: 0
   m_Value: 0.5
-  m_Size: 0.91545457
+  m_Size: 0.74454546
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6418646432319265428}
   - component: {fileID: 6418646432319265435}
   - component: {fileID: 6418646432319265434}
-  - component: {fileID: 7391025648879769393}
+  - component: {fileID: 5252525442973185140}
   m_Layer: 5
   m_Name: Deck
   m_TagString: Untagged
@@ -133,7 +133,7 @@ MonoBehaviour:
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
---- !u!114 &7391025648879769393
+--- !u!114 &5252525442973185140
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,14 +142,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 6418646432319265432}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9658362fa9fa1074ab8edac533a74abe, type: 3}
+  m_Script: {fileID: 11500000, guid: c23219b266005294c8ce50e079c9d8c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   _cardBackground: {fileID: 6418646432319265435}
   _cardCounter: {fileID: 6418646433438995994}
-  _deckData:
-    fractionId: 0
-    cards: []
+  _cardPrefab: {fileID: 5790911702866047121, guid: b9b5978d748208e43a8d3b9d37503feb,
+    type: 3}
+  _dropzone: {fileID: 0}
+  _playerController: {fileID: 0}
 --- !u!1 &6418646433438995992
 GameObject:
   m_ObjectHideFlags: 0
