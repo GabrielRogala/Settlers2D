@@ -13,7 +13,7 @@ public class PlayerBoardTabController : MonoBehaviour {
             c.SetActive (false);
         }
         _content.SetActive (true);
-        //GameHandler.instance.PlayersResourcesUpdate();
+        GameController.instance.UpdatePlayersResources();
     }
 
 }

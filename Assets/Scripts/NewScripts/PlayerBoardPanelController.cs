@@ -35,4 +35,8 @@ public class PlayerBoardPanelController : MonoBehaviour {
         card.transform.SetParent (_contractsPanel.transform);
         card.transform.Rotate (new Vector3 (0, 0, 180));
     }
+
+    public void UpdatePlayerResources(){
+        _playerInfoPanel.GetComponent<PlayerResourcesController>().UpdateResources();
+    }
 }

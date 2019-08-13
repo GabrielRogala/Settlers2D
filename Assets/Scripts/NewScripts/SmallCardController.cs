@@ -15,41 +15,47 @@ public class SmallCardController : CardDataViewer, IPointerClickHandler {
 
     public void BuildCard () {
         Debug.Log ("BuildCard");
-        switch (_card.actionType) {
-            case 1:
-                { // production card
-                    ExecuteProduction ();
-                    ExecuteProductionAfterBuild ();
-                    SubscribeToProduction ();
-                    break;
-                }
-            case 2: // trait card
-                {
-                    ExecuteProductionAfterBuild ();
-                    SubscribeToTraitAction ();
-                    break;
-                }
-            case 3: // action card
-                {
-                    ExecuteProductionAfterBuild ();
-                    break;
-                }
-            default:
-                { break; }
+        if(GameController.instance.BuildCard(_playerId,this)){
+            switch (_card.actionType) {
+                case 1:
+                    { // production card
+                        ExecuteProduction ();
+                        ExecuteProductionAfterBuild ();
+                        SubscribeToProduction ();
+                        break;
+                    }
+                case 2: // trait card
+                    {
+                        ExecuteProductionAfterBuild ();
+                        SubscribeToTraitAction ();
+                        break;
+                    }
+                case 3: // action card
+                    {
+                        ExecuteProductionAfterBuild ();
+                        break;
+                    }
+                default:
+                    { break; }
+            }   
         }
 
+        
     }
 
     public void AddCardToContracts () {
         Debug.Log ("AddCardToContracts");
+        GameController.instance.AddCardToContract(_playerId,this);
     }
 
     public void PlunderCard () {
         Debug.Log ("PlunderCard");
+        GameController.instance.PlunderCard(_playerId,this);
     }
 
     public void TributeCard () {
         Debug.Log ("TributeCard");
+        GameController.instance.TributeCard(_playerId,this);
     }
 
     public void ExecuteAction () {

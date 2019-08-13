@@ -189,8 +189,7 @@ public class PlayerData {
         str += "Fraction: " + fractionId + "\n";
         str += "\n---RESOURCES---\n";
         foreach (var pair in playerResources) {
-            str += pair.Key + " : " + pair.Value;
-
+            str += pair.Key + " : " + pair.Value + " | ";
         }
         str += "---------------------\n";
         str += "\n---CardsInHand---\n";

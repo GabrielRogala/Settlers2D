@@ -17,4 +17,10 @@ public class PlayerResourcesController : MonoBehaviour {
             }
         }
     }
+
+    public void UpdateResources(){
+        foreach (ResourcePanelController r in _resourceContainer.GetComponentsInChildren<ResourcePanelController>()) {
+            r.UpdatePanelData();
+        }
+    }
 }
