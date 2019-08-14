@@ -55,7 +55,45 @@ public class GameController : MonoBehaviour {
 
     // Update is called once per frame
     void Update () {
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            StartGame();
+        }
 
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            ChangePlayersTurn();
+        }
+
+        if (Input.GetKeyDown(KeyCode.N))
+        {
+            NextRound();
+        }
+    }
+
+    void StartGame(){
+        ChangePlayersTurn();
+        ProductionStage();
+        UpdatePlayersResources();
+    }
+
+    void NextRound(){
+        ProductionStage();
+        UpdatePlayersResources();
+    }
+
+    void ChangePlayersTurn(){
+        if(GameDataController.instance.gameState.playerIdTurn == _playerControllers.Count){
+            GameDataController.instance.gameState.playerIdTurn = 1; // first player Id
+        }else{
+            GameDataController.instance.gameState.playerIdTurn++;
+        }
+        Debug.Log("Player #"+GameDataController.instance.gameState.playerIdTurn + " turn");
+        Debug.Log(_playerControllers[GameDataController.instance.gameState.playerIdTurn-1]._playerData.ToString());
+    }
+
+    public bool IsPlayerTurn(int playerId){
+        return playerId == GameDataController.instance.gameState.playerIdTurn;
     }
 
     void InitDecks (List<DeckData> decks) {
@@ -70,8 +108,8 @@ public class GameController : MonoBehaviour {
             var resources = GameDataController.instance.gameData.fractions[p.fractionId].resourceGrowthMatrix;
             int i = 0;
             foreach (int r in resources) {
-                //p.playerResourcesGrowth.Add(i, r);
-                p.playerResourcesGrowth.Add (i, 10);
+                p.playerResourcesGrowth.Add(i, r);
+                //p.playerResourcesGrowth.Add (i, 10);
                 p.playerResources.Add (i, 0);
                 i++;
             }
@@ -159,6 +197,16 @@ public class GameController : MonoBehaviour {
         }
     }
 
+    void ProductionStage() {
+        foreach(PlayerController p in _playerControllers)
+        {
+            foreach(ResourcesData r in GameDataController.instance.gameData.resources)
+            {
+                p._playerData.playerResources[r.resourcesId] += p._playerData.playerResourcesGrowth[r.resourcesId];
+            }
+        }
+    }
+
     public bool IsAbleToBuild(int playerId, SmallCardController card){
                 
         // Dictionary<int, int> cost = new Dictionary<int, int>();
@@ -188,6 +236,7 @@ public class GameController : MonoBehaviour {
         return true;
     }
 
+    /// ChangePlayersTurn
     public bool BuildCard(int playerId, SmallCardController card)
     {
         Debug.Log("BuildCard " + playerId + " | "+ card._card.ToString());
@@ -195,9 +244,6 @@ public class GameController : MonoBehaviour {
         {
             foreach(int resource in card._card.cost)
             {
-                Debug.Log("cost "+resource);
-                Debug.Log("pc count "+_playerControllers.Count);
-                Debug.Log(_playerControllers[playerId-1]._playerData.ToString());
                 _playerControllers[playerId-1]._playerData.playerResources[resource]--;
             }
             _playerControllers[playerId-1]._playerData.cardsInBoard.Add(card._card);
@@ -206,10 +252,11 @@ public class GameController : MonoBehaviour {
             _playerControllers[playerId-1].AddCardToBoard(card);
             CardViewer.instance.HideFullSizeCard();
             UpdatePlayersResources();
+            ChangePlayersTurn();
             return true;     
         }
 
-        // PlayersResourcesUpdate();
+        ChangePlayersTurn();
         return false;
     }
 
@@ -221,6 +268,7 @@ public class GameController : MonoBehaviour {
         _playerControllers[playerId-1]._playerData.playerResources[resourceId] += value;
     }
 
+    ///ChangePlayersTurn
     public void PlunderCard(int playerId, SmallCardController card){
         IncreasePlayerResource(playerId,4,-1); // cost 1 PILLAGE
         foreach(int r in card._card.gain){
@@ -229,8 +277,9 @@ public class GameController : MonoBehaviour {
         CardViewer.instance.HideFullSizeCard();
         Destroy(card.gameObject);
         UpdatePlayersResources();
+        ChangePlayersTurn();
     }
-
+    
     public void TributeCard(int playerId, SmallCardController card){
         IncreasePlayerResource(playerId,9,1); // gain 1 FOUNDATION
         CardViewer.instance.HideFullSizeCard();
@@ -238,14 +287,17 @@ public class GameController : MonoBehaviour {
         UpdatePlayersResources();
     }
 
+    ///ChangePlayersTurn
     public void AddCardToContract(int playerId, SmallCardController card)
     {
         if(card._card.fractionType > 0){
             _playerControllers[playerId-1].AddCardToContract(card);
+            IncreasePlayerResource(playerId,6, -1); // cost 1 FOOD
             IncreasePlayerResource(playerId,card._card.contract,1);
             IncreasePlayerResourceInGrowthMatrix(playerId,card._card.contract,1);
             CardViewer.instance.HideFullSizeCard();
             UpdatePlayersResources();
+            ChangePlayersTurn();
         }
     }
 }

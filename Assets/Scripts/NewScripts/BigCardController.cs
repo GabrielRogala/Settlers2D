@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 /// <summary>
 /// Temporary object only for some actions performed
@@ -11,6 +12,22 @@ public class BigCardController : CardDataViewer, IPointerClickHandler {
 
     public BigCardController (SmallCardController cardController, CardData card) : base (card) {
         _cardController = cardController;
+    }
+
+    public void InitData(SmallCardController cardController)
+    {
+        _cardController = cardController;
+        _card = cardController._card;
+        Debug.Log("check player turn");
+        Debug.Log("playerId "+ cardController._playerId);
+        if (!GameController.instance.IsPlayerTurn(cardController._playerId))
+        {
+            Debug.Log("Is not player turn");
+            foreach (Button b in GetComponentsInChildren<Button>())
+            {
+                b.gameObject.SetActive(false);
+            }
+        }
     }
 
     public void OnPointerClick (PointerEventData eventData) {

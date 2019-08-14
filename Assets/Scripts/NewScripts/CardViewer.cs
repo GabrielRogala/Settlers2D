@@ -27,8 +27,7 @@ public class CardViewer : MonoBehaviour {
             isShowed = true;
         }
         fullSizeCard = Instantiate (m_fullSizeCardPrefab, m_parent) as GameObject;
-        fullSizeCard.GetComponent<BigCardController> ()._cardController = card;
-        fullSizeCard.GetComponent<BigCardController> ()._card = card._card;
+        fullSizeCard.GetComponent<BigCardController> ().InitData(card);
     }
 
     public void HideFullSizeCard () {
