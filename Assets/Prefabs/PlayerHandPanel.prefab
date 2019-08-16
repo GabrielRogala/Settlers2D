@@ -946,6 +946,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5057399712750866447}
     m_Modifications:
+    - target: {fileID: 6418646432319265432, guid: 33b9fdea108f4624591b900043ec4aa5,
+        type: 3}
+      propertyPath: m_Name
+      value: DefaultDeck
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252525442973185140, guid: 33b9fdea108f4624591b900043ec4aa5,
+        type: 3}
+      propertyPath: _dropzone
+      value: 
+      objectReference: {fileID: 6854158677909320208}
+    - target: {fileID: 5252525442973185140, guid: 33b9fdea108f4624591b900043ec4aa5,
+        type: 3}
+      propertyPath: _playerController
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6418646432319265433, guid: 33b9fdea108f4624591b900043ec4aa5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1051,16 +1066,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 6418646432319265432, guid: 33b9fdea108f4624591b900043ec4aa5,
-        type: 3}
-      propertyPath: m_Name
-      value: DefaultDeck
-      objectReference: {fileID: 0}
-    - target: {fileID: -4783140969714729652, guid: 33b9fdea108f4624591b900043ec4aa5,
-        type: 3}
-      propertyPath: m_dropZone
-      value: 
-      objectReference: {fileID: 6854158677909320223}
     - target: {fileID: 6418646432319265434, guid: 33b9fdea108f4624591b900043ec4aa5,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -1071,16 +1076,11 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: DrawCard
       objectReference: {fileID: 0}
-    - target: {fileID: 5252525442973185140, guid: 33b9fdea108f4624591b900043ec4aa5,
+    - target: {fileID: -4783140969714729652, guid: 33b9fdea108f4624591b900043ec4aa5,
         type: 3}
-      propertyPath: _dropzone
+      propertyPath: m_dropZone
       value: 
-      objectReference: {fileID: 6854158677909320208}
-    - target: {fileID: 5252525442973185140, guid: 33b9fdea108f4624591b900043ec4aa5,
-        type: 3}
-      propertyPath: _playerController
-      value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 6854158677909320223}
     m_RemovedComponents:
     - {fileID: 7391025648879769393, guid: 33b9fdea108f4624591b900043ec4aa5, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 33b9fdea108f4624591b900043ec4aa5, type: 3}
@@ -1245,6 +1245,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 5057399712750866447}
     m_Modifications:
+    - target: {fileID: 6418646432319265432, guid: 33b9fdea108f4624591b900043ec4aa5,
+        type: 3}
+      propertyPath: m_Name
+      value: FractionDeck
+      objectReference: {fileID: 0}
+    - target: {fileID: 5252525442973185140, guid: 33b9fdea108f4624591b900043ec4aa5,
+        type: 3}
+      propertyPath: _dropzone
+      value: 
+      objectReference: {fileID: 6854158677909320208}
+    - target: {fileID: 5252525442973185140, guid: 33b9fdea108f4624591b900043ec4aa5,
+        type: 3}
+      propertyPath: _playerController
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 6418646432319265433, guid: 33b9fdea108f4624591b900043ec4aa5,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1350,21 +1365,6 @@ PrefabInstance:
       propertyPath: m_Pivot.y
       value: 0.5
       objectReference: {fileID: 0}
-    - target: {fileID: 6418646432319265432, guid: 33b9fdea108f4624591b900043ec4aa5,
-        type: 3}
-      propertyPath: m_Name
-      value: FractionDeck
-      objectReference: {fileID: 0}
-    - target: {fileID: -4783140969714729652, guid: 33b9fdea108f4624591b900043ec4aa5,
-        type: 3}
-      propertyPath: m_dropZone
-      value: 
-      objectReference: {fileID: 6854158677909320223}
-    - target: {fileID: -4783140969714729652, guid: 33b9fdea108f4624591b900043ec4aa5,
-        type: 3}
-      propertyPath: m_fractionId
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6418646433438995994, guid: 33b9fdea108f4624591b900043ec4aa5,
         type: 3}
       propertyPath: m_Text
@@ -1380,15 +1380,15 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: DrawCard
       objectReference: {fileID: 0}
-    - target: {fileID: 5252525442973185140, guid: 33b9fdea108f4624591b900043ec4aa5,
+    - target: {fileID: -4783140969714729652, guid: 33b9fdea108f4624591b900043ec4aa5,
         type: 3}
-      propertyPath: _dropzone
+      propertyPath: m_dropZone
       value: 
-      objectReference: {fileID: 6854158677909320208}
-    - target: {fileID: 5252525442973185140, guid: 33b9fdea108f4624591b900043ec4aa5,
+      objectReference: {fileID: 6854158677909320223}
+    - target: {fileID: -4783140969714729652, guid: 33b9fdea108f4624591b900043ec4aa5,
         type: 3}
-      propertyPath: _playerController
-      value: 
+      propertyPath: m_fractionId
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 7391025648879769393, guid: 33b9fdea108f4624591b900043ec4aa5, type: 3}

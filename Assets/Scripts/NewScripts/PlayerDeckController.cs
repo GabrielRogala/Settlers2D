@@ -31,8 +31,13 @@ public class PlayerDeckController : MonoBehaviour {
     }
 
     public void DrawCard () {
-        AddCardToHand (_deckController.GetCard ());
-        GameController.instance.UpdateDecksCounter ();
+        //if(_playerController._playerData.playerResources[1] > 0)
+        {
+            AddCardToHand (_deckController.GetCard ());
+            _playerController._playerData.playerResources[1]--;
+            GameController.instance.UpdatePlayersResources();
+            GameController.instance.UpdateDecksCounter ();
+        }
     }
 
     public void UpdateDeckCounter () {
