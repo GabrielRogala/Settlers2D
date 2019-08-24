@@ -25,25 +25,30 @@ public class Server : MonoBehaviour
     private const int PORT = 26000;
     private const int WEB_PORT = 26001;
     private const int BYTE_SIZE = 1024;
-
     private string serwerIp = "127.0.0.1";
 
     private byte reliableChannel;
-    private int connectionId;
-    Dictionary<int, int> m_ConnectionHostIds = new Dictionary<int, int>();
-    private int hostId;
-    private int webHostId;
     private byte error;
-
     private bool isStarted;
     private bool isServer = false;
 
-    private List<string> playerList;
+    #region ServerData
+    private int hostId = -1;
+    private int webHostId = -1;
+    Dictionary<int, int> m_ConnectionHostIds = new Dictionary<int, int>();
+    Dictionary<int, PlayerConnectionData> m_PlayersConnectionData = new Dictionary<int, PlayerConnectionData>();
+    private List<string> playerList = new List<string>();
+    private int m_nextAvaliablePlayerId = 1;
+    #endregion
+
+    #region ClientData
+    private PlayerConnectionData m_ConnectionData = new PlayerConnectionData(0, 0, 0, "",0);
+    private int m_playerId;
+    #endregion
 
     #region MonoBehaviour
     void Start()
     {
-        playerList = new List<string>();
     }
     void Update()
     {
@@ -63,27 +68,27 @@ public class Server : MonoBehaviour
 
     public void OnSendToClient()
     {
-        Net_PlayerData pd = new Net_PlayerData("toClient");
-        if (m_ConnectionHostIds.ContainsKey(1))
-        {
-            SendToClient(m_ConnectionHostIds[1], 1, pd);
-        }
+        //Net_PlayerData pd = new Net_PlayerData("toClient");
+        //if (m_ConnectionHostIds.ContainsKey(1))
+        //{
+        //    SendToClient(m_ConnectionHostIds[1], 1, pd);
+        //}
 
     }
 
     public void OnSendToClients()
     {
-        Net_PlayerData pd = new Net_PlayerData("toClients");
-        foreach (KeyValuePair<int, int> pair in m_ConnectionHostIds)
-        {
-            SendToClient(pair.Value, pair.Key, pd);
-        }
+        //Net_PlayerData pd = new Net_PlayerData("toClients");
+        //foreach (KeyValuePair<int, int> pair in m_ConnectionHostIds)
+        //{
+        //    SendToClient(pair.Value, pair.Key, pd);
+        //}
     }
 
     public void OnSendToServer()
     {
-        Net_PlayerData pd = new Net_PlayerData("toSERVER");
-        SendToServer(pd);
+        //Net_PlayerData pd = new Net_PlayerData("toSERVER");
+        //SendToServer(pd);
     }
 
     #region ClientAction
@@ -99,6 +104,7 @@ public class Server : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         isServer = false;
         InitConnection();
+        PrintPlayerData();
     }
     #endregion
 
@@ -126,21 +132,19 @@ public class Server : MonoBehaviour
         else
         {
             // Client ONLY
-            hostId = NetworkTransport.AddHost(topo, 0);
-
+            m_ConnectionData.hostId = NetworkTransport.AddHost(topo, 0);
 #if !UNITY_WEBGL
             // standalone client
-            connectionId = NetworkTransport.Connect(hostId, serwerIp, PORT, 0, out error);
+            m_ConnectionData.connectionId = NetworkTransport.Connect(m_ConnectionData.hostId, serwerIp, PORT, 0, out error);
             Debug.Log(string.Format("Connecting from standalone"));
 #else
             // web client
-            connectionId = NetworkTransport.Connect(hostId, serwerIp, WEB_PORT, 0, out error);
+            m_ConnectionData.connectionId = NetworkTransport.Connect(m_ConnectionData.hostId, serwerIp, WEB_PORT, 0, out error);
             Debug.Log(string.Format("Connecting from web"));
 #endif
             Debug.Log(string.Format("Attempting to connect on {0}....", serwerIp));
 
             isStarted = true;
-
         }
     }
     private void Shutdown()
@@ -172,6 +176,11 @@ public class Server : MonoBehaviour
                 case NetworkEventType.ConnectEvent:
                     Debug.Log(string.Format("User {0} has connected has connected throught host {1}.", connectionId, recHostId));
                     m_ConnectionHostIds.Add(connectionId, recHostId);
+                    int newPlayerId = GetNextAvaliableId();
+                    m_PlayersConnectionData.Add(newPlayerId, new PlayerConnectionData(connectionId,recHostId,chanelId,"", newPlayerId));
+                    SetPlayerId(m_PlayersConnectionData[newPlayerId], newPlayerId);
+                    PrintPlayersList();
+                    UpdateLobby();
                     break;
 
                 case NetworkEventType.DisconnectEvent:
@@ -234,7 +243,7 @@ public class Server : MonoBehaviour
     #endregion
 
     #region OnData
-    private void OnData(int connectionId, int chanelId, int recHostId, NetMsg msg)
+    void OnData(int connectionId, int chanelId, int recHostId, NetMsg msg)
     {
         switch (msg.OperationCode)
         {
@@ -244,33 +253,59 @@ public class Server : MonoBehaviour
             case NetOP.SET_PLAYER_DATA:
                 OnSetPlayerData(connectionId, chanelId, recHostId, (Net_PlayerData)msg);
                 break;
+            case NetOP.SET_PLAYER_ID:
+                OnSetPlayerId(connectionId, chanelId, recHostId, (Net_PlayerId)msg);
+                break;
+            case NetOP.UPDATE_LOBBY:
+                OnUpdateLobby(connectionId, chanelId, recHostId, (Net_UpdateLobby)msg);
+                break;
+        }
+    }
+    
+    #region SERVER
+    void OnSetPlayerData(int connectionId, int chanelId, int recHostId, Net_PlayerData msg)
+    {
+        Debug.Log(string.Format("Set Player Data {0}", msg.playerName));
+        m_PlayersConnectionData[msg.playerId].playerName = msg.playerName;
+        UpdateLobby();
+    }
+    #endregion
+
+    #region CLINET
+    void OnSetPlayerId(int connectionId, int chanelId, int recHostId, Net_PlayerId msg)
+    {
+        Debug.Log(string.Format("Set Player id {0}", msg.playerId));
+        m_playerId = msg.playerId;
+        m_ConnectionData.playerId = msg.playerId;
+        PrintPlayerData();
+    }
+
+    void OnUpdateLobby(int connectionId, int chanelId, int recHostId, Net_UpdateLobby msg)
+    {
+        Debug.Log("LOBBY:");
+        foreach ( PlayerConnectionData p in msg.PlayersData)
+        {
+            Debug.Log(string.Format("player: {0}#{1} | conn:{2} host:{3} chan:{4}",
+                p.playerId, p.playerName, p.connectionId, p.hostId, p.chanelId));
         }
     }
 
-    private void OnSetPlayerData(int connectionId, int chanelId, int recHostId, Net_PlayerData msg)
-    {
-        Debug.Log(string.Format("Set Player Data {0}", msg.PlayerName));
-        //AddPlayer(msg.PlayerName);
-    }
-
     #endregion
-
-
+    #endregion
 
     #region Send
     public void SendToServer(NetMsg msg)
     {
-        Debug.Log(string.Format("Sent to server | host:{0} conId:{1}", hostId, connectionId));
+        Debug.Log(string.Format("Sent to server | host:{0} conId:{1}", m_ConnectionData.hostId, m_ConnectionData.connectionId));
         byte[] buffer = new byte[BYTE_SIZE];
 
         BinaryFormatter formatter = new BinaryFormatter();
         MemoryStream ms = new MemoryStream(buffer);
         formatter.Serialize(ms, msg);
 
-        NetworkTransport.Send(hostId, connectionId, reliableChannel, buffer, BYTE_SIZE, out error);
+        NetworkTransport.Send(m_ConnectionData.hostId, m_ConnectionData.connectionId, reliableChannel, buffer, BYTE_SIZE, out error);
 
     }
-
     public void SendToClient(int recHost, int connId, NetMsg msg)
     {
         Debug.Log(string.Format("Sent to client | host:{0} conId:{1}", recHost, connId));
@@ -290,21 +325,58 @@ public class Server : MonoBehaviour
 
 
     }
+    public void SendToAllClients(NetMsg msg)
+    {
+        foreach (KeyValuePair<int, int> pair in m_ConnectionHostIds)
+        {
+            SendToClient(pair.Value, pair.Key, msg);
+        }
+    }
     #endregion
 
     public void SetPlayerData(string playerName)
     {
-        Net_PlayerData pd = new Net_PlayerData(playerName);
+        m_ConnectionData.playerName = playerName;
+        PrintPlayerData();
+        Net_PlayerData pd = new Net_PlayerData(m_playerId,playerName);
         SendToServer(pd);
     }
 
-    private void AddPlayer(string playerName)
+    public void SetPlayerId(PlayerConnectionData player, int id)
     {
-        //playerList.Add(playerName);
-        //foreach (string s in playerList)
-        //{
-        //    Debug.Log(s);
-        //}
+        Net_PlayerId pi = new Net_PlayerId(id);
+        SendToClient(player.hostId, player.connectionId, pi);
+    }
+
+    public void UpdateLobby()
+    {
+        List<PlayerConnectionData> players = new List<PlayerConnectionData>();
+        players.AddRange(m_PlayersConnectionData.Values);
+
+        Net_UpdateLobby ul = new Net_UpdateLobby(players);
+        SendToAllClients(ul);
+    }
+
+    int GetNextAvaliableId()
+    {
+        return m_nextAvaliablePlayerId++;
+    }
+
+    void PrintPlayersList()
+    {
+        Debug.Log("LOBBY:");
+        foreach(KeyValuePair<int , PlayerConnectionData> p in m_PlayersConnectionData)
+        {
+            Debug.Log(string.Format("player: {0}#{1} | conn:{2} host:{3} chan:{4}",
+                p.Key,p.Value.playerName,p.Value.connectionId,p.Value.hostId,p.Value.chanelId));
+        }
+    }
+
+    void PrintPlayerData()
+    {
+        Debug.Log(string.Format("player: {0}#{1} | conn:{2} host:{3} chan:{4}",
+            m_playerId,m_ConnectionData.playerName,
+            m_ConnectionData.connectionId,m_ConnectionData.hostId,m_ConnectionData.chanelId));
     }
 }
 
@@ -316,13 +388,15 @@ public class PlayerConnectionData
     public int hostId;
     public int chanelId;
     public string playerName;
+    public int playerId;
 
-    public PlayerConnectionData(int connectionId, int hostId, int chanelId, string playerName)
+    public PlayerConnectionData(int connectionId, int hostId, int chanelId, string playerName, int playerId)
     {
         this.connectionId = connectionId;
         this.hostId = hostId;
         this.chanelId = chanelId;
         this.playerName = playerName;
+        this.playerId = playerId;
     }
 }
 
@@ -330,7 +404,8 @@ public static class NetOP
 {
     public const int NONE = 0;
     public const int SET_PLAYER_DATA = 1; // ATTR: NAME | send player name after connect
-    public const int UPDATE_LOBBY = 2; // BTC | ATTR: <playerName>
+    public const int SET_PLAYER_ID = 2; // BTC | ATTR: playerId
+    public const int UPDATE_LOBBY = 3; // BTC | ATTR: <playerName>
 
     public const int START_GAME_REQ = 1; // BTC |
     public const int START_GAME_CFM = 1;
@@ -384,26 +459,37 @@ public class NetMsg
 [System.Serializable]
 public class Net_PlayerData : NetMsg
 {
-    public Net_PlayerData(string name)
+    public Net_PlayerData(int id, string name)
     {
         OperationCode = NetOP.SET_PLAYER_DATA;
-        PlayerName = name;
+        playerId = id;
+        playerName = name;
     }
-
-    public string PlayerName;
-
+    public int playerId;
+    public string playerName;
 }
 
-//[System.Serializable]
-//public class Net_UpdateLobby : NetMsg
-//{
-//    public Net_UpdateLobby(List<PlayerConnectionData> players)
-//    {
-//        OperationCode = NetOP.UPDATE_LOBBY;
-//        PlayersData = players;
-//    }
+[System.Serializable]
+public class Net_PlayerId : NetMsg
+{
+    public Net_PlayerId(int id)
+    {
+        OperationCode = NetOP.SET_PLAYER_ID;
+        playerId = id;
+    }
+    public int playerId;
+}
 
-//    public List<PlayerConnectionData> PlayersData;
+[System.Serializable]
+public class Net_UpdateLobby : NetMsg
+{
+    public Net_UpdateLobby(List<PlayerConnectionData> players)
+    {
+        OperationCode = NetOP.UPDATE_LOBBY;
+        PlayersData = players;
+    }
 
-//}
+    public List<PlayerConnectionData> PlayersData;
+
+}
 #endregion
