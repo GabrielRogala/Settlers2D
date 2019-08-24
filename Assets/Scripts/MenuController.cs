@@ -10,17 +10,23 @@ public class MenuController : MonoBehaviour
 
     public void OnStartSerwer()
     {
-        Server.instance.SetPlayerData(playerName.text);
+        //Server.instance.SetPlayerData(playerName.text);
     }
 
     public void OnCreateSerwer()
     {
         Server.instance.CreateSerwer();
+        //Server.instance.SetPlayerData(playerName.text);
     }
 
     public void OnJoinToSerwer()
     {
         Server.instance.JoinToSerwer(serwerIp.text);
+
+    }
+
+    public void OnSetPlayerData()
+    {
         Server.instance.SetPlayerData(playerName.text);
     }
 

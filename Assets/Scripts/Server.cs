@@ -30,6 +30,7 @@ public class Server : MonoBehaviour
 
     private byte reliableChannel;
     private int connectionId;
+    Dictionary<int, int> m_ConnectionHostIds = new Dictionary<int, int>();
     private int hostId;
     private int webHostId;
     private byte error;
@@ -50,6 +51,41 @@ public class Server : MonoBehaviour
     }
     #endregion
 
+    public void OnMatchCreate()
+    {
+        CreateSerwer();
+    }
+
+    public void OnMatchJoined()
+    {
+        JoinToSerwer(serwerIp);
+    }
+
+    public void OnSendToClient()
+    {
+        Net_PlayerData pd = new Net_PlayerData("toClient");
+        if (m_ConnectionHostIds.ContainsKey(1))
+        {
+            SendToClient(m_ConnectionHostIds[1], 1, pd);
+        }
+
+    }
+
+    public void OnSendToClients()
+    {
+        Net_PlayerData pd = new Net_PlayerData("toClients");
+        foreach (KeyValuePair<int, int> pair in m_ConnectionHostIds)
+        {
+            SendToClient(pair.Value, pair.Key, pd);
+        }
+    }
+
+    public void OnSendToServer()
+    {
+        Net_PlayerData pd = new Net_PlayerData("toSERVER");
+        SendToServer(pd);
+    }
+
     #region ClientAction
     public void CreateSerwer()
     {
@@ -57,7 +93,6 @@ public class Server : MonoBehaviour
         isServer = true;
         InitConnection();
     }
-
     public void JoinToSerwer(string ip)
     {
         serwerIp = ip;
@@ -136,10 +171,12 @@ public class Server : MonoBehaviour
 
                 case NetworkEventType.ConnectEvent:
                     Debug.Log(string.Format("User {0} has connected has connected throught host {1}.", connectionId, recHostId));
+                    m_ConnectionHostIds.Add(connectionId, recHostId);
                     break;
 
                 case NetworkEventType.DisconnectEvent:
                     Debug.Log(string.Format("User {0} has disconnected.", connectionId));
+                    m_ConnectionHostIds.Remove(connectionId);
                     break;
                 case NetworkEventType.DataEvent:
                     BinaryFormatter formatter = new BinaryFormatter();
@@ -201,10 +238,10 @@ public class Server : MonoBehaviour
     {
         switch (msg.OperationCode)
         {
-            case NetOP.None:
+            case NetOP.NONE:
                 Debug.Log("Unexpected NetOP");
                 break;
-            case NetOP.SetPlayerData:
+            case NetOP.SET_PLAYER_DATA:
                 OnSetPlayerData(connectionId, chanelId, recHostId, (Net_PlayerData)msg);
                 break;
         }
@@ -213,23 +250,17 @@ public class Server : MonoBehaviour
     private void OnSetPlayerData(int connectionId, int chanelId, int recHostId, Net_PlayerData msg)
     {
         Debug.Log(string.Format("Set Player Data {0}", msg.PlayerName));
-        AddPlayer(msg.PlayerName);
+        //AddPlayer(msg.PlayerName);
     }
 
     #endregion
 
-    private void AddPlayer(string playerName)
-    {
-        playerList.Add(playerName);
-        foreach(string s in playerList)
-        {
-            Debug.Log(s);
-        }
-    }
+
 
     #region Send
-    public void SendServer(NetMsg msg)
+    public void SendToServer(NetMsg msg)
     {
+        Debug.Log(string.Format("Sent to server | host:{0} conId:{1}", hostId, connectionId));
         byte[] buffer = new byte[BYTE_SIZE];
 
         BinaryFormatter formatter = new BinaryFormatter();
@@ -240,14 +271,15 @@ public class Server : MonoBehaviour
 
     }
 
-    public void SendClient(int recHost, int connId, NetMsg msg)
+    public void SendToClient(int recHost, int connId, NetMsg msg)
     {
+        Debug.Log(string.Format("Sent to client | host:{0} conId:{1}", recHost, connId));
         byte[] buffer = new byte[BYTE_SIZE];
 
         BinaryFormatter formatter = new BinaryFormatter();
         MemoryStream ms = new MemoryStream(buffer);
         formatter.Serialize(ms, msg);
-        if(recHost == 0)
+        if (recHost == 0)
         {
             NetworkTransport.Send(hostId, connId, reliableChannel, buffer, BYTE_SIZE, out error);
         }
@@ -255,28 +287,87 @@ public class Server : MonoBehaviour
         {
             NetworkTransport.Send(webHostId, connId, reliableChannel, buffer, BYTE_SIZE, out error);
         }
-        
+
 
     }
+    #endregion
 
     public void SetPlayerData(string playerName)
     {
-        if (isServer) {
-            AddPlayer(playerName);
-        }
-        else
-        {
-            Net_PlayerData pd = new Net_PlayerData(playerName);
-            SendServer(pd);
-        }
+        Net_PlayerData pd = new Net_PlayerData(playerName);
+        SendToServer(pd);
     }
-    #endregion
+
+    private void AddPlayer(string playerName)
+    {
+        //playerList.Add(playerName);
+        //foreach (string s in playerList)
+        //{
+        //    Debug.Log(s);
+        //}
+    }
+}
+
+#region SERIALIZABLE
+[System.Serializable]
+public class PlayerConnectionData
+{
+    public int connectionId;
+    public int hostId;
+    public int chanelId;
+    public string playerName;
+
+    public PlayerConnectionData(int connectionId, int hostId, int chanelId, string playerName)
+    {
+        this.connectionId = connectionId;
+        this.hostId = hostId;
+        this.chanelId = chanelId;
+        this.playerName = playerName;
+    }
 }
 
 public static class NetOP
 {
-    public const int None = 0;
-    public const int SetPlayerData = 1;
+    public const int NONE = 0;
+    public const int SET_PLAYER_DATA = 1; // ATTR: NAME | send player name after connect
+    public const int UPDATE_LOBBY = 2; // BTC | ATTR: <playerName>
+
+    public const int START_GAME_REQ = 1; // BTC |
+    public const int START_GAME_CFM = 1;
+    public const int SET_FRACTION_ID = 1; // ATTR: fractionId
+
+    public const int DRAW_CARD_REQ = 1; // ATTR: playerId, fractionId
+    public const int DRAW_CARD_CFM = 1; // ATTR: cardId, fractionId
+
+    public const int UPDATE_PLAYERS_RESOURCES = 1; // BTC | ATTR: <playerId, <resources>, <resourcesGrowth>>
+
+    // card action
+    public const int BUILD_CARD_REQ = 1; // ATTR: playerId, cardId, fractionId
+    public const int BUILD_CARD_CFM = 1; // BTC | ATTR: playerId, cardId, fractionId
+    public const int BUILD_CARD_REJ = 1;
+
+    public const int PLOUNDER_CARD_REQ = 1; // ATTR: playerId, oponentId, cardId, fractionId
+    public const int PLOUNDER_CARD_CFM = 1; // BTC | ATTR: playerId, oponentId, cardId, fractionId
+    public const int PLOUNDER_CARD_REJ = 1;
+
+    public const int TRIBUTE_CARD_REQ = 1; // ATTR: playerId, cardId, fractionId
+    public const int TRIBUTE_CARD_CFM = 1; // BTC | ATTR: playerId, cardId, fractionId
+    public const int TRIBUTE_CARD_REJ = 1;
+
+    public const int CONTRACT_CARD_REQ = 1; // ATTR: playerId, cardId, fractionId
+    public const int CONTRACT_CARD_CFM = 1; // BTC | ATTR: playerId, cardId, fractionId
+    public const int CONTRACT_CARD_REJ = 1;
+
+    public const int DO_ACTION_CARD_REQ = 1; // ATTR: playerId, cardId, fractionId
+    // chose other card
+    // chose player
+    public const int DO_ACTION_CARD_CFM = 1; // BTC | ATTR: playerId, cardId, fractionId
+    public const int DO_ACTION_CARD_REJ = 1;
+
+    public const int CHANGE_WORKERS_TO_RESOURCE_REQ = 1; // ATTR: playerId, resourceId
+    public const int CHANGE_WORKERS_TO_RESOURCE_CFM = 1; // BTC | ATTR: playerId, resourceId
+    public const int CHANGE_WORKERS_TO_RESOURCE_REJ = 1;
+
 }
 
 [System.Serializable]
@@ -286,7 +377,7 @@ public class NetMsg
 
     public NetMsg()
     {
-        OperationCode = NetOP.None;
+        OperationCode = NetOP.NONE;
     }
 }
 
@@ -295,10 +386,24 @@ public class Net_PlayerData : NetMsg
 {
     public Net_PlayerData(string name)
     {
-        OperationCode = NetOP.SetPlayerData;
+        OperationCode = NetOP.SET_PLAYER_DATA;
         PlayerName = name;
     }
 
     public string PlayerName;
 
 }
+
+//[System.Serializable]
+//public class Net_UpdateLobby : NetMsg
+//{
+//    public Net_UpdateLobby(List<PlayerConnectionData> players)
+//    {
+//        OperationCode = NetOP.UPDATE_LOBBY;
+//        PlayersData = players;
+//    }
+
+//    public List<PlayerConnectionData> PlayersData;
+
+//}
+#endregion
