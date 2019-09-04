@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.IO;
 
 public class DataController {
     ////////////////////////////////////////////
@@ -21,10 +22,27 @@ public class DataController {
     private static string _dataPath = Application.dataPath;
 
     public static GameData LoadGameData () {
-        string filePath = _dataPath + "/" + _fileNameGameData;
 
-        if (System.IO.File.Exists (filePath)) {
-            string dataAsJson = System.IO.File.ReadAllText (filePath, System.Text.Encoding.GetEncoding ("Windows-1250"));
+        #if UNITY_EDITOR
+            string filePath = Path.Combine(Application.streamingAssetsPath, _fileNameGameData);
+#elif UNITY_IOS
+            string filePath = Path.Combine (Application.streamingAssetsPath + "/Raw", _fileNameGameData);
+#elif UNITY_ANDROID
+            string filePath = Path.Combine ("jar:file://" + Application.streamingAssetsPath + "!assets/", _fileNameGameData);
+#endif
+
+        if (File.Exists (filePath)) {
+
+            #if UNITY_EDITOR || UNITY_IOS
+                string dataAsJson = File.ReadAllText(filePath, System.Text.Encoding.GetEncoding("Windows-1250"));
+
+            #elif UNITY_ANDROID
+                WWW reader = new WWW (filePath);
+                while (!reader.isDone) {
+                }
+                string dataAsJson = reader.text;
+            #endif
+
             GameDataWrapper gameDataWrapper = JsonUtility.FromJson<GameDataWrapper> (dataAsJson);
             // Debug.Log(gameDataWrapper.gameData.ToString());
             return gameDataWrapper.gameData;
@@ -35,18 +53,36 @@ public class DataController {
     }
 
     public static void SaveGameData (GameData gameData) {
-        GameDataWrapper gameDataWrapper = new GameDataWrapper ();
-        gameDataWrapper.gameData = gameData;
-        string dataAsJson = JsonUtility.ToJson (gameDataWrapper);
-        string filePath = _dataPath + "/" + _fileNameGameData;
-        System.IO.File.WriteAllText (filePath, dataAsJson);
+        //GameDataWrapper gameDataWrapper = new GameDataWrapper ();
+        //gameDataWrapper.gameData = gameData;
+        //string dataAsJson = JsonUtility.ToJson (gameDataWrapper);
+        //string filePath = _dataPath + "/" + _fileNameGameData;
+        //System.IO.File.WriteAllText (filePath, dataAsJson);
     }
 
     public static GameState LoadGameState () {
-        string filePath = _dataPath + "/" + _fileNameGameState;
+#if UNITY_EDITOR
+        string filePath = Path.Combine(Application.streamingAssetsPath, _fileNameGameState);
 
-        if (System.IO.File.Exists (filePath)) {
-            string dataAsJson = System.IO.File.ReadAllText (filePath);
+#elif UNITY_IOS
+        string filePath = Path.Combine (Application.streamingAssetsPath + "/Raw", _fileNameGameState);
+ 
+#elif UNITY_ANDROID
+        string filePath = Path.Combine ("jar:file://" + Application.streamingAssetsPath + "!assets/", _fileNameGameState);
+ 
+#endif
+
+        if (File.Exists (filePath)) {
+
+#if UNITY_EDITOR || UNITY_IOS
+            string dataAsJson = File.ReadAllText(filePath, System.Text.Encoding.GetEncoding("Windows-1250"));
+
+#elif UNITY_ANDROID
+                WWW reader = new WWW (filePath);
+                while (!reader.isDone) {
+                }
+                string dataAsJson = reader.text;
+#endif
             GameStateWrapper gameStateWrapper = JsonUtility.FromJson<GameStateWrapper> (dataAsJson);
             return gameStateWrapper.gameState;
         } else {
@@ -56,11 +92,11 @@ public class DataController {
     }
 
     public static void SaveGameState (GameState gameData) {
-        GameStateWrapper gameStateWrapper = new GameStateWrapper ();
-        gameStateWrapper.gameState = gameData;
-        string dataAsJson = JsonUtility.ToJson (gameStateWrapper);
-        string filePath = _dataPath + "/" + _fileNameGameState;
-        System.IO.File.WriteAllText (filePath, dataAsJson);
+        //GameStateWrapper gameStateWrapper = new GameStateWrapper ();
+        //gameStateWrapper.gameState = gameData;
+        //string dataAsJson = JsonUtility.ToJson (gameStateWrapper);
+        //string filePath = _dataPath + "/" + _fileNameGameState;
+        //System.IO.File.WriteAllText (filePath, dataAsJson);
     }
 }
 

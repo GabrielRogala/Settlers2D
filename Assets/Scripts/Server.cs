@@ -6,6 +6,12 @@ using UnityEngine.Networking;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
+
+using System.Net;
+using System.Net.NetworkInformation;
+using System.Net.Sockets;
+using UnityEngine.SceneManagement;
+
 public class Server : MonoBehaviour
 {
     #region SINGLETON
@@ -35,9 +41,9 @@ public class Server : MonoBehaviour
     #region ServerData
     private int hostId = -1;
     private int webHostId = -1;
-    Dictionary<int, int> m_ConnectionHostIds = new Dictionary<int, int>();
-    Dictionary<int, PlayerConnectionData> m_PlayersConnectionData = new Dictionary<int, PlayerConnectionData>();
+    public Dictionary<int, PlayerConnectionData> m_PlayersConnectionData = new Dictionary<int, PlayerConnectionData>();
     private List<string> playerList = new List<string>();
+    private List<int> m_PlayersConfirmation = new List<int>();
     private int m_nextAvaliablePlayerId = 1;
     #endregion
 
@@ -123,7 +129,6 @@ public class Server : MonoBehaviour
 
                 case NetworkEventType.ConnectEvent:
                     Debug.Log(string.Format("User {0} has connected has connected throught host {1}.", connectionId, recHostId));
-                    //m_ConnectionHostIds.Add(connectionId, recHostId);
                     int newPlayerId = GetNextAvaliableId();
                     m_PlayersConnectionData.Add(newPlayerId, new PlayerConnectionData(connectionId, recHostId, chanelId, "", newPlayerId));
                     SetPlayerId(m_PlayersConnectionData[newPlayerId], newPlayerId);
@@ -230,7 +235,7 @@ public class Server : MonoBehaviour
 
         foreach (KeyValuePair<int, PlayerConnectionData> p in m_PlayersConnectionData)
         {
-            if (p.Value.playerId != m_playerId)
+            if (p.Value.playerId != m_ConnectionData.playerId)
             {
                 Debug.Log(string.Format(" Server send message to player: {0}#{1} | conn:{2} host:{3} chan:{4}",
                p.Key, p.Value.playerName, p.Value.connectionId, p.Value.hostId, p.Value.chanelId));
@@ -239,7 +244,7 @@ public class Server : MonoBehaviour
 
         }
 
-        if (m_PlayersConnectionData.ContainsKey(m_playerId))
+        if (m_PlayersConnectionData.ContainsKey(m_ConnectionData.playerId))
         {
             Debug.Log("Server internal message");
             OnData(0, 0, 0, msg);
@@ -249,7 +254,7 @@ public class Server : MonoBehaviour
 
     public void OnMatchCreate()
     {
-        CreateSerwer();
+        //CreateSerwer("ADMIN");
     }
 
     public void OnMatchJoined()
@@ -259,10 +264,10 @@ public class Server : MonoBehaviour
 
     public void OnSendToClient()
     {
-        //Net_PlayerData pd = new Net_PlayerData("toClient");
-        //if (m_ConnectionHostIds.ContainsKey(1))
+        //Net_Message pd = new Net_Message("message");
+        //if (m_PlayersConnectionData.ContainsKey(2))
         //{
-        //    SendToClient(m_ConnectionHostIds[1], 1, pd);
+        //    SendToClient(m_PlayersConnectionData[2].hostId, m_PlayersConnectionData[2].connectionId, pd);
         //}
 
     }
@@ -280,13 +285,13 @@ public class Server : MonoBehaviour
     }
 
     #region ClientAction
-    public void CreateSerwer()
+    public void CreateSerwer(string hostName)
     {
         DontDestroyOnLoad(gameObject);
         isServer = true;
         
         InitConnection();
-        AddHostedPlayer();
+        AddHostedPlayer(hostName);
         
     }
     public void JoinToSerwer(string ip)
@@ -303,6 +308,16 @@ public class Server : MonoBehaviour
         PrintPlayerData();
         Net_PlayerData pd = new Net_PlayerData(m_playerId, playerName);
         SendToServer(pd);
+    }
+    public void RunGameScene()
+    {
+        List<PlayerData> players = new List<PlayerData>();
+        foreach(KeyValuePair<int,PlayerConnectionData> p in m_PlayersConnectionData)
+        {
+            players.Add(new PlayerData(p.Value.playerId, p.Value.playerName, 1));
+        }
+        GameDataController.instance.InitGameData(players);
+        SceneManager.LoadScene("Scenes/GameScene");
     }
     #endregion
 
@@ -324,16 +339,38 @@ public class Server : MonoBehaviour
     {
         return m_nextAvaliablePlayerId++;
     }
-    void AddHostedPlayer()
+    void AddHostedPlayer(string hostname)
     {
         m_playerId = GetNextAvaliableId();
         m_ConnectionData.playerId = m_playerId;
-        m_ConnectionData.playerName = "SERVERADMIN";
+        m_ConnectionData.playerName = hostname;
         m_ConnectionData.hostId = -1;
         m_ConnectionData.connectionId = -1;
         m_ConnectionData.chanelId = -1;
 
         m_PlayersConnectionData.Add(m_ConnectionData.playerId, m_ConnectionData);
+    }
+    public void StartGame() {
+        m_PlayersConfirmation.Clear();
+        m_PlayersConfirmation.Add(m_ConnectionData.playerId);
+
+        List<PlayerConnectionData> players = new List<PlayerConnectionData>();
+        players.AddRange(m_PlayersConnectionData.Values);
+
+        Net_StartGameREQ sg = new Net_StartGameREQ(players);
+        SendToAllClients(sg);
+    }
+    bool IsAllPlayersConfirm()
+    {
+        foreach (KeyValuePair<int, PlayerConnectionData> p in m_PlayersConnectionData)
+        {
+            if (!m_PlayersConfirmation.Contains(p.Value.playerId))
+            {
+                return false;
+            }
+
+        }
+        return true;
     }
     #endregion
 
@@ -355,6 +392,15 @@ public class Server : MonoBehaviour
             case NetOP.UPDATE_LOBBY:
                 OnUpdateLobby(connectionId, chanelId, recHostId, (Net_UpdateLobby)msg);
                 break;
+            case NetOP.MESSAGE:
+                OnMessage(connectionId, chanelId, recHostId, (Net_Message)msg);
+                break;
+            case NetOP.START_GAME_REQ:
+                OnStartGameREQ(connectionId, chanelId, recHostId, (Net_StartGameREQ)msg);
+                break;
+            case NetOP.START_GAME_CFM:
+                OnStartGameCFM(connectionId, chanelId, recHostId, (Net_StartGameCFM)msg);
+                break;
         }
     }
 
@@ -365,11 +411,32 @@ public class Server : MonoBehaviour
         m_PlayersConnectionData[msg.playerId].playerName = msg.playerName;
         UpdateLobby();
     }
+    void OnStartGameCFM(int connectionId, int chanelId, int recHostId, Net_StartGameCFM msg)
+    {
+        if (!m_PlayersConfirmation.Contains(msg.PlayerId))
+        {
+            m_PlayersConfirmation.Add(msg.PlayerId);
+        }
+
+        if (IsAllPlayersConfirm()) {
+            RunGameScene();
+        }
+        
+    }
+
     #endregion
 
     #region CLINET
+    void OnMessage(int connectionId, int chanelId, int recHostId, Net_Message msg)
+    {
+        if (isServer)
+            return;
+        Debug.Log(string.Format("MESSAGE {0}", msg.message));
+    }
     void OnSetPlayerId(int connectionId, int chanelId, int recHostId, Net_PlayerId msg)
     {
+        if (isServer)
+            return;
         Debug.Log(string.Format("Set Player id {0}", msg.playerId));
         m_playerId = msg.playerId;
         m_ConnectionData.playerId = msg.playerId;
@@ -377,14 +444,28 @@ public class Server : MonoBehaviour
     }
     void OnUpdateLobby(int connectionId, int chanelId, int recHostId, Net_UpdateLobby msg)
     {
-        Debug.Log("OnUpdateLobby:");
+        //if (isServer)
+        //    return;
+        //Debug.Log("OnUpdateLobby:");
         foreach (PlayerConnectionData p in msg.PlayersData)
         {
-            Debug.Log(string.Format("player: {0}#{1} | conn:{2} host:{3} chan:{4}",
-                p.playerId, p.playerName, p.connectionId, p.hostId, p.chanelId));
+            //Debug.Log(string.Format("player: {0}#{1} | conn:{2} host:{3} chan:{4}",
+            //    p.playerId, p.playerName, p.connectionId, p.hostId, p.chanelId));
 
             m_PlayersConnectionData[p.playerId] = p;
         }
+
+        MenuController.instance.UpdateLobby(m_PlayersConnectionData);
+    }
+    void OnStartGameREQ(int connectionId, int chanelId, int recHostId, Net_StartGameREQ msg)
+    {
+        if (isServer)
+            return;
+
+        Net_StartGameCFM sg = new Net_StartGameCFM(m_ConnectionData.playerId);
+        SendToServer(sg);
+
+        RunGameScene();
     }
     #endregion
 
@@ -394,19 +475,19 @@ public class Server : MonoBehaviour
 
     void PrintPlayersList()
     {
-        Debug.Log("LOBBY:");
-        foreach (KeyValuePair<int, PlayerConnectionData> p in m_PlayersConnectionData)
-        {
-            Debug.Log(string.Format("player: {0}#{1} | conn:{2} host:{3} chan:{4}",
-                p.Key, p.Value.playerName, p.Value.connectionId, p.Value.hostId, p.Value.chanelId));
-        }
+        //Debug.Log("LOBBY:");
+        //foreach (KeyValuePair<int, PlayerConnectionData> p in m_PlayersConnectionData)
+        //{
+        //    Debug.Log(string.Format("player: {0}#{1} | conn:{2} host:{3} chan:{4}",
+        //        p.Key, p.Value.playerName, p.Value.connectionId, p.Value.hostId, p.Value.chanelId));
+        //}
     }
 
     void PrintPlayerData()
     {
-        Debug.Log(string.Format("player: {0}#{1} | conn:{2} host:{3} chan:{4}",
-            m_playerId, m_ConnectionData.playerName,
-            m_ConnectionData.connectionId, m_ConnectionData.hostId, m_ConnectionData.chanelId));
+        //Debug.Log(string.Format("player: {0}#{1} | conn:{2} host:{3} chan:{4}",
+        //    m_playerId, m_ConnectionData.playerName,
+        //    m_ConnectionData.connectionId, m_ConnectionData.hostId, m_ConnectionData.chanelId));
     }
 }
 
@@ -434,11 +515,13 @@ public static class NetOP
 {
     public const int NONE = 0;
     public const int SET_PLAYER_DATA = 1; // ATTR: NAME | send player name after connect
-    public const int SET_PLAYER_ID = 2; // BTC | ATTR: playerId
-    public const int UPDATE_LOBBY = 3; // BTC | ATTR: <playerName>
+    public const int SET_PLAYER_ID = 2; // ATTR: playerId
+    public const int UPDATE_LOBBY = 3; // ATTR: <playerId, playerName>
+    public const int MESSAGE = 4;
 
-    public const int START_GAME_REQ = 1; // BTC |
-    public const int START_GAME_CFM = 1;
+    public const int START_GAME_REQ = 5; // ATTR: <playerid, playerName>
+    public const int START_GAME_CFM = 6; // 
+
     public const int SET_FRACTION_ID = 1; // ATTR: fractionId
 
     public const int DRAW_CARD_REQ = 1; // ATTR: playerId, fractionId
@@ -487,6 +570,17 @@ public class NetMsg
 }
 
 [System.Serializable]
+public class Net_Message : NetMsg
+{
+    public Net_Message(string message)
+    {
+        OperationCode = NetOP.MESSAGE;
+        this.message = message;
+    }
+    public string message;
+}
+
+[System.Serializable]
 public class Net_PlayerData : NetMsg
 {
     public Net_PlayerData(int id, string name)
@@ -522,4 +616,98 @@ public class Net_UpdateLobby : NetMsg
     public List<PlayerConnectionData> PlayersData;
 
 }
+
+[System.Serializable]
+public class Net_StartGameREQ : NetMsg
+{
+    public Net_StartGameREQ(List<PlayerConnectionData> players)
+    {
+        OperationCode = NetOP.START_GAME_REQ;
+        PlayersData = players;
+    }
+
+    public List<PlayerConnectionData> PlayersData;
+}
+
+[System.Serializable]
+public class Net_StartGameCFM : NetMsg
+{
+    public Net_StartGameCFM(int id)
+    {
+        OperationCode = NetOP.START_GAME_CFM;
+        PlayerId = id;
+    }
+    public int PlayerId;
+}
+
+
 #endregion
+
+
+
+
+public class IPManager
+{
+    public static string GetIP(ADDRESSFAM Addfam)
+    {
+        //Return null if ADDRESSFAM is Ipv6 but Os does not support it
+        if (Addfam == ADDRESSFAM.IPv6 && !Socket.OSSupportsIPv6)
+        {
+            return null;
+        }
+
+        string output = "";
+
+        foreach (NetworkInterface item in NetworkInterface.GetAllNetworkInterfaces())
+        {
+#if UNITY_EDITOR_WIN || UNITY_STANDALONE_WIN
+            NetworkInterfaceType _type1 = NetworkInterfaceType.Wireless80211;
+            NetworkInterfaceType _type2 = NetworkInterfaceType.Ethernet;
+
+            if ((item.NetworkInterfaceType == _type1 || item.NetworkInterfaceType == _type2) && item.OperationalStatus == OperationalStatus.Up)
+#endif 
+            {
+                foreach (UnicastIPAddressInformation ip in item.GetIPProperties().UnicastAddresses)
+                {
+                    //IPv4
+                    if (Addfam == ADDRESSFAM.IPv4)
+                    {
+                        if (ip.Address.AddressFamily == AddressFamily.InterNetwork)
+                        {
+                            output = ip.Address.ToString();
+                        }
+                    }
+
+                    //IPv6
+                    else if (Addfam == ADDRESSFAM.IPv6)
+                    {
+                        if (ip.Address.AddressFamily == AddressFamily.InterNetworkV6)
+                        {
+                            output = ip.Address.ToString();
+                        }
+                    }
+                }
+            }
+        }
+        return output;
+    }
+
+    public static string GetLocalIPAddress()
+    {
+        var host = System.Net.Dns.GetHostEntry(System.Net.Dns.GetHostName());
+        foreach (var ip in host.AddressList)
+        {
+            if (ip.AddressFamily == System.Net.Sockets.AddressFamily.InterNetwork)
+            {
+                return ip.ToString();
+            }
+        }
+
+        throw new System.Exception("No network adapters with an IPv4 address in the system!");
+    }
+}
+
+public enum ADDRESSFAM
+{
+    IPv4, IPv6
+}
