@@ -6,7 +6,6 @@ using UnityEngine.Networking;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
 
-
 using System.Net;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
@@ -45,6 +44,7 @@ public class Server : MonoBehaviour
     private List<string> playerList = new List<string>();
     private List<int> m_PlayersConfirmation = new List<int>();
     private int m_nextAvaliablePlayerId = 1;
+    private int m_playerIdTurn = 0;
     #endregion
 
     #region ClientData
@@ -327,6 +327,15 @@ public class Server : MonoBehaviour
         Net_PlayerId pi = new Net_PlayerId(id);
         SendToClient(player.hostId, player.connectionId, pi);
     }
+
+    private int GetRandomPlayerId(){
+        List<int> keys = new List<int>();
+        keys.AddRange(m_PlayersConnectionData.Keys);
+        int randVal = UnityEngine.Random.Range(0,keys.Count);
+        return keys[randVal];
+
+    }
+
     public void UpdateLobby()
     {
         List<PlayerConnectionData> players = new List<PlayerConnectionData>();
@@ -372,6 +381,19 @@ public class Server : MonoBehaviour
         }
         return true;
     }
+    
+    public void SetPlayerIdTurn(int id){
+        List<PlayerConnectionData> players = new List<PlayerConnectionData>();
+        players.AddRange(m_PlayersConnectionData.Values);
+
+        Net_SetPlayerIdTurn ul = new Net_SetPlayerIdTurn(id);
+        SendToAllClients(ul);
+    }
+
+    public void SetNextPlayerId(){
+        m_playerIdTurn = (m_playerIdTurn+1)%m_PlayersConnectionData.Count;
+        SetPlayerIdTurn(m_PlayersConnectionData[m_playerIdTurn].playerId);
+    }
     #endregion
 
 
@@ -401,6 +423,9 @@ public class Server : MonoBehaviour
             case NetOP.START_GAME_CFM:
                 OnStartGameCFM(connectionId, chanelId, recHostId, (Net_StartGameCFM)msg);
                 break;
+            case NetOP.SET_PLAYER_ID_TURN:
+                OnSetPlayerIdTurn(connectionId, chanelId, recHostId, (Net_SetPlayerIdTurn)msg);
+                break;
         }
     }
 
@@ -420,6 +445,8 @@ public class Server : MonoBehaviour
 
         if (IsAllPlayersConfirm()) {
             RunGameScene();
+            m_playerIdTurn = GetRandomPlayerId();
+            SetPlayerIdTurn(m_PlayersConnectionData[m_playerIdTurn].playerId);
         }
         
     }
@@ -467,6 +494,12 @@ public class Server : MonoBehaviour
 
         RunGameScene();
     }
+
+    void OnSetPlayerIdTurn(int connectionId, int chanelId, int recHostId, Net_SetPlayerIdTurn msg){
+
+        GameController.SetPlayerIdTurn(msg.PlayerId);
+    }
+    
     #endregion
 
     #endregion
@@ -521,6 +554,8 @@ public static class NetOP
 
     public const int START_GAME_REQ = 5; // ATTR: <playerid, playerName>
     public const int START_GAME_CFM = 6; // 
+
+    public const int SET_PLAYER_ID_TURN = 7; // ATTR: playerId 
 
     public const int SET_FRACTION_ID = 1; // ATTR: fractionId
 
@@ -640,6 +675,16 @@ public class Net_StartGameCFM : NetMsg
     public int PlayerId;
 }
 
+[System.Serializable]
+public class Net_SetPlayerIdTurn : NetMsg
+{
+    public Net_SetPlayerIdTurn(int id)
+    {
+        OperationCode = NetOP.SET_PLAYER_ID_TURN;
+        PlayerId = id;
+    }
+    public int PlayerId;
+}
 
 #endregion
 

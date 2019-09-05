@@ -300,4 +300,9 @@ public class GameController : MonoBehaviour {
             ChangePlayersTurn();
         }
     }
+
+    internal static void SetPlayerIdTurn(int playerId)
+    {
+        GameDataController.instance.gameState.playerIdTurn = playerId;
+    }
 }
