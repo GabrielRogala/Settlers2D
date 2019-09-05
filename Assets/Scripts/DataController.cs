@@ -23,8 +23,8 @@ public class DataController {
 
     public static GameData LoadGameData () {
 
-        #if UNITY_EDITOR
-            string filePath = Path.Combine(Application.streamingAssetsPath, _fileNameGameData);
+#if UNITY_EDITOR || UNITY_STANDALONE
+        string filePath = Path.Combine(Application.streamingAssetsPath, _fileNameGameData);
 #elif UNITY_IOS
             string filePath = Path.Combine (Application.streamingAssetsPath + "/Raw", _fileNameGameData);
 #elif UNITY_ANDROID
@@ -33,8 +33,8 @@ public class DataController {
 
         if (File.Exists (filePath)) {
 
-            #if UNITY_EDITOR || UNITY_IOS
-                string dataAsJson = File.ReadAllText(filePath, System.Text.Encoding.GetEncoding("Windows-1250"));
+#if UNITY_EDITOR || UNITY_IOS || UNITY_STANDALONE
+            string dataAsJson = File.ReadAllText(filePath, System.Text.Encoding.GetEncoding("Windows-1250"));
 
             #elif UNITY_ANDROID
                 WWW reader = new WWW (filePath);
@@ -61,7 +61,7 @@ public class DataController {
     }
 
     public static GameState LoadGameState () {
-#if UNITY_EDITOR
+#if UNITY_EDITOR || UNITY_STANDALONE
         string filePath = Path.Combine(Application.streamingAssetsPath, _fileNameGameState);
 
 #elif UNITY_IOS
@@ -74,7 +74,7 @@ public class DataController {
 
         if (File.Exists (filePath)) {
 
-#if UNITY_EDITOR || UNITY_IOS
+#if UNITY_EDITOR || UNITY_IOS || UNITY_STANDALONE
             string dataAsJson = File.ReadAllText(filePath, System.Text.Encoding.GetEncoding("Windows-1250"));
 
 #elif UNITY_ANDROID

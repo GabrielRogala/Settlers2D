@@ -18,7 +18,7 @@ public class PlayerDeckController : MonoBehaviour {
         _deckController = deckController;
         _playerController = playerController;
         string path = Application.dataPath;
-        _cardBackground.sprite = IMG2Sprite.instance.LoadNewSprite (path + "/Sprites/Fractions/" + _deckController._deckData.fractionId + ".png");
+        _cardBackground.sprite = IMG2Sprite.instance.LoadNewSprite (path + "/StreamingAssets/Sprites/Fractions/" + _deckController._deckData.fractionId + ".png");
         _cardCounter.text = _deckController._deckData.cards.Count.ToString ();
     }
 

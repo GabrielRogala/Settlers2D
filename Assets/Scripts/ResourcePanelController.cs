@@ -17,7 +17,7 @@ public class ResourcePanelController : MonoBehaviour {
         _resourceId = resourceId;
 
         string path = Application.dataPath;
-        _image.sprite = IMG2Sprite.instance.LoadNewSprite (path + "/Sprites/Resources/" + _resourceId + ".png");
+        _image.sprite = IMG2Sprite.instance.LoadNewSprite (path + "/StreamingAssets/Sprites/Resources/" + _resourceId + ".png");
         UpdatePanelData ();
     }
 

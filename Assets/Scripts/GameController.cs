@@ -39,12 +39,12 @@ public class GameController : MonoBehaviour {
 
         Debug.Log ("GAME CONTROLLER START");
         ///////////////////////////////////
-        List<PlayerData> players;
-        players = new List<PlayerData>();
-        players.Add(new PlayerData(1, "name1", 1));
-        players.Add(new PlayerData(2, "name2", 2));
-        players.Add(new PlayerData(3, "name3", 3));
-        GameDataController.instance.InitGameData(players);
+        //List<PlayerData> players;
+        //players = new List<PlayerData>();
+        //players.Add(new PlayerData(1, "name1", 1));
+        //players.Add(new PlayerData(2, "name2", 2));
+        //players.Add(new PlayerData(3, "name3", 3));
+        //GameDataController.instance.InitGameData(players);
         //////////////////////////////////
 
         InitDecks (GameDataController.instance.gameData.decks);

@@ -25,9 +25,9 @@ public class CardDataViewer : MonoBehaviour {
         _id.text = "#" + _card.cardId;
         _name.text = _card.cardName;
         _description.text = _card.description;
-        _fractionImage.sprite = IMG2Sprite.instance.LoadNewSprite (path + "/Sprites/Fractions/" + _card.fractionType + ".png");
-        _cardType.sprite = IMG2Sprite.instance.LoadNewSprite (path + "/Sprites/Types/" + _card.cardType + ".png");
-        _contract.sprite = IMG2Sprite.instance.LoadNewSprite (path + "/Sprites/Resources/" + _card.contract + ".png");
+        _fractionImage.sprite = IMG2Sprite.instance.LoadNewSprite (path + "/StreamingAssets/Sprites/Fractions/" + _card.fractionType + ".png");
+        _cardType.sprite = IMG2Sprite.instance.LoadNewSprite (path + "/StreamingAssets/Sprites/Types/" + _card.cardType + ".png");
+        _contract.sprite = IMG2Sprite.instance.LoadNewSprite (path + "/StreamingAssets/Sprites/Resources/" + _card.contract + ".png");
 
         for (int i = 0; i < _costs.Count; i++) {
             _costs[i].gameObject.SetActive (false);
@@ -39,15 +39,15 @@ public class CardDataViewer : MonoBehaviour {
 
         for (int i = 0; i < _card.cost.Count; i++) {
             _costs[i].gameObject.SetActive (true);
-            _costs[i].sprite = IMG2Sprite.instance.LoadNewSprite (path + "/Sprites/Resources/" + _card.cost[i] + ".png");
+            _costs[i].sprite = IMG2Sprite.instance.LoadNewSprite (path + "/StreamingAssets/Sprites/Resources/" + _card.cost[i] + ".png");
         }
 
         for (int i = 0; i < _card.gain.Count; i++) {
             _gains[i].gameObject.SetActive (true);
-            _gains[i].sprite = IMG2Sprite.instance.LoadNewSprite (path + "/Sprites/Resources/" + _card.gain[i] + ".png");
+            _gains[i].sprite = IMG2Sprite.instance.LoadNewSprite (path + "/StreamingAssets/Sprites/Resources/" + _card.gain[i] + ".png");
         }
 
-        _image.sprite = IMG2Sprite.instance.LoadNewSprite (path + "/Sprites/Screens/" + _card.image + ".png");
+        _image.sprite = IMG2Sprite.instance.LoadNewSprite (path + "/StreamingAssets/Sprites/Screens/" + _card.image + ".png");
 
         if (_card.fractionType == 0) {
             _contractBackground.color = Color.clear;
