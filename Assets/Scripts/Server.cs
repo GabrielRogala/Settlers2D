@@ -48,7 +48,7 @@ public class Server : MonoBehaviour
     #endregion
 
     #region ClientData
-    private PlayerConnectionData m_ConnectionData = new PlayerConnectionData(0, 0, 0, "", 0);
+    private PlayerConnectionData m_ConnectionData = new PlayerConnectionData(0, 0, 0, "", 0, 0);
     private int m_playerId;
     #endregion
 
@@ -130,7 +130,7 @@ public class Server : MonoBehaviour
                 case NetworkEventType.ConnectEvent:
                     Debug.Log(string.Format("User {0} has connected has connected throught host {1}.", connectionId, recHostId));
                     int newPlayerId = GetNextAvaliableId();
-                    m_PlayersConnectionData.Add(newPlayerId, new PlayerConnectionData(connectionId, recHostId, chanelId, "", newPlayerId));
+                    m_PlayersConnectionData.Add(newPlayerId, new PlayerConnectionData(connectionId, recHostId, chanelId, "", newPlayerId,UnityEngine.Random.Range(1,4)));
                     SetPlayerId(m_PlayersConnectionData[newPlayerId], newPlayerId);
                     PrintPlayersList();
                     UpdateLobby();
@@ -237,8 +237,8 @@ public class Server : MonoBehaviour
         {
             if (p.Value.playerId != m_ConnectionData.playerId)
             {
-                Debug.Log(string.Format(" Server send message to player: {0}#{1} | conn:{2} host:{3} chan:{4}",
-               p.Key, p.Value.playerName, p.Value.connectionId, p.Value.hostId, p.Value.chanelId));
+                Debug.Log(string.Format(" Server send message to player: {0}#{1} F:{5}| conn:{2} host:{3} chan:{4}",
+                            p.Key, p.Value.playerName, p.Value.connectionId, p.Value.hostId, p.Value.chanelId, p.Value.fractionId));
                 SendToClient(p.Value.hostId, p.Value.connectionId, msg);
             }
 
@@ -314,7 +314,7 @@ public class Server : MonoBehaviour
         List<PlayerData> players = new List<PlayerData>();
         foreach(KeyValuePair<int,PlayerConnectionData> p in m_PlayersConnectionData)
         {
-            players.Add(new PlayerData(p.Value.playerId, p.Value.playerName, 1));
+            players.Add(new PlayerData(p.Value.playerId, p.Value.playerName, p.Value.fractionId));
         }
         GameDataController.instance.InitGameData(players);
         SceneManager.LoadScene("Scenes/GameScene");
@@ -356,6 +356,7 @@ public class Server : MonoBehaviour
         m_ConnectionData.hostId = -1;
         m_ConnectionData.connectionId = -1;
         m_ConnectionData.chanelId = -1;
+        m_ConnectionData.fractionId = UnityEngine.Random.Range(1, 4);
 
         m_PlayersConnectionData.Add(m_ConnectionData.playerId, m_ConnectionData);
     }
@@ -480,6 +481,10 @@ public class Server : MonoBehaviour
             //    p.playerId, p.playerName, p.connectionId, p.hostId, p.chanelId));
 
             m_PlayersConnectionData[p.playerId] = p;
+
+            if (p.playerId == m_ConnectionData.playerId) {
+                m_ConnectionData.fractionId = p.fractionId;
+            }
         }
 
         MenuController.instance.UpdateLobby(m_PlayersConnectionData);
@@ -499,12 +504,21 @@ public class Server : MonoBehaviour
 
         GameController.SetPlayerIdTurn(msg.PlayerId);
     }
-    
-    #endregion
 
     #endregion
 
+    #endregion
 
+
+
+    public int GetOwnPlayerId() {
+        return m_ConnectionData.playerId;
+    }
+
+    public int GetOwnFractionId()
+    {
+        return m_ConnectionData.fractionId;
+    }
 
     void PrintPlayersList()
     {
@@ -533,14 +547,16 @@ public class PlayerConnectionData
     public int chanelId;
     public string playerName;
     public int playerId;
+    public int fractionId;
 
-    public PlayerConnectionData(int connectionId, int hostId, int chanelId, string playerName, int playerId)
+    public PlayerConnectionData(int connectionId, int hostId, int chanelId, string playerName, int playerId, int fractionId)
     {
         this.connectionId = connectionId;
         this.hostId = hostId;
         this.chanelId = chanelId;
         this.playerName = playerName;
         this.playerId = playerId;
+        this.fractionId = fractionId;
     }
 }
 

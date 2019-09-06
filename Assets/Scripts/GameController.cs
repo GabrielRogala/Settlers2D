@@ -32,6 +32,11 @@ public class GameController : MonoBehaviour {
     public List<PlayerController> _playerControllers;
     public List<DeckController> _deckControllers;
 
+    private int _playerId = 0;
+    private int _fractionId = 0;
+
+    public PlayerController _ownPlayerControllers;
+
     // Start is called before the first frame update
     void Start () {
         _deckControllers = new List<DeckController> ();
@@ -46,6 +51,9 @@ public class GameController : MonoBehaviour {
         //players.Add(new PlayerData(3, "name3", 3));
         //GameDataController.instance.InitGameData(players);
         //////////////////////////////////
+
+        _playerId = Server.instance.GetOwnPlayerId();
+        _fractionId = Server.instance.GetOwnFractionId();
 
         InitDecks (GameDataController.instance.gameData.decks);
         InitPlayersData (GameDataController.instance.gameState.players);
@@ -96,9 +104,11 @@ public class GameController : MonoBehaviour {
         return playerId == GameDataController.instance.gameState.playerIdTurn;
     }
 
-    void InitDecks (List<DeckData> decks) {
-        foreach (DeckData d in decks) {
-            _deckControllers.Add (new DeckController (d));
+    void InitDecks(List<DeckData> decks)
+    {
+        foreach (DeckData d in decks)
+        {
+            _deckControllers.Add(new DeckController(d));
         }
     }
 
@@ -134,21 +144,24 @@ public class GameController : MonoBehaviour {
             PlayerController playerController = new PlayerController (p);
             _playerControllers.Add (playerController);
 
+            if (p.playerId == _playerId)
+                _ownPlayerControllers = playerController;
+
             GameObject boardTab = Instantiate (_playerBoardTabPrefab, _playerBoardTabContainer.transform) as GameObject;
             GameObject boardContent = Instantiate (_playerBoardPanelPrefab, _playerBoardPanelContainer.transform) as GameObject;
-            GameObject handTab = Instantiate (_playerHandTabPrefab, _playerHandTabContainer.transform) as GameObject;
-            GameObject handContent = Instantiate (_playerHandPanelPrefab, _playerHandPanelContainer.transform) as GameObject;
+            //GameObject handTab = Instantiate (_playerHandTabPrefab, _playerHandTabContainer.transform) as GameObject;
+            //GameObject handContent = Instantiate (_playerHandPanelPrefab, _playerHandPanelContainer.transform) as GameObject;
 
             playerController._playerBoardPanel = boardContent;
-            playerController._playerHandPanel = handContent;
+            //playerController._playerHandPanel = handContent;
 
             //boardContent
             boardContent.GetComponent<PlayerBoardPanelController> ().InitBoardPanel (playerController);
 
             //handContent
-            handContent.GetComponent<PlayerHandPanelController> ().InitPlayerDecks (playerController,
-                GetDeckControllerFromFractionId (0),
-                GetDeckControllerFromFractionId (p.fractionId));
+            //handContent.GetComponent<PlayerHandPanelController> ().InitPlayerDecks (playerController,
+            //    GetDeckControllerFromFractionId (0),
+            //    GetDeckControllerFromFractionId (p.fractionId));
 
             //boardTab
             boardTab.GetComponent<PlayerBoardTabController> ()._tabLabel.text = p.name;
@@ -156,18 +169,18 @@ public class GameController : MonoBehaviour {
             PlayerBoardTabController._contentList.Add (boardContent);
 
             // handTab
-            handTab.GetComponent<PlayerHandTabController> ()._tabLabel.text = p.name;
-            handTab.GetComponent<PlayerHandTabController> ()._content = handContent;
-            PlayerHandTabController._contentList.Add (handContent);
+            //handTab.GetComponent<PlayerHandTabController> ()._tabLabel.text = p.name;
+            //handTab.GetComponent<PlayerHandTabController> ()._content = handContent;
+            //PlayerHandTabController._contentList.Add (handContent);
 
             /////////////////////////////////////
             boardTab.GetComponent<Toggle> ().group = _playerBoardToggleGroup;
             boardTab.GetComponent<Toggle> ().isOn = false;
-            handTab.GetComponent<Toggle> ().group = _playerHandToggleGroup;
-            handTab.GetComponent<Toggle> ().isOn = false;
+            //handTab.GetComponent<Toggle> ().group = _playerHandToggleGroup;
+            //handTab.GetComponent<Toggle> ().isOn = false;
 
             boardContent.SetActive (true);
-            handContent.SetActive (true);
+            //handContent.SetActive (true);
 
         }
 
@@ -177,11 +190,17 @@ public class GameController : MonoBehaviour {
             break;
         }
 
-        foreach (PlayerBoardTabController t in _playerHandTabContainer.GetComponentsInChildren<PlayerBoardTabController> ()) {
-            t.GetComponent<Toggle> ().isOn = true;
-            t.ShowTabContent ();
-            break;
-        }
+        GameObject handContent = Instantiate(_playerHandPanelPrefab, _playerHandPanelContainer.transform) as GameObject;
+        _ownPlayerControllers._playerHandPanel = handContent;
+        handContent.GetComponent<PlayerHandPanelController>().InitPlayerDecks(_ownPlayerControllers,
+            GetDeckControllerFromFractionId(0),
+            GetDeckControllerFromFractionId(_fractionId));
+
+        //foreach (PlayerBoardTabController t in _playerHandTabContainer.GetComponentsInChildren<PlayerBoardTabController> ()) {
+        //    t.GetComponent<Toggle> ().isOn = true;
+        //    t.ShowTabContent ();
+        //    break;
+        //}
     }
 
     public void UpdateDecksCounter () {
