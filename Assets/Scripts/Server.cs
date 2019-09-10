@@ -41,7 +41,6 @@ public class Server : MonoBehaviour
     private int hostId = -1;
     private int webHostId = -1;
     public Dictionary<int, PlayerConnectionData> m_PlayersConnectionData = new Dictionary<int, PlayerConnectionData>();
-    private List<string> playerList = new List<string>();
     private List<int> m_PlayersConfirmation = new List<int>();
     private int m_nextAvaliablePlayerId = 1;
     private int m_playerIdTurn = 0;
@@ -129,25 +128,21 @@ public class Server : MonoBehaviour
 
                 case NetworkEventType.ConnectEvent:
                     Debug.Log(string.Format("User {0} has connected has connected throught host {1}.", connectionId, recHostId));
-                    int newPlayerId = GetNextAvaliableId();
-                    m_PlayersConnectionData.Add(newPlayerId, new PlayerConnectionData(connectionId, recHostId, chanelId, "", newPlayerId,UnityEngine.Random.Range(1,4)));
-                    SetPlayerId(m_PlayersConnectionData[newPlayerId], newPlayerId);
-                    PrintPlayersList();
-                    UpdateLobby();
+                    OnConnectEvent(connectionId, recHostId, chanelId);
                     break;
 
                 case NetworkEventType.DisconnectEvent:
                     Debug.Log(string.Format("User {0} has disconnected.", connectionId));
-                    m_PlayersConnectionData.Remove(connectionId);
+                    OnDisconnectEvent(connectionId);
                     break;
+
                 case NetworkEventType.DataEvent:
                     BinaryFormatter formatter = new BinaryFormatter();
                     MemoryStream ms = new MemoryStream(recBuffer);
                     NetMsg msg = (NetMsg)formatter.Deserialize(ms);
-
                     OnData(connectionId, chanelId, recHostId, msg);
-
                     break;
+
                 default:
                 case NetworkEventType.BroadcastEvent:
                     Debug.Log("Unexcepted...");
@@ -178,14 +173,15 @@ public class Server : MonoBehaviour
                 case NetworkEventType.DisconnectEvent:
                     Debug.Log(string.Format("We have disconnected"));
                     break;
+
                 case NetworkEventType.DataEvent:
                     Debug.Log(string.Format("DataEvent"));
                     BinaryFormatter formatter = new BinaryFormatter();
                     MemoryStream ms = new MemoryStream(recBuffer);
                     NetMsg msg = (NetMsg)formatter.Deserialize(ms);
-
                     OnData(connectionId, chanelId, recHostId, msg);
                     break;
+
                 default:
                 case NetworkEventType.BroadcastEvent:
                     Debug.Log("Unexcepted...");
@@ -231,8 +227,6 @@ public class Server : MonoBehaviour
     public void SendToAllClients(NetMsg msg)
     {
 
-        PrintPlayersList();
-
         foreach (KeyValuePair<int, PlayerConnectionData> p in m_PlayersConnectionData)
         {
             if (p.Value.playerId != m_ConnectionData.playerId)
@@ -252,38 +246,6 @@ public class Server : MonoBehaviour
     }
     #endregion
 
-    public void OnMatchCreate()
-    {
-        //CreateSerwer("ADMIN");
-    }
-
-    public void OnMatchJoined()
-    {
-        JoinToSerwer(serwerIp);
-    }
-
-    public void OnSendToClient()
-    {
-        //Net_Message pd = new Net_Message("message");
-        //if (m_PlayersConnectionData.ContainsKey(2))
-        //{
-        //    SendToClient(m_PlayersConnectionData[2].hostId, m_PlayersConnectionData[2].connectionId, pd);
-        //}
-
-    }
-
-    public void OnSendToClients()
-    {
-        //Net_PlayerData pd = new Net_PlayerData("toClients");
-        UpdateLobby();
-    }
-
-    public void OnSendToServer()
-    {
-        //Net_PlayerData pd = new Net_PlayerData("toSERVER");
-        //SendToServer(pd);
-    }
-
     #region ClientAction
     public void CreateSerwer(string hostName)
     {
@@ -300,12 +262,10 @@ public class Server : MonoBehaviour
         DontDestroyOnLoad(gameObject);
         isServer = false;
         InitConnection();
-        PrintPlayerData();
     }
     public void SetPlayerData(string playerName)
     {
         m_ConnectionData.playerName = playerName;
-        PrintPlayerData();
         Net_PlayerData pd = new Net_PlayerData(m_playerId, playerName);
         SendToServer(pd);
     }
@@ -319,15 +279,29 @@ public class Server : MonoBehaviour
         GameDataController.instance.InitGameData(players);
         SceneManager.LoadScene("Scenes/GameScene");
     }
+    
+    public void DrawCard(int deckId){
+        Net_DrawCardREQ msg = new Net_DrawCardREQ(m_playerId,deckId);
+        SendToServer(msg);
+    }
     #endregion
 
     #region ServerAction
+    private void OnConnectEvent(int connectionId,int recHostId, int chanelId) {
+        int newPlayerId = GetNextAvaliableId();
+        m_PlayersConnectionData.Add(newPlayerId, new PlayerConnectionData(connectionId, recHostId, chanelId, "", newPlayerId, UnityEngine.Random.Range(1, 4)));
+        SetPlayerId(m_PlayersConnectionData[newPlayerId], newPlayerId);
+        UpdateLobby();
+    }
+    private void OnDisconnectEvent(int connectionId) {
+        m_PlayersConnectionData.Remove(connectionId);
+        UpdateLobby();
+    }
     public void SetPlayerId(PlayerConnectionData player, int id)
     {
         Net_PlayerId pi = new Net_PlayerId(id);
         SendToClient(player.hostId, player.connectionId, pi);
     }
-
     private int GetRandomPlayerId(){
         List<int> keys = new List<int>();
         keys.AddRange(m_PlayersConnectionData.Keys);
@@ -335,7 +309,6 @@ public class Server : MonoBehaviour
         return keys[randVal];
 
     }
-
     public void UpdateLobby()
     {
         List<PlayerConnectionData> players = new List<PlayerConnectionData>();
@@ -382,21 +355,30 @@ public class Server : MonoBehaviour
         }
         return true;
     }
-    
-    public void SetPlayerIdTurn(int id){
+    void SetPlayerIdTurn(int id){
         List<PlayerConnectionData> players = new List<PlayerConnectionData>();
         players.AddRange(m_PlayersConnectionData.Values);
 
         Net_SetPlayerIdTurn ul = new Net_SetPlayerIdTurn(id);
         SendToAllClients(ul);
     }
-
     public void SetNextPlayerId(){
         m_playerIdTurn = (m_playerIdTurn+1)%m_PlayersConnectionData.Count;
         SetPlayerIdTurn(m_PlayersConnectionData[m_playerIdTurn].playerId);
     }
-    #endregion
+    
+    bool IsAbleToDraw(int playerId, int deckId) {
+        return true;
+    }
 
+    int GetRandomCardFromDeck(int deckId) {
+        return GameController.instance.GetRandomCardFromDeck(deckId);
+    }
+
+    int GetDeckActualSize(int deckId) {
+        return GameController.instance._deckControllers[deckId]._availableCardsIdList.Count;
+    }
+    #endregion
 
     #region OnData
     void OnData(int connectionId, int chanelId, int recHostId, NetMsg msg)
@@ -427,6 +409,13 @@ public class Server : MonoBehaviour
             case NetOP.SET_PLAYER_ID_TURN:
                 OnSetPlayerIdTurn(connectionId, chanelId, recHostId, (Net_SetPlayerIdTurn)msg);
                 break;
+            case NetOP.DRAW_CARD_REQ:
+                OnDrawCardREQ(connectionId, chanelId, recHostId, (Net_DrawCardREQ)msg);
+                break;
+            case NetOP.DRAW_CARD_CFM:
+                OnDrawCardCFM(connectionId, chanelId, recHostId, (Net_DrawCardCFM)msg);
+                break;
+
         }
     }
 
@@ -451,7 +440,13 @@ public class Server : MonoBehaviour
         }
         
     }
-
+    void OnDrawCardREQ(int connectionId, int chanelId, int recHostId, Net_DrawCardREQ msg) {
+        if (IsAbleToDraw(msg.PlayerId,msg.DeckId)) {
+            int cardId = GetRandomCardFromDeck(msg.DeckId);
+            Net_DrawCardCFM dc = new Net_DrawCardCFM(msg.PlayerId, msg.DeckId, cardId,GetDeckActualSize(msg.DeckId));
+            SendToClient(recHostId, connectionId, dc);
+        }
+    }
     #endregion
 
     #region CLINET
@@ -491,18 +486,21 @@ public class Server : MonoBehaviour
     }
     void OnStartGameREQ(int connectionId, int chanelId, int recHostId, Net_StartGameREQ msg)
     {
-        if (isServer)
-            return;
-
         Net_StartGameCFM sg = new Net_StartGameCFM(m_ConnectionData.playerId);
+        if (isServer){
+            OnStartGameCFM(0,0,0,sg);
+            return;
+        }
         SendToServer(sg);
-
         RunGameScene();
     }
 
     void OnSetPlayerIdTurn(int connectionId, int chanelId, int recHostId, Net_SetPlayerIdTurn msg){
 
         GameController.SetPlayerIdTurn(msg.PlayerId);
+    }
+    void OnDrawCardCFM(int connectionId, int chanelId, int recHostId, Net_DrawCardCFM msg) { 
+        Debug.Log(string.Format("P{0} D{1} C{2} S{3}",msg.PlayerId,msg.DeckId,msg.CardId,msg.DeckSize));
     }
 
     #endregion
@@ -520,22 +518,6 @@ public class Server : MonoBehaviour
         return m_ConnectionData.fractionId;
     }
 
-    void PrintPlayersList()
-    {
-        //Debug.Log("LOBBY:");
-        //foreach (KeyValuePair<int, PlayerConnectionData> p in m_PlayersConnectionData)
-        //{
-        //    Debug.Log(string.Format("player: {0}#{1} | conn:{2} host:{3} chan:{4}",
-        //        p.Key, p.Value.playerName, p.Value.connectionId, p.Value.hostId, p.Value.chanelId));
-        //}
-    }
-
-    void PrintPlayerData()
-    {
-        //Debug.Log(string.Format("player: {0}#{1} | conn:{2} host:{3} chan:{4}",
-        //    m_playerId, m_ConnectionData.playerName,
-        //    m_ConnectionData.connectionId, m_ConnectionData.hostId, m_ConnectionData.chanelId));
-    }
 }
 
 #region SERIALIZABLE
@@ -573,10 +555,12 @@ public static class NetOP
 
     public const int SET_PLAYER_ID_TURN = 7; // ATTR: playerId 
 
+    public const int DRAW_CARD_REQ = 8; // ATTR: playerId, fractionId
+    public const int DRAW_CARD_CFM = 9; // ATTR: cardId, fractionId
+
     public const int SET_FRACTION_ID = 1; // ATTR: fractionId
 
-    public const int DRAW_CARD_REQ = 1; // ATTR: playerId, fractionId
-    public const int DRAW_CARD_CFM = 1; // ATTR: cardId, fractionId
+
 
     public const int UPDATE_PLAYERS_RESOURCES = 1; // BTC | ATTR: <playerId, <resources>, <resourcesGrowth>>
 
@@ -702,10 +686,37 @@ public class Net_SetPlayerIdTurn : NetMsg
     public int PlayerId;
 }
 
+[System.Serializable]
+public class Net_DrawCardREQ : NetMsg
+{
+    public Net_DrawCardREQ(int playerId, int deckId)
+    {
+        OperationCode = NetOP.DRAW_CARD_REQ;
+        PlayerId = playerId;
+        DeckId = deckId;
+    }
+    public int PlayerId;
+    public int DeckId;
+}
+
+[System.Serializable]
+public class Net_DrawCardCFM : NetMsg
+{
+    public Net_DrawCardCFM(int playerId, int deckId, int cardId, int deckSize)
+    {
+        OperationCode = NetOP.DRAW_CARD_CFM;
+        PlayerId = playerId;
+        DeckId = deckId;
+        CardId = cardId;
+        DeckSize = deckSize;
+    }
+    public int PlayerId;
+    public int DeckId;
+    public int CardId;
+    public int DeckSize;
+}
+
 #endregion
-
-
-
 
 public class IPManager
 {
