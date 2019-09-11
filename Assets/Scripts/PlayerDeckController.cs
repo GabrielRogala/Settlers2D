@@ -24,7 +24,7 @@ public class PlayerDeckController : MonoBehaviour
         _cardCounter.text = _deckController._deckData.cards.Count.ToString();
     }
 
-    public void AddCardToHand(CardData cardData)
+    public void AddCardToHand(CardData cardData, int playerId, GameObject cardPrefab, GameObject dropzone)
     {
         if (cardData != null)
         {
@@ -44,7 +44,7 @@ public class PlayerDeckController : MonoBehaviour
         if (cardId > -1)
         {
             _cardCounter.text = deckSize.ToString();
-            AddCardToHand(_deckController.GetCardFromId(cardId));
+            AddCardToHand(_deckController.GetCardFromId(cardId), _playerController._playerData.playerId, _cardPrefab, _dropzone);
 
         }
     }

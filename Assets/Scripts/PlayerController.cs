@@ -27,6 +27,7 @@ public class PlayerController {
         Debug.Log("AddCardToBoard | "+_playerData.name+ " | "+ card._card.ToString());
         card.transform.SetParent(newParent.transform);
     }
+
     public void AddCardToContract(SmallCardController card){
 
         if(card._card.fractionType > 0){
