@@ -13,26 +13,27 @@ public class PlayerController {
         _playerData = playerData;
     }
 
+    public void AddCardToBoard(SmallCardController card){
+        _playerBoardPanel.GetComponent<PlayerBoardPanelController>().AddCardToBoard(card);
+    }
+
+    public void AddCardToContract(SmallCardController card){
+        if(card._card.fractionType > 0){
+            _playerBoardPanel.GetComponent<PlayerBoardPanelController>().AddCardToContractPanel(card);
+        }
+    }
+
+    public void UpdateData() {
+        UpdatePlayerResources();
+        UpdateDecksSize();
+    }
+
+    public void UpdateDecksSize() {
+        _playerHandPanel.GetComponent<PlayerHandPanelController>().UpdateDecksSize();
+    }
+
     public void UpdatePlayerResources(){
         _playerBoardPanel.GetComponent<PlayerBoardPanelController>().UpdatePlayerResources();
     }
 
-    public void AddCardToBoard(SmallCardController card){
-        GameObject newParent;
-        if(card._card.fractionType > 0){
-            newParent = _playerBoardPanel.GetComponent<PlayerBoardPanelController>()._fractionDropzones[card._card.actionType -1];
-        }else{
-            newParent = _playerBoardPanel.GetComponent<PlayerBoardPanelController>()._defaultDropzones[card._card.actionType -1];
-        }
-        Debug.Log("AddCardToBoard | "+_playerData.name+ " | "+ card._card.ToString());
-        card.transform.SetParent(newParent.transform);
-    }
-
-    public void AddCardToContract(SmallCardController card){
-
-        if(card._card.fractionType > 0){
-            _playerBoardPanel.GetComponent<PlayerBoardPanelController>().AddCardToContractPanel(card.gameObject);
-        }
-
-    }
 }

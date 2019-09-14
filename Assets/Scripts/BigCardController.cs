@@ -31,38 +31,39 @@ public class BigCardController : CardDataViewer, IPointerClickHandler {
     }
 
     public void OnPointerClick (PointerEventData eventData) {
-        CardViewer.instance.HideFullSizeCard();
+        CardViewerController.instance.HideFullSizeCard();
         Debug.Log ("Hide big size card");
     }
 
-    public void BuildCard () // OnButtonClick
+    #region OnButtonAction
+    public void OnBuildCard ()
     {
         _cardController.BuildCard ();
     }
 
-    public void AddCardToContracts () // OnButtonClick
+    public void OnAddCardToContracts ()
     {
         _cardController.AddCardToContracts ();
     }
 
-    public void PlunderCard () // OnButtonClick
+    public void OnPlunderCard ()
     {
         _cardController.PlunderCard ();
     }
 
-    public void TributeCard () // Confirmation required to perform the action
+    public void OnTributeCard () // Confirmation required to perform the action
     {
         _cardController.TributeCard ();
     }
 
-    public void ExecuteAction () // OnButtonClick
+    public void OnExecuteAction () // OnButtonClick
     {
         _cardController.ExecuteAction ();
     }
 
-    public void ExecuteTraitAction () // Confirmation required to perform the action
+    public void OnExecuteTraitAction () // Confirmation required to perform the action
     {
         _cardController.ExecuteTraitAction ();
     }
-
+    #endregion
 }

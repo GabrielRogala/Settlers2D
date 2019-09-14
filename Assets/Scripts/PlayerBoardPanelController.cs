@@ -31,7 +31,21 @@ public class PlayerBoardPanelController : MonoBehaviour {
 
     }
 
-    public void AddCardToContractPanel (GameObject card) {
+    public void AddCardToBoard(SmallCardController card)
+    {
+        GameObject newParent;
+        if (card._card.fractionType > 0)
+        {
+            newParent = _fractionDropzones[card._card.actionType - 1];
+        }
+        else
+        {
+            newParent = _defaultDropzones[card._card.actionType - 1];
+        }
+        card.transform.SetParent(newParent.transform);
+    }
+
+    public void AddCardToContractPanel (SmallCardController card) {
         card.transform.SetParent (_contractsPanel.transform);
         card.transform.Rotate (new Vector3 (0, 0, 180));
     }

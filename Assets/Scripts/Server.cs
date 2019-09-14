@@ -376,7 +376,7 @@ public class Server : MonoBehaviour
     }
 
     int GetDeckActualSize(int deckId) {
-        return GameController.instance._deckControllers[deckId]._availableCardsIdList.Count;
+        return GameController.instance._deckManager[deckId]._availableCardsIdList.Count;
     }
     #endregion
 

@@ -31,7 +31,7 @@ public class GameController : MonoBehaviour {
     #endregion
     
     public List<PlayerController> _playerControllers;
-    public List<DeckController> _deckControllers;
+    public List<DeckManager> _deckManager;
 
     private int _playerId = 0;
     private int _fractionId = 0;
@@ -42,7 +42,7 @@ public class GameController : MonoBehaviour {
     void Start () {
         Debug.Log ("GAME CONTROLLER START");
 
-        _deckControllers = new List<DeckController> ();
+        _deckManager = new List<DeckManager> ();
         _playerControllers = new List<PlayerController> ();  
 
         _playerId = Server.instance.GetOwnPlayerId();
@@ -66,7 +66,7 @@ public class GameController : MonoBehaviour {
     {
         foreach (DeckData d in decks)
         {
-            _deckControllers.Add(new DeckController(d));
+            _deckManager.Add(new DeckManager(d));
         }
     }
 
@@ -119,6 +119,8 @@ public class GameController : MonoBehaviour {
 
         GameObject handContent = Instantiate(_playerHandPanelPrefab, _playerHandPanelContainer.transform) as GameObject;
         _ownPlayerControllers._playerHandPanel = handContent;
+        Debug.Log(GetDeckControllerFromFractionId(0)._deckData.ToString());
+        Debug.Log(GetDeckControllerFromFractionId(_fractionId)._deckData.ToString());
         handContent.GetComponent<PlayerHandPanelController>().InitPlayerDecks(_ownPlayerControllers,
             GetDeckControllerFromFractionId(0),
             GetDeckControllerFromFractionId(_fractionId));
@@ -153,8 +155,8 @@ public class GameController : MonoBehaviour {
         return playerId == GameDataController.instance.gameState.playerIdTurn;
     }
 
-    DeckController GetDeckControllerFromFractionId (int fractionId) {
-        foreach (DeckController d in _deckControllers) {
+    DeckManager GetDeckControllerFromFractionId (int fractionId) {
+        foreach (DeckManager d in _deckManager) {
             if (d._deckData.fractionId == fractionId) {
                 return d;
             }
@@ -178,6 +180,10 @@ public class GameController : MonoBehaviour {
     #endregion
 
     #region CardActions
+    public void DrawCardREQ(int fractionId) {
+        Server.instance.DrawCard(fractionId);
+    }
+
     public bool IsAbleToBuild(int playerId, SmallCardController card)
     {
 
@@ -221,7 +227,7 @@ public class GameController : MonoBehaviour {
             _playerControllers[playerId-1]._playerData.cardsInHand.Remove(card._card);
 
             _playerControllers[playerId-1].AddCardToBoard(card);
-            CardViewer.instance.HideFullSizeCard();
+            CardViewerController.instance.HideFullSizeCard();
             UpdatePlayersResources();
             ChangePlayersTurn();
             return true;     
@@ -236,7 +242,7 @@ public class GameController : MonoBehaviour {
         foreach(int r in card._card.gain){
             IncreasePlayerResource(playerId,r,1);
         }
-        CardViewer.instance.HideFullSizeCard();
+        CardViewerController.instance.HideFullSizeCard();
         Destroy(card.gameObject);
         UpdatePlayersResources();
         ChangePlayersTurn();
@@ -244,7 +250,7 @@ public class GameController : MonoBehaviour {
     
     public void TributeCard(int playerId, SmallCardController card){
         IncreasePlayerResource(playerId,9,1); // gain 1 FOUNDATION
-        CardViewer.instance.HideFullSizeCard();
+        CardViewerController.instance.HideFullSizeCard();
         Destroy(card.gameObject);
         UpdatePlayersResources();
     }
@@ -256,7 +262,7 @@ public class GameController : MonoBehaviour {
             IncreasePlayerResource(playerId,6, -1); // cost 1 FOOD
             IncreasePlayerResource(playerId,card._card.contract,1);
             IncreasePlayerResourceInGrowthMatrix(playerId,card._card.contract,1);
-            CardViewer.instance.HideFullSizeCard();
+            CardViewerController.instance.HideFullSizeCard();
             UpdatePlayersResources();
             ChangePlayersTurn();
         }
@@ -290,7 +296,7 @@ public class GameController : MonoBehaviour {
 
     #region SERVER_HOST_ACTION
     public int GetRandomCardFromDeck(int deckId){
-        return _deckControllers[deckId].GetRandomCardIdFromDeck();
+        return _deckManager[deckId].GetRandomCardIdFromDeck();
     }
 
 

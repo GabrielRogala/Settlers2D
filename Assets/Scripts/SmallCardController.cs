@@ -9,10 +9,10 @@ public class SmallCardController : CardDataViewer, IPointerClickHandler {
     public SmallCardController (CardData card) : base (card) { }
 
     public void OnPointerClick (PointerEventData eventData) {
-        Debug.Log ("Show big size card");
-        CardViewer.instance.ShowFullSizeCard(this);
+        CardViewerController.instance.ShowFullSizeCard(this);
     }
 
+    #region CardAction
     public void BuildCard () {
         Debug.Log ("BuildCard");
         if(GameController.instance.BuildCard(_playerId,this)){
@@ -73,12 +73,13 @@ public class SmallCardController : CardDataViewer, IPointerClickHandler {
     public void ExecuteTraitAction () {
         Debug.Log ("ExecuteTraitAction");
     }
+    #endregion
 
-    public void SubscribeToTraitAction () {
+    private void SubscribeToTraitAction () {
         Debug.Log ("SubscribeToTraitAction");
     }
 
-    public void SubscribeToProduction () {
+    private void SubscribeToProduction () {
         Debug.Log ("SubscribeToProduction");
     }
 }
