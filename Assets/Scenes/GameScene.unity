@@ -497,16 +497,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 666323750}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d01865da02d3b6d4fab9168f543112dc, type: 3}
+  m_Script: {fileID: 11500000, guid: 49819f69b4124e04ab936e0178c9d145, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_fullSizeCardPrefab: {fileID: 798442249053159177, guid: d4bbe0bee70f5924aaf7c1c3e3b9cf63,
+  _fullSizeCardPrefab: {fileID: 798442249053159177, guid: d4bbe0bee70f5924aaf7c1c3e3b9cf63,
     type: 3}
-  m_parent: {fileID: 94296320}
-  fullSizeCard: {fileID: 0}
-  isShowed: 0
+  _parent: {fileID: 94296320}
 --- !u!224 &969955275 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7933276266886500594, guid: 07c6165061e8d264ca1ddd53b734d0d6,
