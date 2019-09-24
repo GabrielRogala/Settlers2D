@@ -15,7 +15,7 @@ public class DeckManager {
     }
 
     public CardData GetCardFromId (int cardId) {
-        CardData drawedCard = _deckData.cards[cardId];
+        CardData drawedCard = _deckData.cards[cardId-1]; // FIX : cardID 1 = first card with 0 index
         return drawedCard;
     }
 

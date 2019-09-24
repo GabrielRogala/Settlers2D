@@ -294,6 +294,11 @@ public class Server : MonoBehaviour
         Net_DrawCardREQ msg = new Net_DrawCardREQ(_playerId,deckId);
         SendToServer(msg);
     }
+    public void BuildCardREQ(int playerId, int deckId, int cardId)
+    {
+        Net_BuildCardREQ msg = new Net_BuildCardREQ(playerId, deckId, cardId);
+        SendToServer(msg);
+    }
     #endregion
 
     #region ServerAction
@@ -424,6 +429,15 @@ public class Server : MonoBehaviour
             case NetOP.DRAW_CARD_CFM:
                 OnDrawCardCFM(connectionId, chanelId, recHostId, (Net_DrawCardCFM)msg);
                 break;
+            case NetOP.BUILD_CARD_REQ:
+                OnBuildCardREQ(connectionId, chanelId, recHostId, (Net_BuildCardREQ)msg);
+                break;
+            case NetOP.BUILD_CARD_CFM:
+                OnBuildCardCFM(connectionId, chanelId, recHostId, (Net_BuildCardCFM)msg);
+                break;
+            case NetOP.BUILD_CARD_REJ:
+                OnBuildCardREJ(connectionId, chanelId, recHostId, (Net_BuildCardREJ)msg);
+                break;
 
         }
     }
@@ -455,6 +469,18 @@ public class Server : MonoBehaviour
             Net_DrawCardCFM dc = new Net_DrawCardCFM(msg.PlayerId, msg.DeckId, cardId,GetDeckActualSize(msg.DeckId));
             //SendToClient(recHostId, connectionId, dc);
             SendToAllClients(dc);
+        }
+    }
+
+    void OnBuildCardREQ(int connectionId, int chanelId, int recHostId, Net_BuildCardREQ msg)
+    {
+        if (GameController.instance.IsAbleToBuild(msg.PlayerId, msg.DeckId, msg.CardId))
+        {
+            Net_BuildCardCFM bc = new Net_BuildCardCFM(msg.PlayerId, msg.DeckId, msg.CardId);
+            SendToAllClients(bc);
+        } else {
+            Net_BuildCardREJ bc = new Net_BuildCardREJ(msg.PlayerId, msg.DeckId, msg.CardId);
+            SendToAllClients(bc);
         }
     }
     #endregion
@@ -518,8 +544,17 @@ public class Server : MonoBehaviour
         {
             GameController.instance.DrawCardCFM(msg.PlayerId, msg.DeckId, msg.CardId, msg.DeckSize);
         }
-        
-        //Debug.Log(string.Format("P{0} D{1} C{2} S{3}",msg.PlayerId,msg.DeckId,msg.CardId,msg.DeckSize));
+    }
+
+    void OnBuildCardCFM(int connectionId, int chanelId, int recHostId, Net_BuildCardCFM msg)
+    {
+        Debug.Log("OnBuildCardCFM");
+        GameController.instance.BuildCardCFM(msg.PlayerId, msg.DeckId, msg.CardId);
+    }
+
+    void OnBuildCardREJ(int connectionId, int chanelId, int recHostId, Net_BuildCardREJ msg)
+    {
+        Debug.Log("OnBuildCardREJ");
     }
 
     #endregion

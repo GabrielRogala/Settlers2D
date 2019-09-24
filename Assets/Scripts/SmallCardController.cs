@@ -15,30 +15,31 @@ public class SmallCardController : CardDataViewer, IPointerClickHandler {
     #region CardAction
     public void BuildCard () {
         Debug.Log ("BuildCard");
-        if(GameController.instance.BuildCard(_playerId,this)){
-            switch (_card.actionType) {
-                case 1:
-                    { // production card
-                        ExecuteProduction ();
-                        ExecuteProductionAfterBuild ();
-                        SubscribeToProduction ();
-                        break;
-                    }
-                case 2: // trait card
-                    {
-                        ExecuteProductionAfterBuild ();
-                        SubscribeToTraitAction ();
-                        break;
-                    }
-                case 3: // action card
-                    {
-                        ExecuteProductionAfterBuild ();
-                        break;
-                    }
-                default:
-                    { break; }
-            }   
-        }
+        GameController.instance.BuildCardREQ(_playerId, this);
+        //if (GameController.instance.BuildCard(_playerId,this)){
+        //    switch (_card.actionType) {
+        //        case 1:
+        //            { // production card
+        //                ExecuteProduction ();
+        //                ExecuteProductionAfterBuild ();
+        //                SubscribeToProduction ();
+        //                break;
+        //            }
+        //        case 2: // trait card
+        //            {
+        //                ExecuteProductionAfterBuild ();
+        //                SubscribeToTraitAction ();
+        //                break;
+        //            }
+        //        case 3: // action card
+        //            {
+        //                ExecuteProductionAfterBuild ();
+        //                break;
+        //            }
+        //        default:
+        //            { break; }
+        //    }   
+        //}
 
         
     }

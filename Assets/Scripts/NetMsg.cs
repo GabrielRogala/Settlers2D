@@ -41,16 +41,17 @@ public static class NetOP
     public const int DRAW_CARD_REQ = 8; // ATTR: playerId, fractionId
     public const int DRAW_CARD_CFM = 9; // ATTR: cardId, fractionId
 
-    public const int SET_FRACTION_ID = 1; // ATTR: fractionId
-
-
-
-    public const int UPDATE_PLAYERS_RESOURCES = 1; // BTC | ATTR: <playerId, <resources>, <resourcesGrowth>>
+    public const int UPDATE_PLAYERS_RESOURCES = 10; // BTC | ATTR: <playerId, <resources>, <resourcesGrowth>>
 
     // card action
-    public const int BUILD_CARD_REQ = 1; // ATTR: playerId, cardId, fractionId
-    public const int BUILD_CARD_CFM = 1; // BTC | ATTR: playerId, cardId, fractionId
-    public const int BUILD_CARD_REJ = 1;
+    public const int BUILD_CARD_REQ = 11; // ATTR: playerId, cardId, fractionId
+    public const int BUILD_CARD_CFM = 12; // BTC | ATTR: playerId, cardId, fractionId
+    public const int BUILD_CARD_REJ = 13;
+
+
+
+
+
 
     public const int PLOUNDER_CARD_REQ = 1; // ATTR: playerId, oponentId, cardId, fractionId
     public const int PLOUNDER_CARD_CFM = 1; // BTC | ATTR: playerId, oponentId, cardId, fractionId
@@ -197,4 +198,52 @@ public class Net_DrawCardCFM : NetMsg
     public int DeckId;
     public int CardId;
     public int DeckSize;
+}
+
+[System.Serializable]
+public class Net_BuildCardREQ : NetMsg
+{
+    public Net_BuildCardREQ(int playerId, int deckId, int cardId)
+    {
+        OperationCode = NetOP.BUILD_CARD_REQ;
+        PlayerId = playerId;
+        DeckId = deckId;
+        CardId = cardId;
+    }
+
+    public int PlayerId;
+    public int DeckId;
+    public int CardId;
+}
+
+[System.Serializable]
+public class Net_BuildCardCFM : NetMsg
+{
+    public Net_BuildCardCFM(int playerId, int deckId, int cardId)
+    {
+        OperationCode = NetOP.BUILD_CARD_CFM;
+        PlayerId = playerId;
+        DeckId = deckId;
+        CardId = cardId;
+    }
+
+    public int PlayerId;
+    public int DeckId;
+    public int CardId;
+}
+
+[System.Serializable]
+public class Net_BuildCardREJ : NetMsg
+{
+    public Net_BuildCardREJ(int playerId, int deckId, int cardId)
+    {
+        OperationCode = NetOP.BUILD_CARD_REJ;
+        PlayerId = playerId;
+        DeckId = deckId;
+        CardId = cardId;
+    }
+
+    public int PlayerId;
+    public int DeckId;
+    public int CardId;
 }

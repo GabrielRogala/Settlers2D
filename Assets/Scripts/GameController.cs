@@ -189,57 +189,59 @@ public class GameController : MonoBehaviour {
         _playerControllers[playerId - 1].AddCardToHand(deckId,cardId,deckSize);
     }
 
-    public bool IsAbleToBuild(int playerId, SmallCardController card)
+    public bool IsAbleToBuild(int playerId, int deckId, int cardId)
     {
+        CardData card = _deckManager[deckId].GetCardFromId(cardId);
+        Debug.Log(card.ToString());
+        //Dictionary<int, int> cost = new Dictionary<int, int>();
+        //foreach (int resource in card.cost)
+        //{
+        //    if (cost.ContainsKey(resource))
+        //    {
+        //        cost[resource]++;
+        //    }
+        //    else
+        //    {
+        //        cost.Add(resource, 1);
+        //    }
+        //}
 
-        // Dictionary<int, int> cost = new Dictionary<int, int>();
-        // foreach(int resource in card._card.cost)
-        // {
-        //     if (cost.ContainsKey(resource)) {
-        //         cost[resource]++;
-        //     }
-        //     else
-        //     {
-        //         cost.Add(resource, 1);
-        //     }
-        // }
+        //bool enoughtCountOfResources = true;
 
-        // bool enoughtCountOfResources = true;
+        //foreach (KeyValuePair<int, int> kvp in cost)
+        //{
+        //    if (_playerControllers[playerId]._playerData.playerResources[kvp.Key] < kvp.Value)
+        //    {
+        //        enoughtCountOfResources = false;
+        //    }
 
-        // foreach(KeyValuePair<int,int> kvp in cost)
-        // {
-        //     if (_playerControllers[playerId]._playerData.playerResources[kvp.Key] < kvp.Value)
-        //     {
-        //         enoughtCountOfResources = false;
-        //     }
+        //}
 
-        // }
-
-        // return enoughtCountOfResources;
+        //return enoughtCountOfResources;
         return true;
     }
 
-    public bool BuildCard(int playerId, SmallCardController card)
+    public void BuildCardREQ(int playerId, SmallCardController card)
     {
-        Debug.Log("BuildCard " + playerId + " | "+ card._card.ToString());
-        if (IsAbleToBuild(playerId,card))
-        {
-            foreach(int resource in card._card.cost)
-            {
-                _playerControllers[playerId-1]._playerData.playerResources[resource]--;
-            }
-            _playerControllers[playerId-1]._playerData.cardsInBoard.Add(card._card);
-            _playerControllers[playerId-1]._playerData.cardsInHand.Remove(card._card);
+        Debug.Log("BuildCard " + playerId + " | " + card._card.ToString());
+        Server.instance.BuildCardREQ(playerId,card._card.fractionType, card._card.cardId);
+    }
 
-            _playerControllers[playerId-1].AddCardToBoard(card);
-            CardViewerController.instance.HideFullSizeCard();
-            UpdatePlayersResources();
-            ChangePlayersTurn();
-            return true;     
+    public void BuildCardCFM(int playerId, int deckId, int cardId)
+    {
+        CardData card = _deckManager[deckId].GetCardFromId(cardId);
+        Debug.Log("BuildCard " + playerId + " | "+ card.ToString());
+
+        foreach(SmallCardController cardCtrl in _playerControllers[playerId]._playerHandPanel.GetComponentsInChildren<SmallCardController>())
+        {
+            Debug.Log("Check card | " + cardCtrl._card.ToString());
+            if (cardCtrl._card.cardId == card.cardId && cardCtrl._card.fractionType == card.fractionType)
+            {
+                _playerControllers[playerId-1].AddCardToBoard(cardCtrl);
+            }
         }
 
-        ChangePlayersTurn();
-        return false;
+        CardViewerController.instance.HideFullSizeCard();
     }
 
     public void PlunderCard(int playerId, SmallCardController card){
