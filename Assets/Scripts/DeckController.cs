@@ -34,9 +34,9 @@ public class DeckController : MonoBehaviour
         }
     }
 
-    public void UpdateDeckCounter()
+    public void UpdateDeckCounter(int size)
     {
-        _cardCounter.text = _deckManager.GetDeckSize().ToString();
+        _cardCounter.text = size.ToString();
     }
 
     public void DrawCardREQ()

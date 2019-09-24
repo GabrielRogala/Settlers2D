@@ -23,13 +23,29 @@ public class PlayerController {
         }
     }
 
-    public void UpdateData() {
-        UpdatePlayerResources();
-        UpdateDecksSize();
+    public void AddCardToHand(int deckId, int cardId, int deckSize) {
+        if (deckId>0)
+        {
+            _playerHandPanel.GetComponent<PlayerHandPanelController>()._fractionDeck.DrawCardCFM(cardId,deckSize);
+        }
+        else
+        {
+            _playerHandPanel.GetComponent<PlayerHandPanelController>()._defaultDeck.DrawCardCFM(cardId, deckSize);
+        }
+        
     }
 
-    public void UpdateDecksSize() {
-        _playerHandPanel.GetComponent<PlayerHandPanelController>().UpdateDecksSize();
+    public void UpdateData() {
+        UpdatePlayerResources();
+        //UpdateDecksSize();
+    }
+
+    public void UpdateDecksSize(int deckId, int deckSize) {
+        if (deckId == _playerData.fractionId)
+            _playerHandPanel.GetComponent<PlayerHandPanelController>()._fractionDeck.UpdateDeckCounter(deckSize);
+
+        if(deckId == 0)
+            _playerHandPanel.GetComponent<PlayerHandPanelController>()._defaultDeck.UpdateDeckCounter(deckSize);
     }
 
     public void UpdatePlayerResources(){

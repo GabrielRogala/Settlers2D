@@ -14,7 +14,7 @@ public class PlayerHandPanelController : MonoBehaviour {
     }
 
     public void UpdateDecksSize() {
-        _defaultDeck.UpdateDeckCounter();
-        _fractionDeck.UpdateDeckCounter();
+        //_defaultDeck.UpdateDeckCounter();
+        //_fractionDeck.UpdateDeckCounter();
     }
 }

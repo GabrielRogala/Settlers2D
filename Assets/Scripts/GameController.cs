@@ -166,10 +166,10 @@ public class GameController : MonoBehaviour {
 
     #region GameUICTRL
     public void UpdateDecksCounter () {
-        foreach (PlayerController p in _playerControllers) {
-            p._playerHandPanel.GetComponent<PlayerHandPanelController> ()._defaultDeck.UpdateDeckCounter ();
-            p._playerHandPanel.GetComponent<PlayerHandPanelController> ()._fractionDeck.UpdateDeckCounter ();
-        }
+        //foreach (PlayerController p in _playerControllers) {
+        //    p._playerHandPanel.GetComponent<PlayerHandPanelController> ()._defaultDeck.UpdateDeckCounter ();
+        //    p._playerHandPanel.GetComponent<PlayerHandPanelController> ()._fractionDeck.UpdateDeckCounter ();
+        //}
     }
 
     public void UpdatePlayersResources(){
@@ -182,6 +182,11 @@ public class GameController : MonoBehaviour {
     #region CardActions
     public void DrawCardREQ(int fractionId) {
         Server.instance.DrawCard(fractionId);
+    }
+
+    public void DrawCardCFM(int playerId, int deckId, int cardId, int deckSize)
+    {
+        _playerControllers[playerId - 1].AddCardToHand(deckId,cardId,deckSize);
     }
 
     public bool IsAbleToBuild(int playerId, SmallCardController card)
@@ -299,6 +304,10 @@ public class GameController : MonoBehaviour {
         return _deckManager[deckId].GetRandomCardIdFromDeck();
     }
 
+    internal void UpdateDeckSize(int deckId, int deckSize)
+    {
+        _ownPlayerControllers.UpdateDecksSize(deckId,deckSize);
+    }
 
     #endregion
 }
